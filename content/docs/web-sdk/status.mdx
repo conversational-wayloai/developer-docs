@@ -1,0 +1,55 @@
+---
+title: Show call status
+description: What state.stage means and what to show.
+icon: Activity
+---
+
+```ts
+wayloVoice.on('state', state => {
+  statusText.textContent = STATUS[state.stage]; // your words for each stage, see below
+});
+```
+
+`state.stage` folds `connection` and `agent` into the one value a status line needs. The SDK shows no text; your page picks the words.
+
+## Recommended wording
+
+`{agent}` is the agent's name, or "the agent".
+
+| `stage` | Status text |
+| --- | --- |
+| `idle` | nothing, or your Talk button |
+| `connecting` | Calling \{agent\}… |
+| `joining` | \{agent\} is joining… |
+| `preparing` | \{agent\} is getting ready… (the agent is ready but hasn't spoken yet) |
+| `speaking` | \{agent\} is speaking |
+| `listening` | Go ahead, I'm listening |
+| `thinking` | Thinking… |
+| `reconnecting` | Reconnecting… |
+| `ended` | Call ended, or the failure in `end` |
+
+Next to it, while `network` is `poor`: "Your connection is weak, you may hear gaps".
+
+## The state snapshot
+
+| Field | Values |
+| --- | --- |
+| `stage` | `idle`, `connecting`, `joining`, `preparing`, `speaking`, `listening`, `thinking`, `reconnecting`, `ended` |
+| `connection` | `idle`, `connecting`, `connected`, `reconnecting`, `disconnected` |
+| `agent` | `none`, `joining`, `listening`, `thinking`, `speaking` |
+| `microphone` | `off`, `on`, `muted` |
+| `network` | `good`, `poor`, `lost`; `good` outside a call |
+| `playback` | `stopped`, `playing`, `blocked` |
+| `volume` | last `setVolume()` value, default 1 |
+| `sessionId` | the Waylo session id, once known |
+| `microphoneDeviceId`, `speakerDeviceId` | the chosen device, or the one in use once the call has it; unset or `'default'` means the system default |
+| `timings` | how long each step of the call took, from `start()` on ([Measure start-up time](/docs/web-sdk/timings)) |
+| `end` | set once when the call is over: `{ status: 'completed', reason? }` or `{ status: 'failed', reason?, error }` |
+
+`network` is how well this browser's connection to the call is doing. When it's `poor` or `lost`, show a non-blocking banner; the call goes on, and `connection` says if it's reconnecting.
+
+## How a call ends
+
+`end.reason` is one of `caller_hangup`, `caller_inactive`, `caller_goodbye`, `agent_end`, `busy`, `no_answer`, `rejected`, `cancelled`, `provider_error`, `provider_key_failed`, `worker_error`, `max_duration`, `timeout`.
+
+`end` is what this browser saw. A failed call also has `end.error`, a [`WayloVoiceError`](/docs/web-sdk/errors).

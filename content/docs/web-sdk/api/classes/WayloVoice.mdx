@@ -1,0 +1,257 @@
+---
+title: "WayloVoice"
+description: "One single-use voice call. Safe to create on page load."
+---
+
+One single-use voice call. Safe to create on page load.
+
+## Constructors
+
+### Constructor
+
+```ts
+new WayloVoice(options): WayloVoice;
+```
+
+Throws `RangeError` for invalid options.
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `options` | [`WayloVoiceOptions`](/docs/web-sdk/api/interfaces/WayloVoiceOptions) |
+
+#### Returns
+
+`WayloVoice`
+
+## Methods
+
+### getMicrophoneLevel()
+
+```ts
+getMicrophoneLevel(): number;
+```
+
+The visitor's live mic level, 0 to 1; 0 unless `microphone` is `on`. Cheap to poll every frame.
+
+#### Returns
+
+`number`
+
+***
+
+### getState()
+
+```ts
+getState(): WayloVoiceState;
+```
+
+The current state. A new frozen object whenever something changes.
+
+#### Returns
+
+[`WayloVoiceState`](/docs/web-sdk/api/interfaces/WayloVoiceState)
+
+***
+
+### off()
+
+```ts
+off<E>(event, listener): void;
+```
+
+Removes a listener added with `on()`.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| <a id="type-parameter-e"></a> `E` *extends* keyof [`WayloVoiceEvents`](/docs/web-sdk/api/interfaces/WayloVoiceEvents) |
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `E` |
+| `listener` | (`payload`) => `void` |
+
+#### Returns
+
+`void`
+
+***
+
+### on()
+
+```ts
+on<E>(event, listener): () => void;
+```
+
+Adds a listener and returns a function that removes it.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| <a id="type-parameter-e-1"></a> `E` *extends* keyof [`WayloVoiceEvents`](/docs/web-sdk/api/interfaces/WayloVoiceEvents) |
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `event` | `E` |
+| `listener` | (`payload`) => `void` |
+
+#### Returns
+
+() => `void`
+
+***
+
+### resumeAudio()
+
+```ts
+resumeAudio(): Promise<void>;
+```
+
+Lets the browser play the agent's audio when `playback` is `blocked`. Call it from a click.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+***
+
+### setMicrophoneDevice()
+
+```ts
+setMicrophoneDevice(deviceId): Promise<void>;
+```
+
+Uses this microphone, even before `start()`. Rejects with a mic error when it can't be opened;
+the call then keeps a working microphone where it can.
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `deviceId` | `string` |
+
+#### Returns
+
+`Promise`\<`void`\>
+
+***
+
+### setMuted()
+
+```ts
+setMuted(muted): Promise<void>;
+```
+
+Mutes or unmutes the mic, even before `start()`; unmuting can reject with a mic error.
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `muted` | `boolean` |
+
+#### Returns
+
+`Promise`\<`void`\>
+
+***
+
+### setSpeakerDevice()
+
+```ts
+setSpeakerDevice(deviceId): Promise<void>;
+```
+
+Uses this speaker, even before `start()`. Rejects with `SPEAKER_UNAVAILABLE` where unsupported.
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `deviceId` | `string` |
+
+#### Returns
+
+`Promise`\<`void`\>
+
+***
+
+### setVolume()
+
+```ts
+setVolume(volume): void;
+```
+
+Sets the agent's volume, 0 to 1, for every audio track now and later.
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `volume` | `number` |
+
+#### Returns
+
+`void`
+
+***
+
+### start()
+
+```ts
+start(options): Promise<void>;
+```
+
+Connects and resolves once the agent is ready. Call it from a click so audio can play.
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `options` | `SessionRequest` |
+
+#### Returns
+
+`Promise`\<`void`\>
+
+***
+
+### stop()
+
+```ts
+stop(): Promise<void>;
+```
+
+Hangs up and releases the room, microphone and audio elements. Safe to call at any time.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+***
+
+### listDevices()
+
+```ts
+static listDevices(options?): Promise<WayloVoiceDevices>;
+```
+
+The microphones and speakers to offer. Asks for the microphone only with `requestPermission`.
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `options?` | [`WayloVoiceListDevicesOptions`](/docs/web-sdk/api/interfaces/WayloVoiceListDevicesOptions) |
+
+#### Returns
+
+`Promise`\<[`WayloVoiceDevices`](/docs/web-sdk/api/interfaces/WayloVoiceDevices)\>

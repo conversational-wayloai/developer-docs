@@ -1,0 +1,27 @@
+---
+title: Mute, volume and blocked audio
+description: Mute the microphone, set the agent's volume, recover blocked audio, draw a mic meter.
+icon: Volume2
+---
+
+```ts
+await wayloVoice.setMuted(true);
+wayloVoice.setVolume(0.5); // 0 to 1
+await wayloVoice.resumeAudio(); // from a click, when state.playback is 'blocked'
+wayloVoice.getMicrophoneLevel(); // 0 to 1, for a mic meter; poll it with requestAnimationFrame
+```
+
+- `setMuted()` works before `start()` too.
+- While muted, the browser's mic indicator stays on and `getMicrophoneLevel()` is 0.
+- iOS Safari ignores volume levels, but 0 still mutes.
+
+## Blocked audio
+
+A browser can block the agent's voice, most often when `start()` ran after an `await` in the click handler. Then `state.playback` is `blocked`. Show a button, and call `resumeAudio()` from its click:
+
+```ts
+wayloVoice.on('state', state => {
+  resumeButton.hidden = state.playback !== 'blocked';
+});
+resumeButton.addEventListener('click', () => void wayloVoice.resumeAudio());
+```

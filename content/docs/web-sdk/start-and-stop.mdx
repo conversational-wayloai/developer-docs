@@ -1,0 +1,51 @@
+---
+title: Start and stop a call
+description: Create a call, start it from a click, hang up.
+icon: PhoneCall
+---
+
+```ts
+import { WayloVoice } from '@waylovoice/client';
+
+const wayloVoice = new WayloVoice({ sessionEndpoint: '/api/waylo/session' });
+
+await wayloVoice.start({
+  agentId: '3f9c2a7e-1b4d-4c8a-9e2f-5d6b7a8c9e01',
+  metadata: { orderId: '42' },
+});
+// The call runs. Hang up later with:
+await wayloVoice.stop();
+```
+
+- Call `start()` from a click handler, before any `await`, so the browser allows audio playback.
+- `start()` resolves once the agent is ready (listening, thinking or speaking).
+- A `WayloVoice` starts once. Create a new one, with its own listeners, for the next call.
+- `stop()` is safe at any time and never rejects. During `start()` it makes `start()` reject with `CANCELLED`. After that it ends the call with reason `caller_hangup`.
+
+## Options
+
+| Option | Meaning |
+| --- | --- |
+| `sessionEndpoint` | Required. Your server route that returns a session. Same-origin only (enforced). |
+| `headers` | Optional. `() => Record<string, string>` or a promise of one. Extra request headers. |
+| `agentTimeoutMs` | Optional. How long `start()` waits for the agent to be ready. Default 20000. |
+
+For a token-based app, add `headers`. The SDK calls it once per `start()` and sends the result only to `sessionEndpoint`. It never logs these headers or puts them in errors.
+
+```ts
+const wayloVoice = new WayloVoice({
+  sessionEndpoint: '/api/waylo/session',
+  headers: async () => ({ Authorization: `Bearer ${await getAppToken()}` }),
+});
+```
+
+## Listen to the call
+
+```ts
+wayloVoice.on('state', state => render(state)); // the whole snapshot on every change
+wayloVoice.on('error', error => console.warn(error.code));
+```
+
+- `getState()` returns the same snapshot. `on()` returns an unsubscribe function; `off()` works too.
+- After the final `state` (the one with `end`) nothing more is emitted.
+- What to show for each state: [Show call status](/docs/web-sdk/status). Captions: [Show live captions](/docs/web-sdk/captions). Mute and volume: [Mute, volume and blocked audio](/docs/web-sdk/controls).

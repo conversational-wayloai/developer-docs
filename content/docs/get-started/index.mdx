@@ -1,0 +1,40 @@
+---
+title: What is Waylo Voice
+description: A voice agent platform. Add a talking agent to your website with the Web SDK.
+icon: AudioLines
+---
+
+Waylo Voice is a voice agent platform: voice for any agent. You build an agent once, and callers reach it on a phone number or a talk button on a website. During a call the agent can use your tools, and every call leaves a transcript.
+
+These docs cover the website part. A visitor clicks a button, speaks, and the agent answers out loud.
+
+## The two parts
+
+| Part | Runs in | What it does |
+| --- | --- | --- |
+| [Web SDK](/docs/web-sdk) (`@waylovoice/client`) | The visitor's browser | Joins the call, turns on the microphone, plays the agent's voice, reports status, captions and errors. |
+| [Session endpoint](/docs/web-sdk/session-endpoint) | Your server | Checks your own login, then creates a call session with the Waylo API and your API key. |
+
+The browser asks your server for a session. Your server asks the Waylo API. The browser then joins the call on the Waylo call server (WebRTC).
+
+<Mermaid
+  chart="
+sequenceDiagram
+  participant B as Browser (Web SDK)
+  participant S as Your server
+  participant W as Waylo API
+  participant C as Waylo call server (WebRTC)
+  B->>S: POST /api/waylo/session { agentId }
+  S->>W: POST /sessions/web (API key)
+  W-->>S: session
+  S-->>B: session, unchanged
+  B->>C: joins the call, talks to the agent"
+/>
+
+Your API key stays on your server. The page never sees it.
+
+<Cards>
+  <Card title="Talk to your agent from a web page" href="/docs/get-started/quickstart" />
+  <Card title="Full example" href="/docs/get-started/full-example" />
+  <Card title="Web SDK" href="/docs/web-sdk" />
+</Cards>

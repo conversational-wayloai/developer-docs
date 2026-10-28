@@ -1,0 +1,12 @@
+---
+title: "WayloVoiceDevices"
+description: "Fields: canChooseSpeaker, microphones, speakers."
+---
+
+## Properties
+
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="property-canchoosespeaker"></a> `canChooseSpeaker` | `readonly` | `boolean` | False where the browser can't route audio to a chosen speaker (Safari, every iOS browser); `speakers` is then empty. |
+| <a id="property-microphones"></a> `microphones` | `readonly` | readonly [`WayloVoiceDevice`](/docs/web-sdk/api/interfaces/WayloVoiceDevice)[] | Audio inputs, in the browser's order. |
+| <a id="property-speakers"></a> `speakers` | `readonly` | readonly [`WayloVoiceDevice`](/docs/web-sdk/api/interfaces/WayloVoiceDevice)[] | Audio outputs, in the browser's order. |

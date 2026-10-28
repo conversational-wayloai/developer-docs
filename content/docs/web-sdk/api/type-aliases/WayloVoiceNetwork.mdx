@@ -1,0 +1,12 @@
+---
+title: "WayloVoiceNetwork"
+description: "network is how well this browser's connection to the call is doing: good, poor or lost. When it's poor or lost, show a non-blocking banner such as \"Your connection is weak\"; the call goes on, and connection says if it's reconnecting."
+---
+
+```ts
+type WayloVoiceNetwork = "good" | "lost" | "poor";
+```
+
+`network` is how well this browser's connection to the call is doing: `good`, `poor` or `lost`.
+When it's `poor` or `lost`, show a non-blocking banner such as "Your connection is weak"; the call
+goes on, and `connection` says if it's reconnecting.

@@ -1,0 +1,33 @@
+---
+title: Reference overview
+description: Everything the package exports, at a glance.
+icon: BookOpen
+---
+
+The full, generated reference is under [API reference](/docs/web-sdk/api).
+
+## WayloVoice
+
+One single-use voice call. Safe to create on page load. [Full reference](/docs/web-sdk/api/classes/WayloVoice).
+
+| Member | What it does |
+| --- | --- |
+| `new WayloVoice(options)` | Create a call. Throws `RangeError` for invalid options. |
+| `start(options)` | Start the call with `{ agentId, metadata? }`. |
+| `stop()` | End or cancel the call. Safe at any time; never rejects. |
+| `getState()` | The current state snapshot. |
+| `on(event, listener)` / `off(event, listener)` | Listen to `state`, `transcript` and `error`. |
+| `setMuted(muted)` | Mute or unmute the microphone. |
+| `setVolume(volume)` | Agent volume, 0 to 1. |
+| `resumeAudio()` | Resume playback when `state.playback` is `blocked`. |
+| `getMicrophoneLevel()` | Microphone level, 0 to 1. |
+| `setMicrophoneDevice(deviceId)` / `setSpeakerDevice(deviceId)` | Choose devices. |
+| `WayloVoice.listDevices(options?)` | The microphones and speakers to offer. |
+
+## WayloVoiceError
+
+Every call failure is a `WayloVoiceError`. Read its `code` ([Errors and troubleshooting](/docs/web-sdk/errors)). Bad options are a `RangeError` instead: the constructor throws one (for example a cross-origin `sessionEndpoint`), and `start()` rejects with one (for example an empty `agentId`). [Full reference](/docs/web-sdk/api/classes/WayloVoiceError).
+
+## Types
+
+`WayloVoiceOptions`, `WayloVoiceStartOptions`, `SessionHeaders`, `WayloVoiceState`, `WayloVoiceStage`, `WayloVoiceConnection`, `WayloVoiceAgentState`, `WayloVoiceMicrophone`, `WayloVoiceNetwork`, `WayloVoicePlayback`, `WayloVoiceTimings`, `WayloVoiceEnd`, `WayloVoiceEndReason`, `WayloVoiceEvents`, `WayloVoiceTranscript`, `WayloVoiceDevice`, `WayloVoiceDevices`, `WayloVoiceListDevicesOptions`.

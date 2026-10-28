@@ -1,0 +1,28 @@
+---
+title: Measure start-up time
+description: How long each step of start() took.
+icon: Timer
+---
+
+```ts
+wayloVoice.on('state', state => {
+  if (state.timings?.agentSpeakingMs !== undefined) console.info('agent speaking after', state.timings.agentSpeakingMs);
+});
+```
+
+`state.timings` is unset before `start()`. Then it holds `startedAt` and, in whole milliseconds after `start()`, each step as it is reached. Every new step comes with a `state` event.
+
+| Field | Meaning |
+| --- | --- |
+| `startedAt` | `Date.now()` when `start()` was called, i.e. the click. |
+| `sessionReadyMs` | Your session endpoint answered. |
+| `connectedMs` | This browser joined the call. |
+| `microphoneReadyMs` | The microphone is live in the call. It opens while the call connects, so the time the visitor takes to allow it overlaps the earlier steps. |
+| `agentReadyMs` | The agent reported its first activity. `start()` resolves once the microphone is ready too. |
+| `agentSpeakingMs` | The agent started speaking while `playback` is `playing`. Its audio arrives a few hundred milliseconds later. This is the visitor's wait to hear the agent. |
+
+- A step not reached stays unset.
+- Steps can be reached out of order: the agent can be ready before the microphone.
+- If audio was blocked, `agentSpeakingMs` is set once `resumeAudio()` lets it play while the agent speaks, or at the agent's next turn.
+
+Send them to your analytics. `state.timings` is for logging and monitoring; don't show it to visitors, show the call status instead.

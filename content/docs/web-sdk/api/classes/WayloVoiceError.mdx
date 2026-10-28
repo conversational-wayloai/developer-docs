@@ -1,0 +1,78 @@
+---
+title: "WayloVoiceError"
+description: "The only error the SDK rejects with. code is stable; cause holds redacted low-level details."
+---
+
+The only error the SDK rejects with. `code` is stable; `cause` holds redacted low-level details.
+
+## Extends
+
+- `Error`
+
+## Constructors
+
+### Constructor
+
+```ts
+new WayloVoiceError(
+   code, 
+   cause?, 
+   secrets?
+): WayloVoiceError;
+```
+
+The SDK creates these; host code only reads them.
+
+#### Parameters
+
+| Parameter | Type | Default value |
+| ------ | ------ | ------ |
+| `code` | \| `"ACCESS_DENIED"` \| `"AGENT_ERROR"` \| `"AGENT_LEFT"` \| `"AGENT_TIMEOUT"` \| `"ALREADY_STARTED"` \| `"AUTH_REQUIRED"` \| `"CANCELLED"` \| `"CONNECTION_FAILED"` \| `"INVALID_SESSION"` \| `"LIMIT_REACHED"` \| `"MICROPHONE_DENIED"` \| `"MICROPHONE_IN_USE"` \| `"MICROPHONE_UNAVAILABLE"` \| `"SESSION_EXPIRED"` \| `"SPEAKER_UNAVAILABLE"` \| `"TRANSCRIPT_FAILED"` | `undefined` |
+| `cause?` | `unknown` | `undefined` |
+| `secrets?` | readonly `string`[] | `[]` |
+
+#### Returns
+
+`WayloVoiceError`
+
+#### Overrides
+
+`Error.constructor`
+
+## Properties
+
+### code
+
+```ts
+readonly code: 
+  | "ACCESS_DENIED"
+  | "AGENT_ERROR"
+  | "AGENT_LEFT"
+  | "AGENT_TIMEOUT"
+  | "ALREADY_STARTED"
+  | "AUTH_REQUIRED"
+  | "CANCELLED"
+  | "CONNECTION_FAILED"
+  | "INVALID_SESSION"
+  | "LIMIT_REACHED"
+  | "MICROPHONE_DENIED"
+  | "MICROPHONE_IN_USE"
+  | "MICROPHONE_UNAVAILABLE"
+  | "SESSION_EXPIRED"
+  | "SPEAKER_UNAVAILABLE"
+  | "TRANSCRIPT_FAILED";
+```
+
+What went wrong; use it to decide what to do.
+
+***
+
+### name
+
+```ts
+readonly name: "WayloVoiceError" = 'WayloVoiceError';
+```
+
+#### Overrides
+
+`Error.name`

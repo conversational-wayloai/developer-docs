@@ -1,0 +1,7 @@
+{
+  "title": "Get started",
+  "description": "Waylo Voice in about 10 minutes",
+  "icon": "Rocket",
+  "root": true,
+  "pages": ["index", "quickstart", "full-example"]
+}

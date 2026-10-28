@@ -1,0 +1,33 @@
+---
+title: Choose microphone and speaker
+description: List devices and let the visitor choose.
+icon: Mic
+---
+
+```ts
+const { microphones, speakers, canChooseSpeaker } = await WayloVoice.listDevices();
+// To get names before a call: WayloVoice.listDevices({ requestPermission: true }), from a click.
+
+const [microphone] = microphones; // empty until the visitor has allowed the mic
+const [speaker] = speakers;
+
+if (microphone) await wayloVoice.setMicrophoneDevice(microphone.deviceId); // before or during the call
+if (canChooseSpeaker && speaker) await wayloVoice.setSpeakerDevice(speaker.deviceId);
+```
+
+## Listing
+
+- `listDevices()` never asks for permission. Until the visitor allows the microphone, the lists are empty or unnamed. List again when `state.microphone` becomes `on`, and on `navigator.mediaDevices`' `devicechange`.
+- `listDevices({ requestPermission: true })` asks for the microphone first (call it from a click), closes it again and lists with names. It rejects with `MICROPHONE_DENIED` if the visitor blocks it.
+
+## Speakers
+
+- `canChooseSpeaker` is false where the browser can't route audio to a chosen speaker (Safari and every iOS browser). `setSpeakerDevice()` then rejects with `SPEAKER_UNAVAILABLE`.
+- Firefox before 140 can choose a speaker but lists none. Hide the speaker picker whenever `speakers` is empty.
+
+## When devices change
+
+- A device chosen before `start()` that is gone by then falls back to the system default, and the state shows the device in use.
+- Mid-call, a microphone that can't be opened rejects with `MICROPHONE_UNAVAILABLE` (`MICROPHONE_IN_USE` when another app holds it, `MICROPHONE_DENIED` when the browser blocks it). The call keeps a working microphone where it can.
+- After an unplugged microphone (`error` event `MICROPHONE_UNAVAILABLE`), choose another to carry on.
+- Safari can send that event when the system default microphone changes, then reopen the new default itself; `microphone` turns back to `on`.

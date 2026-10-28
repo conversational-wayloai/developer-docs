@@ -1,0 +1,76 @@
+---
+title: Errors and troubleshooting
+description: Every error code, what to tell the visitor, and what to fix.
+icon: TriangleAlert
+---
+
+```ts
+import { WayloVoiceError } from '@waylovoice/client';
+
+try {
+  await wayloVoice.start({ agentId });
+} catch (error) {
+  if (error instanceof WayloVoiceError && error.code === 'MICROPHONE_DENIED') showMicHelp();
+}
+```
+
+## Symptoms
+
+- **Nothing happens on click**: the constructor threw a `RangeError`, or `start()` rejected with one. Check the browser console. A common cause is a `sessionEndpoint` on another origin.
+- **No microphone prompt**: the page is not on HTTPS or `localhost`.
+- **I can't hear the agent**: `state.playback` is `blocked` (see [blocked audio](/docs/web-sdk/controls#blocked-audio)), or check the system volume and the chosen speaker.
+- **Connects, then drops**: a firewall or VPN may block WebRTC (UDP). Try another network.
+- **"Call failed" with a code**: see the table below. For `CONNECTION_FAILED`, read your server log first.
+
+The session endpoint must be on the page's own origin, so you don't need CORS. A cross-origin URL throws in the constructor.
+
+## How errors arrive
+
+- A failed `start()` rejects with a `WayloVoiceError`, and the last state has `state.end` with `status: 'failed'` and the same `error`. It does not also emit an `error` event.
+- Problems after `start()` resolved come as `error` events, and in `state.end.error` if they end the call.
+- `stop()` never rejects.
+
+Decide on `code`, not on the message: codes stay fixed, messages may change.
+
+## Error codes
+
+| Code | What happened | What to tell the visitor | Try again? |
+| --- | --- | --- | --- |
+| `AUTH_REQUIRED` | The session endpoint answered 401 or redirected. | "Please sign in to talk." | After signing in |
+| `ACCESS_DENIED` | The session endpoint answered 403. | "You can't use this agent." | No |
+| `LIMIT_REACHED` | The session endpoint answered 429. | "Too many calls right now. Try again in a minute." | Yes, later |
+| `INVALID_SESSION` | The session endpoint's 200 body is not a Waylo session; return it unchanged. | "Something went wrong. Please try again later." | No, fix the endpoint |
+| `SESSION_EXPIRED` | The session expired or was rejected. | "Please try again." | Yes, new call |
+| `CONNECTION_FAILED` | The endpoint failed or took over 15 s, the call could not connect, or it dropped. | "Couldn't connect. Check your internet and try again." | Yes |
+| `MICROPHONE_DENIED` | The visitor or the browser blocked the microphone. | "Allow the microphone in your browser, then try again." | After allowing it |
+| `MICROPHONE_IN_USE` | Another app or tab holds the microphone, or the system could not start it. | "Your microphone is busy. Close other apps using it, then try again." | Yes |
+| `MICROPHONE_UNAVAILABLE` | No usable microphone, the chosen one can't be opened, or the browser refused it. The original error is in `cause`. | "No working microphone found. Connect one, then try again." | Yes, after fixing it |
+| `SPEAKER_UNAVAILABLE` | The chosen speaker can't be used or the browser can't choose one; the current speaker keeps playing. | Nothing; hide or reset the speaker picker. | Not needed |
+| `AGENT_TIMEOUT` | The agent wasn't ready in time. | "The agent isn't available right now. Try again." | Yes |
+| `AGENT_LEFT` | The agent left without ending the call. | "The call dropped. Start a new one." | Yes, new call |
+| `AGENT_ERROR` | The agent hit an error and ended the call; `state.end.reason` says why. | "Something went wrong. Try again." | Yes, new call |
+| `TRANSCRIPT_FAILED` | One caption line couldn't be read; the call goes on. | Nothing. | Not needed |
+| `ALREADY_STARTED` | `start()` was called twice on one instance; a code bug. | Nothing; create a new `WayloVoice` per call. | Not needed |
+| `CANCELLED` | `stop()` was called while starting. | Nothing. | Not needed |
+
+## Waylo API errors
+
+What your session endpoint can get back from `POST /sessions/web`. Log the status and `error.code` on your server and answer `502`; they are about your setup, not the visitor. The body is `{ "error": { "code", "message" } }`.
+
+| Status | Likely cause |
+| --- | --- |
+| `400` | A field is malformed, for example an id that isn't a UUID, or a bad `Idempotency-Key`. |
+| `401` | The API key is wrong or revoked. |
+| `403` | The key lacks `sessions:create`. |
+| `404` | Wrong workspace or agent id, a key made for another workspace, or the agent isn't published and active. |
+| `409` | A retry with the same `Idempotency-Key` hit a session that has ended or is about to time out, or that key was used for another agent. Use a new key. |
+| `429` | Too many requests. Pass it on as `429`. |
+| `503` | Waylo can't start calls right now. Try again later. |
+
+## Common mistakes
+
+- Putting the API key, or a call to the Waylo API, in browser code.
+- Reusing a `WayloVoice` for a second call (`ALREADY_STARTED`).
+- Calling `start()` after an `await` in the click handler. Audio may be blocked; handle `playback: 'blocked'`.
+- A session endpoint that changes the Waylo response.
+- Opening the page over plain http other than `localhost`: browsers then give no microphone.

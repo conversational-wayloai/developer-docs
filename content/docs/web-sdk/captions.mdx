@@ -1,0 +1,26 @@
+---
+title: Show live captions
+description: Show what the agent and the visitor say, as they say it.
+icon: Captions
+---
+
+```ts
+wayloVoice.on('transcript', line => {
+  let row = document.getElementById(line.id);
+
+  if (!row) {
+    row = document.createElement('li');
+    row.id = line.id;
+    captions.append(row);
+  }
+
+  row.textContent = `${line.speaker}: ${line.text}`;
+  row.style.opacity = line.final ? '1' : '0.6';
+});
+```
+
+- Each `transcript` event is one line: `{ id, speaker: 'agent' | 'user', text, final }`.
+- A line keeps its `id` while it grows, and `text` is the whole line so far. Replace the row with that `id`; don't append.
+- `final` is `true` once the line stops changing.
+- If one line can't be read, an `error` event with `TRANSCRIPT_FAILED` arrives and the call goes on.
+- Captions are for display. The stored session is the record.

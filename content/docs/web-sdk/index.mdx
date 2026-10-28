@@ -1,0 +1,42 @@
+---
+title: Overview
+description: Connect a web page to a Waylo Voice agent.
+icon: Compass
+---
+
+```ts
+import { WayloVoice } from '@waylovoice/client';
+
+const wayloVoice = new WayloVoice({ sessionEndpoint: '/api/waylo/session' });
+await wayloVoice.start({ agentId: 'your-agent-id' }); // from a click
+```
+
+`@waylovoice/client` connects a web page to a Waylo Voice agent. The page names the agent. The SDK asks **your own server** for a call session, joins the call, turns on the microphone and plays the agent's voice. Connection details never reach your page code.
+
+It is framework-free TypeScript (ESM, types included) and works with any front end.
+
+## Requirements
+
+- Recent Chrome, Edge, Firefox or Safari, desktop or mobile.
+- The page served over HTTPS, or from `localhost`. Other plain-http pages get no microphone.
+- A bundler (Vite, esbuild, webpack…) to resolve the import.
+- A [session endpoint](/docs/web-sdk/session-endpoint) on your server.
+
+## Install
+
+```sh
+npm i @waylovoice/client
+# or
+pnpm add @waylovoice/client
+```
+
+Not on npm yet? Ask the Waylo team for the `.tgz` file; run `npm i ./waylovoice-client-0.1.0.tgz`.
+
+## For AI coding assistants
+
+The package ships `llms.txt` (`node_modules/@waylovoice/client/llms.txt`), a one-file summary of the SDK. A copy is at [/sdk/llms.txt](/sdk/llms.txt).
+
+## Security
+
+- Your Waylo API key stays on your server.
+- In your session endpoint, check the user's login, their permission to use the agent, and CSRF. `metadata` comes from the browser, so forward only the keys you expect.

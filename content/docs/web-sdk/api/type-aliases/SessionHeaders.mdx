@@ -1,0 +1,17 @@
+---
+title: "SessionHeaders"
+description: "Returns extra headers for the session endpoint request, such as Authorization."
+---
+
+```ts
+type SessionHeaders = () => 
+  | Record<string, string>
+| Promise<Record<string, string>>;
+```
+
+Returns extra headers for the session endpoint request, such as `Authorization`.
+
+## Returns
+
+  \| `Record`\<`string`, `string`\>
+  \| `Promise`\<`Record`\<`string`, `string`\>\>

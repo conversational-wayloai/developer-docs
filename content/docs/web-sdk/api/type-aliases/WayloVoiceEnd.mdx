@@ -1,0 +1,76 @@
+---
+title: "WayloVoiceEnd"
+description: "How the call ended, as this browser saw it. The stored session is the record."
+---
+
+```ts
+type WayloVoiceEnd = 
+  | {
+  reason?: WayloVoiceEndReason;
+  status: "completed";
+}
+  | {
+  error: WayloVoiceError;
+  reason?: WayloVoiceEndReason;
+  status: "failed";
+};
+```
+
+How the call ended, as this browser saw it. The stored session is the record.
+
+## Union Members
+
+### Type Literal
+
+```ts
+{
+  reason?: WayloVoiceEndReason;
+  status: "completed";
+}
+```
+
+#### reason?
+
+```ts
+readonly reason?: WayloVoiceEndReason;
+```
+
+Why the session ended, when the agent reported it.
+
+#### status
+
+```ts
+readonly status: "completed";
+```
+
+***
+
+### Type Literal
+
+```ts
+{
+  error: WayloVoiceError;
+  reason?: WayloVoiceEndReason;
+  status: "failed";
+}
+```
+
+#### error
+
+```ts
+readonly error: WayloVoiceError;
+```
+
+#### reason?
+
+```ts
+readonly reason?: WayloVoiceEndReason;
+```
+
+Why the session ended, when the agent reported it.
+
+#### status
+
+```ts
+readonly status: "failed";
+```

@@ -1,0 +1,24 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html > body[data-scroll-locked] {
+  margin-right: 0px !important;
+  --removed-body-scroll-bar-size: 0px !important;
+}
+
+:root {
+  --color-fd-primary: #5b7000;
+  --color-fd-primary-foreground: #f9feef;
+  --color-fd-ring: #8aa80d;
+}
+
+.dark {
+  --color-fd-primary: #bee343;
+  --color-fd-primary-foreground: #384606;
+  --color-fd-ring: #88a428;
+}

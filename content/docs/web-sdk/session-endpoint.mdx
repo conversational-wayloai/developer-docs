@@ -1,0 +1,87 @@
+---
+title: Build the session endpoint
+description: The one route you build on your server.
+icon: Server
+---
+
+```js
+// Node 20.6+ with Express; any framework works the same way.
+app.post('/api/waylo/session', express.json(), async (request, response) => {
+  const user = await findLoggedInUser(request); // your own login
+
+  if (!user) return response.status(401).json({ error: 'auth_required' });
+
+  const { agentId, metadata } = request.body ?? {};
+
+  if (!userMayUse(user, agentId)) return response.status(403).json({ error: 'access_denied' });
+
+  // metadata comes from the browser: forward only the keys you expect.
+  const orderId = typeof metadata?.orderId === 'string' ? metadata.orderId : undefined;
+
+  const upstream = await fetch(`${WAYLO_API_URL}/sessions/web`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${WAYLO_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ workspaceId: WORKSPACE_ID, agentId, metadata: { orderId } }),
+  }).catch(error => console.error('Waylo API unreachable:', error.cause?.code ?? error.name));
+
+  if (!upstream?.ok) {
+    // A Waylo 401, 403 or 404 is about your setup, not the visitor: log it and answer 502.
+    if (upstream) {
+      const { error } = await upstream.json().catch(() => ({}));
+
+      console.error('Waylo API returned', upstream.status, error?.code);
+    }
+
+    return response.status(upstream?.status === 429 ? 429 : 502).end();
+  }
+
+  response.set('Cache-Control', 'no-store').type('application/json');
+  response.status(200).send(await upstream.text());
+});
+```
+
+You build this route on your own server. It checks your own login, then creates a session with the Waylo API (`POST /sessions/web`). It uses an API key that has the `sessions:create` scope and was created for that workspace. The key starts with `sk_waylo_` and never leaves your server.
+
+`findLoggedInUser` and `userMayUse` are your own code. `WAYLO_API_URL` (no trailing slash), `WAYLO_API_KEY` and `WORKSPACE_ID` come from your environment.
+
+Your server may also send `endUser` (`externalId`, `name`, `phone`) in the body, so the session shows who called. Your endpoint may answer `200` or `201`.
+
+Create a fresh session for every request; never cache or reuse one. Each `start()` asks for its own, and an expired session fails with `SESSION_EXPIRED`.
+
+## What the SDK sends
+
+One `POST {sessionEndpoint}` per `start()` with JSON `{ "agentId": string, "metadata"?: object }`, your site's cookies and any `headers` you configured. No `Idempotency-Key`, no retry; `stop()` aborts it.
+
+## What your endpoint answers
+
+| Status | When | SDK error code |
+| --- | --- | --- |
+| `200` | The `POST /sessions/web` response body, forwarded unchanged, with `Cache-Control: no-store`. | none: the call starts |
+| `401` | The visitor is not logged in. | `AUTH_REQUIRED` |
+| `403` | The visitor may not use this agent. | `ACCESS_DENIED` |
+| `429` | Too many calls; try again later. | `LIMIT_REACHED` |
+| Other, or no answer | Anything else, or no answer within 15 s. | `CONNECTION_FAILED` |
+
+- Answer `401` and `403` as JSON; never redirect. Any redirect fails with `AUTH_REQUIRED`.
+- A `200` whose body is not a valid session fails with `INVALID_SESSION`.
+- The SDK never falls back to any other (public) way of starting a call when your endpoint fails.
+
+## Retries are your server's job
+
+If you retry `POST /sessions/web`, send the same `Idempotency-Key` again, bound to the logged-in user. Do not pass a Waylo `401` or `403` on as is: those are about your key, not your visitor. [Errors and troubleshooting](/docs/web-sdk/errors#waylo-api-errors) lists what they mean.
+
+## The session body
+
+The SDK checks it; your page never sees it.
+
+```ts
+{
+  sessionId: string;
+  workspaceId: string;
+  roomName: string;
+  livekitUrl: string;
+  participantToken: string;
+  expiresAt: string; // ISO 8601
+  turn?: { urls: string[]; username: string; credential: string };
+}
+```

@@ -1,0 +1,7 @@
+{
+  "title": "Web SDK",
+  "description": "@waylovoice/client in the browser",
+  "icon": "Globe",
+  "root": true,
+  "pages": ["index", "session-endpoint", "start-and-stop", "status", "captions", "controls", "devices", "timings", "errors", "reference", "api"]
+}

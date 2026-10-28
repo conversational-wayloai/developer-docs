@@ -1,0 +1,23 @@
+---
+title: "WayloVoiceState"
+description: "A snapshot of the call."
+---
+
+A snapshot of the call.
+
+## Properties
+
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="property-agent"></a> `agent` | `readonly` | [`WayloVoiceAgentState`](/docs/web-sdk/api/type-aliases/WayloVoiceAgentState) | What the agent is doing. |
+| <a id="property-connection"></a> `connection` | `readonly` | [`WayloVoiceConnection`](/docs/web-sdk/api/type-aliases/WayloVoiceConnection) | Whether this browser is in the call's room. |
+| <a id="property-end"></a> `end?` | `readonly` | [`WayloVoiceEnd`](/docs/web-sdk/api/type-aliases/WayloVoiceEnd) | Set once, together with `connection: 'disconnected'`. Nothing is emitted after it. |
+| <a id="property-microphone"></a> `microphone` | `readonly` | [`WayloVoiceMicrophone`](/docs/web-sdk/api/type-aliases/WayloVoiceMicrophone) | Whether the microphone is live, muted or off. |
+| <a id="property-microphonedeviceid"></a> `microphoneDeviceId?` | `readonly` | `string` | The microphone chosen, or the one in use once the call has it; unset or `'default'` means the system default. |
+| <a id="property-network"></a> `network` | `readonly` | [`WayloVoiceNetwork`](/docs/web-sdk/api/type-aliases/WayloVoiceNetwork) | How well this browser's connection is doing; `'good'` outside a call. |
+| <a id="property-playback"></a> `playback` | `readonly` | [`WayloVoicePlayback`](/docs/web-sdk/api/type-aliases/WayloVoicePlayback) | Whether the browser may play the agent's audio. |
+| <a id="property-sessionid"></a> `sessionId?` | `readonly` | `string` | The Waylo session id, once known. |
+| <a id="property-speakerdeviceid"></a> `speakerDeviceId?` | `readonly` | `string` | The speaker chosen, or the one in use once the call has it; unset or `'default'` means the system default. |
+| <a id="property-stage"></a> `stage` | `readonly` | [`WayloVoiceStage`](/docs/web-sdk/api/type-aliases/WayloVoiceStage) | Which moment of the call this is, from `connection` and `agent`, for a status line. |
+| <a id="property-timings"></a> `timings?` | `readonly` | [`WayloVoiceTimings`](/docs/web-sdk/api/interfaces/WayloVoiceTimings) | How long each step of the call took, once `start()` was called. |
+| <a id="property-volume"></a> `volume` | `readonly` | `number` | Agent volume, 0 to 1. |
