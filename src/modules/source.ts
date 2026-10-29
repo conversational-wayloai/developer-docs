@@ -10,7 +10,7 @@ const documentation = defineDocs({
   docs: {
     schema: pageSchema,
     postprocess: {
-      includeProcessedMarkdown: true,
+      includeProcessedMarkdown: { headingIds: false, output: 'function' },
     },
   },
   meta: {

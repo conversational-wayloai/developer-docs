@@ -1,22 +1,15 @@
 import type { Folder, Node } from 'fumadocs-core/page-tree';
 import { llms } from 'fumadocs-core/source';
 
+import { getMDXComponents } from '~/modules/mdx';
 import { source } from '~/modules/source';
 import { markdownPath } from '~/modules/urls';
 
 type Page = NonNullable<ReturnType<typeof source.getPage>>;
 
-function plainMarkdown(text: string) {
+// Docs links point at the Markdown copies, so an agent reading one page can follow the rest.
+function cleanMarkdown(text: string) {
   return text
-    .replace(/^(#{1,6} .*?) \[#[^\]\n]+\]$/gm, '$1')
-    .replace(
-      /<Mermaid\s+chart="([\s\S]*?)"\s*\/>/g,
-      (_, chart: string) => `\`\`\`mermaid\n${chart.trim()}\n\`\`\``,
-    )
-    .replace(/^[ \t]*<Card\s+title="([^"]+)"\s+href="([^"]+)"\s*\/>/gm, '- [$1]($2)')
-    .replace(/<Callout title="([^"]+)">\s*/g, '**$1.** ')
-    .replace(/^[ \t]*<\/?(Cards|Steps|Step|Callout)>[ \t]*$/gm, '')
-    .replace(/<\/Callout>/g, '')
     .replace(/\\([{}])/g, '$1')
     .replace(
       /\]\((\/docs\/[^)#\s]*)(#[^)\s]*)?\)/g,
@@ -29,7 +22,9 @@ function plainMarkdown(text: string) {
 export async function pageMarkdown(page: Page) {
   const description = page.data.description ? `> ${page.data.description}\n\n` : '';
 
-  return `# ${page.data.title}\n\n${description}${plainMarkdown(await page.data.getText('processed'))}\n`;
+  return `# ${page.data.title}\n\n${description}${cleanMarkdown(
+    await page.data.getText('processed', { components: getMDXComponents() }),
+  )}\n`;
 }
 
 export const documentationLlms = llms(source, { renderPage: pageMarkdown });
