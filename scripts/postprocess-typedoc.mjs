@@ -5,9 +5,9 @@ import { join, posix, relative } from 'node:path';
 const root = 'content/docs/web-sdk/api';
 const url = '/docs/web-sdk/api';
 const folders = {
-  classes: { title: 'Classes', icon: 'Box' },
-  interfaces: { title: 'Interfaces', icon: 'Braces' },
-  'type-aliases': { title: 'Types', icon: 'Type' },
+  classes: { title: 'Classes', icon: 'Cube' },
+  interfaces: { title: 'Interfaces', icon: 'BracketsCurly' },
+  'type-aliases': { title: 'Types', icon: 'TextT' },
 };
 
 function absoluteLinks(text, directory) {
