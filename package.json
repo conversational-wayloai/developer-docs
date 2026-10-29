@@ -1,40 +1,52 @@
 {
-  "name": "docs-site",
+  "name": "developer-docs",
   "version": "0.0.51",
   "private": true,
-  "scripts": {
-    "build": "next build && node scripts/md-pages.mjs",
-    "dev": "next dev",
-    "start": "serve out",
-    "types:check": "next typegen && tsc --noEmit",
-    "lint": "eslint",
-    "sync:sdk": "./scripts/sync-sdk.sh"
-  },
+  "license": "UNLICENSED",
+  "type": "module",
   "dependencies": {
     "cn": "^0.5.0",
     "fumadocs-core": "16.17.8",
     "fumadocs-mdx": "15.4.10",
     "fumadocs-ui": "npm:@fumadocs/base-ui@16.17.8",
-    "lucide-react": "^1.61.0",
+    "lucide-react": "^1.63.0",
     "mermaid": "^12.2.0",
-    "next": "16.4.2",
+    "next": "16.4.3",
     "next-themes": "^0.4.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "shiki": "^4.5.0"
   },
   "devDependencies": {
+    "@gilbarbara/eslint-config": "^2.0.1",
+    "@next/eslint-plugin-next": "16.4.3",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/mdx": "^2.0.14",
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "eslint": "^9.39.4",
-    "eslint-config-next": "16.4.2",
-    "postcss": "^8.5.31",
+    "eslint": "^10.13.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "livekit-client": "^2.22.3",
+    "postcss": "^8.5.32",
+    "prettier": "^3.9.10",
+    "repo-tools": "^0.3.1",
     "serve": "^14.2.6",
     "tailwindcss": "^4.3.3",
-    "typescript": "^7.0.2"
+    "typedoc": "^0.28.20",
+    "typedoc-plugin-markdown": "^4.14.1",
+    "typescript": "^6.0.3"
+  },
+  "scripts": {
+    "build": "next build && node scripts/md-pages.mjs",
+    "dev": "next dev",
+    "preview": "BASE_PATH= pnpm build && serve out",
+    "sync:sdk": "./scripts/sync-sdk.sh",
+    "lint": "eslint --cache --fix .",
+    "typecheck": "next typegen && tsc --noEmit",
+    "validate": "pnpm lint && pnpm typecheck",
+    "prepare": "husky"
   },
   "packageManager": "pnpm@12.5.1"
 }

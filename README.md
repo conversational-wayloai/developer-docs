@@ -6,10 +6,22 @@ Source for the Waylo developer docs at https://conversational-wayloai.github.io/
 
 ```sh
 pnpm install
+cp .env.example .env     # optional, see the file for each variable
 pnpm dev                 # http://localhost:3000/developer-docs
 ```
 
-The site builds for the `/developer-docs` path. To preview the static build at the root instead: `BASE_PATH= pnpm build && pnpm start`.
+Run `pnpm validate` (lint + typecheck) before pushing. The pre-commit hook runs the typecheck and formats staged files.
+
+## Layout
+
+- `src/app/`: routes, root layout and providers.
+- `src/components/`: React components.
+- `src/config/`: constants (env, site metadata, layout options).
+- `src/modules/`: functions (content source, URLs, llms/Markdown output, MDX components).
+- `content/docs/`: the pages, in MDX. Order and titles come from each folder's `meta.json`.
+- `scripts/`: build and sync scripts. `scripts/sdk/` holds the typedoc config for the SDK reference.
+
+The site builds for the `/developer-docs` path. To build and serve the static export at the root: `pnpm preview`.
 
 For AI tools, `/llms.txt` lists every page, `/llms-full.txt` has them all in one file, and each page is also plain Markdown at `/docs/<page>.md` (copied there by `scripts/md-pages.mjs` after `next build`).
 
@@ -21,7 +33,9 @@ The Web SDK API reference (`content/docs/web-sdk/api/`) and `public/sdk/llms.txt
 SDK_REPO=../client-sdk-web pnpm sync:sdk   # SDK_REF=<branch or tag> to pick a ref, default HEAD
 ```
 
-The script copies the SDK sources into `sdk/src` (not committed), runs typedoc there and rewrites the pages for Fumadocs. It also points the SDK's `llms.txt` links at these docs, since the SDK repo is private. Commit the changed files.
+`SDK_REPO` and `SDK_REF` can also be set in `.env`; shell values take precedence.
+
+The script copies the SDK sources into `scripts/sdk/src` (not committed), runs typedoc there and rewrites the pages for Fumadocs. It also points the SDK's `llms.txt` links at these docs, since the SDK repo is private. Commit the changed files.
 
 ## Deploy
 

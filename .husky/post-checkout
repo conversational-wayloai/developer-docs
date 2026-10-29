@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+[ -x "$HOME/.git-hooks/post-checkout" ] && exec "$HOME/.git-hooks/post-checkout" "$@"
+exit 0

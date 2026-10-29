@@ -13,6 +13,7 @@
 
 # misc
 .DS_Store
+.idea/
 *.pem
 /.pnp
 .pnp.js
@@ -21,9 +22,12 @@ yarn-debug.log*
 yarn-error.log*
 
 # others
-.env*.local
+.env
+.env.*
+!.env.example
+.eslintcache
 .vercel
 next-env.d.ts
-# docs prototype
-sdk/node_modules
-sdk/src
+
+# copied from the SDK repo by scripts/sync-sdk.sh
+scripts/sdk/src

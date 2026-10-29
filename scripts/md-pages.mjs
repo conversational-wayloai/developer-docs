@@ -6,6 +6,7 @@ const from = 'out/llms.mdx/docs';
 
 for (const file of globSync('**/content.md', { cwd: from })) {
   const slug = dirname(file);
+
   if (slug === '.') continue;
   cpSync(join(from, file), join('out/docs', `${slug}.md`));
 }
