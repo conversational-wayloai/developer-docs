@@ -53,9 +53,9 @@ export function llmsIndex() {
   return [
     '# Waylo developer docs',
     '',
-    '> Waylo Voice is a voice agent platform. These docs cover adding a talking agent to your website: the page uses the Web SDK (`@waylovoice/client`); your server creates the call session with your Waylo API key.',
+    '> Waylo Voice is a platform for voice agents that people reach by phone or from a website. These docs cover what it is, and web calls with the Web SDK (`@waylovoice/client`).',
     '',
-    '- [Web SDK llms.txt](/sdk/llms.txt): the whole Web SDK in one file. Start here.',
+    '- [Web SDK llms.txt](/sdk/llms.txt): the whole Web SDK in one file.',
     '- [Full docs](/llms-full.txt): every page below in one file.',
     ...indexLines(source.getPageTree().children, 2),
     '',

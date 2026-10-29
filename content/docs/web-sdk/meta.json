@@ -3,5 +3,5 @@
   "description": "@waylovoice/client in the browser",
   "icon": "Globe",
   "root": true,
-  "pages": ["index", "session-endpoint", "start-and-stop", "status", "captions", "controls", "devices", "timings", "errors", "reference", "api"]
+  "pages": ["index", "session-endpoint", "start-and-stop", "status", "captions", "controls", "devices", "timings", "errors", "full-example", "reference", "api"]
 }

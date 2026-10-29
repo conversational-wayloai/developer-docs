@@ -1,6 +1,6 @@
 # Waylo developer docs
 
-Source for the Waylo developer docs at https://conversational-wayloai.github.io/developer-docs/: Get started and the Web SDK (`@waylovoice/client`). Built with [Fumadocs](https://fumadocs.dev) and exported as static pages.
+Source for the Waylo Voice developer docs at https://conversational-wayloai.github.io/developer-docs/: what Waylo Voice is, and the Web SDK (`@waylovoice/client`). Built with [Fumadocs](https://fumadocs.dev) and exported as static pages.
 
 ## Run locally
 

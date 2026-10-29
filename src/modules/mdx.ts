@@ -1,7 +1,7 @@
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import type { MDXComponents } from 'mdx/types';
 
-import { Callout, Card, Cards, Mermaid, Step, Steps } from '~/components/MdxComponents';
+import { Callout, Card, Cards, Mermaid, StageCard, Step, Steps } from '~/components/MdxComponents';
 
 export function getMDXComponents(components?: MDXComponents) {
   return {
@@ -10,6 +10,7 @@ export function getMDXComponents(components?: MDXComponents) {
     Card,
     Cards,
     Mermaid,
+    StageCard,
     Step,
     Steps,
     ...components,

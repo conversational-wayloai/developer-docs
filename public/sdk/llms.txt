@@ -284,4 +284,4 @@ wayloVoice?.on('state', state => {
 ## Optional
 
 - [Web SDK docs](https://conversational-wayloai.github.io/developer-docs/docs/web-sdk.md): full guide, endpoint contract, security notes.
-- [Full example](https://conversational-wayloai.github.io/developer-docs/docs/get-started/full-example.md): a working page and Node server.
+- [Full example](https://conversational-wayloai.github.io/developer-docs/docs/web-sdk/full-example.md): a working page and Node server.
