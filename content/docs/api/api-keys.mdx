@@ -1,0 +1,54 @@
+---
+title: API keys
+description: Create, rotate and revoke the keys your servers use.
+icon: Key
+---
+
+An API key lets a server call the Waylo API with no person signed in. It belongs to your organization, not to the person who created it.
+
+Only organization owners and admins manage keys, in the dashboard under **Integrations → API keys**. A key can't manage keys.
+
+## Create a key
+
+1. Go to **Integrations → API keys** and click **+ API key**.
+2. Enter a **Name** that says where the key is used, like `production web calls`.
+3. Under **Access**, choose:
+   - **Standard**: reads and writes everything a key can reach, including scopes added later.
+   - **Scoped**: only the access you set per resource: **None**, **Read** or **Write**. See [Scopes](/docs/api/scopes).
+4. Under **Workspace**, pick one workspace, or leave it empty for a key across all workspaces.
+5. Under **Expires**, pick **Never**, **30 days**, **90 days** or **1 year**.
+6. Click **Create**, then copy the key and store it in your server's secrets.
+
+<Callout type="warn" title="The key is shown once">
+The full key is shown only when it is created or rotated. Waylo stores a hash of it, so a lost key can't be recovered: rotate it instead.
+</Callout>
+
+A key looks like `sk_waylo_` followed by 65 letters and digits. The list shows its last four characters so you can tell keys apart.
+
+## Workspace keys and organization keys
+
+| Key | Reaches |
+| --- | --- |
+| Organization key (no workspace) | Every workspace, and the organization-level resources: telephony, provider keys, workspaces and stats. |
+| Workspace key | One workspace only, even if a request names another. No organization-level resources. |
+
+Prefer a workspace key for a server that works in one workspace.
+
+## Rotate a key
+
+Click **Rotate key** on the key, keep or change **Expires**, and click **Rotate**. The current key stops working immediately, and a new key with the same name, access and workspace replaces it. Copy the new key before closing the dialog.
+
+The old and new keys never work at the same time. Requests with the old key fail until your server has the new one. For no downtime, create a second key, deploy it, then revoke the first.
+
+## Revoke a key
+
+Click **Revoke key** on the key and confirm with **Revoke**. Every request with that key is refused from then on. Revoking can't be undone; create a new key instead.
+
+An expired or revoked key answers `401 UNAUTHORIZED`.
+
+## Good practice
+
+- Use one key per server or job, so you can rotate or revoke one without touching the others.
+- Use separate keys for development, staging and production.
+- Use a workspace key with **Scoped** access for a server that does one job. For example, a [session endpoint](/docs/web-sdk/session-endpoint) needs only **Sessions: Write**.
+- Set an expiry and rotate before it.

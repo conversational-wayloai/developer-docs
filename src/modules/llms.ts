@@ -2,6 +2,7 @@ import type { Folder, Node } from 'fumadocs-core/page-tree';
 import { llms } from 'fumadocs-core/source';
 
 import { getMDXComponents } from '~/modules/mdx';
+import { operationMarkdown } from '~/modules/openapi-markdown';
 import { source } from '~/modules/source';
 import { markdownPath } from '~/modules/urls';
 
@@ -21,6 +22,15 @@ function cleanMarkdown(text: string) {
 
 export async function pageMarkdown(page: Page) {
   const description = page.data.description ? `> ${page.data.description}\n\n` : '';
+
+  if (page.type === 'openapi') {
+    const { bundled } = page.data.getSchema();
+    const body = (page.data.getOpenAPIPageProps().operations ?? [])
+      .map(({ method, path }) => operationMarkdown(bundled as never, path, method))
+      .join('\n\n');
+
+    return `# ${page.data.title}\n\n${description}${cleanMarkdown(body)}\n`;
+  }
 
   return `# ${page.data.title}\n\n${description}${cleanMarkdown(
     await page.data.getText('processed', { components: getMDXComponents() }),
@@ -44,9 +54,14 @@ function indexLines(nodes: Node[], depth: number): string[] {
 
 function pageLine(url: string, name: unknown) {
   const page = source.getPages().find(candidate => candidate.url === url);
-  const description = page?.data.description ? `: ${page.data.description}` : '';
+  // A reference description spans lines (its **Access:** line); one index entry is one line.
+  const description = page?.data.description
+    ? `: ${page.data.description.replace(/\s*\n\s*/g, ' ')}`
+    : '';
+  // The OpenAPI plugin turns a reference page's tree name into a method badge, not text.
+  const title = typeof name === 'string' ? name : (page?.data.title ?? String(name));
 
-  return `- [${String(name)}](${markdownPath(url)})${description}`;
+  return `- [${title}](${markdownPath(url)})${description}`;
 }
 
 export function llmsIndex() {

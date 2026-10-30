@@ -1,0 +1,91 @@
+---
+title: Overview
+description: Call the Waylo API from your server with an API key.
+icon: Compass
+---
+
+```sh
+curl {{API_URL}}/agents?workspaceId=your-workspace-id \
+  -H "Authorization: Bearer $WAYLO_API_KEY"
+```
+
+The Waylo API is the same API the dashboard uses. With an [API key](/docs/api/api-keys), your server can do what a person does in the dashboard: manage agents, tools, documents and phone numbers, start web calls, and read sessions, transcripts and orders.
+
+## Base URL
+
+All requests go to `{{API_URL}}`. Request and response bodies are JSON.
+
+## Authentication
+
+Send the key in the `Authorization` header on every request:
+
+```http
+Authorization: Bearer sk_waylo_...
+```
+
+What a key can do depends on its [scopes](/docs/api/scopes). Each operation in the [reference](/docs/api/reference) names the scope it needs on its **Access** line.
+
+<Callout type="warn" title="Keep the key on your server">
+An API key acts for your organization. Never put it in browser or mobile code, logs or a repository. Browsers start calls through your server: see the [session endpoint](/docs/web-sdk/session-endpoint).
+</Callout>
+
+## Errors
+
+Every error has the same shape:
+
+```json
+{
+  "error": {
+    "code": "VALIDATION_FAILED",
+    "message": "Request validation failed.",
+    "details": [{ "field": "agentId", "error": "agentId must be a UUID" }]
+  }
+}
+```
+
+`details` is present only on `VALIDATION_FAILED`, one entry per failed field.
+
+| Code | Status | Means |
+| --- | --- | --- |
+| `VALIDATION_FAILED` | 400 | The request is malformed or a field is invalid. |
+| `UNAUTHORIZED` | 401 | The key is missing, invalid, expired or revoked. |
+| `FORBIDDEN` | 403 | The key lacks the scope, or the operation does not accept a key. |
+| `NOT_FOUND` | 404 | The resource does not exist, or the key cannot reach it. |
+| `CONFLICT` | 409 | The request conflicts with the resource's current state. |
+| `SERVICE_UNAVAILABLE` | 503 | A dependency is down. Retry later. |
+| `INTERNAL_ERROR` | 500 | An unexpected failure. |
+
+A resource the key cannot reach answers `404`, the same as one that does not exist.
+
+## Pagination
+
+List operations that return pages take these query parameters:
+
+| Parameter | Default | Means |
+| --- | --- | --- |
+| `page` | `1` | The page number, from 1. |
+| `limit` | `25` | Rows per page, at most 100. |
+| `orderBy` | Per operation | The column to sort by. |
+| `orderDirection` | `desc` | `asc` or `desc`. |
+| `search` | | Text matched against the operation's search fields. |
+| `searchBy` | Per operation | Comma-separated fields to search. |
+
+The body is an array of rows. The page details are in response headers:
+
+| Header | Value |
+| --- | --- |
+| `X-Items-Total` | Rows across all pages, with filters applied. |
+| `X-Items-Unfiltered-Total` | Rows before filters. |
+| `X-Items-Per-Page` | The page size. |
+| `X-Items-From`, `X-Items-To` | The rows on this page, from 1. `0` on an empty page. |
+| `Link` | `first`, `prev`, `next` and `last` page URLs, where they apply. |
+
+Transcripts are read with a cursor instead: pass `limit` and the `cursor` from the last row you received.
+
+## Next
+
+<Cards>
+  <Card title="API keys" href="/docs/api/api-keys" description="Create, rotate and revoke keys." />
+  <Card title="Scopes" href="/docs/api/scopes" description="Give each key only what it needs." />
+  <Card title="Reference" href="/docs/api/reference" description="Every operation a key can call." />
+</Cards>

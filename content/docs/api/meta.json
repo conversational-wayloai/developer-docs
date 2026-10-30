@@ -1,0 +1,7 @@
+{
+  "title": "API",
+  "description": "The Waylo REST API with an API key",
+  "icon": "Plugs",
+  "root": true,
+  "pages": ["index", "api-keys", "scopes", "reference"]
+}
