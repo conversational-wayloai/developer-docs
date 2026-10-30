@@ -25,6 +25,10 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      # lint runs with --fix; any fix it makes fails the job here.
+      - run: git diff --exit-code
+      - run: pnpm typecheck
       - run: pnpm build
       - uses: actions/upload-pages-artifact@v3
         with:

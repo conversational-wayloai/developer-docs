@@ -1,15 +1,18 @@
-import { defineConfig, globalIgnores } from 'eslint/config';
-import nextVitals from 'eslint-config-next/core-web-vitals';
+import config from '@gilbarbara/eslint-config';
+import nextPlugin from '@next/eslint-plugin-next';
 
-const eslintConfig = defineConfig([
-  ...nextVitals,
-  globalIgnores([
-    '.next/**',
-    'out/**',
-    'build/**',
-    'next-env.d.ts',
-    '.source/**',
-  ]),
-]);
-
-export default eslintConfig;
+export default [
+  {
+    ignores: ['.next/**', '.source/**', 'out/**', 'next-env.d.ts', 'scripts/sdk/src/**'],
+  },
+  ...config,
+  nextPlugin.configs['core-web-vitals'],
+  {
+    // App Router files must export metadata, generateStaticParams and friends alongside the
+    // component. Fast refresh handles them; the rule cannot tell them from arbitrary exports.
+    files: ['src/app/**/*.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
+];

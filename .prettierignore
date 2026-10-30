@@ -1,0 +1,14 @@
+pnpm-lock.yaml
+
+node_modules/
+.next/
+.source/
+out/
+coverage/
+
+# MDX 3 content: Prettier only supports MDX v1.
+content/
+
+# Generated or copied from the SDK repo by scripts/sync-sdk.sh.
+scripts/sdk/src/
+public/sdk/

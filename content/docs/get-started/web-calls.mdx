@@ -1,0 +1,225 @@
+---
+title: Web Calls
+description: Add a Talk button that calls your Waylo Voice agent. About 10 minutes.
+icon: Lightning
+---
+
+You build a web page with a **Talk** button and a small Node server. Click **Talk**, and your Waylo Voice agent answers out loud.
+
+## Before you start
+
+- A Waylo Voice agent that is published and active.
+- Owner or admin access to the Waylo dashboard, or someone who has it.
+- Your Waylo API URL. Ask the Waylo team for it.
+- Node 20.6 or later.
+- A microphone, and a recent Chrome, Edge, Firefox or Safari.
+
+<Steps>
+<Step>
+
+### Get your key and ids
+
+In the Waylo dashboard:
+
+1. Go to **Integrations → API keys** and click **+ API key**. Give it a **Name**, set **Scopes** to `sessions:create`, pick your **Workspace** and an expiry under **Expires**, then click **Create**. Copy the key now: it is shown once. It starts with `sk_waylo_`.
+2. Go to **Organization → Workspaces** and open your workspace. The workspace id is the end of the page URL: `/workspaces/<id>`.
+3. Go to **Build → Agents** and open your agent. The agent id is the end of the page URL: `/agents/<id>`.
+
+Both ids are UUIDs: long ids like `3f9c2a7e-1b4d-4c8a-9e2f-5d6b7a8c9e01`. You now have the key and both ids.
+
+</Step>
+<Step>
+
+### Install
+
+```sh
+mkdir talk-to-agent && cd talk-to-agent
+npm init -y
+npm i express @waylovoice/client
+npm i -D esbuild
+```
+
+Not on npm yet? Ask the Waylo team for the `.tgz` file; run `npm i ./waylovoice-client-0.1.0.tgz`.
+
+You should see `added … packages` and no errors.
+
+</Step>
+<Step>
+
+### Create the session endpoint (server)
+
+<Callout type="warn" title="Keep the key on the server">
+Your `sk_waylo_` key gives access to your workspace. Keep it in `.env` on the server. Never put it in page code or commit it.
+</Callout>
+
+Put your API URL, key and ids in a `.env` file:
+
+```sh title=".env"
+WAYLO_API_URL=your-waylo-api-url
+WAYLO_API_KEY=sk_waylo_...
+WORKSPACE_ID=your-workspace-id
+AGENT_ID=your-agent-id
+```
+
+Then add one route that asks the Waylo API for a session and forwards it unchanged.
+
+```js title="server.mjs"
+// Server. Node 20.6+ with Express. Run it with: node --env-file=.env server.mjs
+import express from 'express';
+
+const { WAYLO_API_KEY, WORKSPACE_ID, AGENT_ID } = process.env;
+const WAYLO_API_URL = process.env.WAYLO_API_URL?.replace(/\/+$/, '');
+
+if (!WAYLO_API_URL || !WAYLO_API_KEY || !WORKSPACE_ID || !AGENT_ID) {
+  throw new Error('Set WAYLO_API_URL, WAYLO_API_KEY, WORKSPACE_ID and AGENT_ID in .env');
+}
+
+const app = express();
+
+app.post('/api/waylo/session', express.json(), async (request, response) => {
+  // Check your own login here; answer 401 when there is none.
+  const { agentId } = request.body ?? {};
+
+  if (agentId !== AGENT_ID) return response.status(403).json({ error: 'access_denied' });
+
+  const upstream = await fetch(`${WAYLO_API_URL}/sessions/web`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${WAYLO_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ workspaceId: WORKSPACE_ID, agentId }),
+  }).catch(error => console.error('Waylo API unreachable:', error.cause?.code ?? error.name));
+
+  if (!upstream?.ok) {
+    // A Waylo 401, 403 or 404 is about your setup, not the visitor: log it and answer 502.
+    if (upstream) {
+      const { error } = await upstream.json().catch(() => ({}));
+
+      console.error('Waylo API returned', upstream.status, error?.code);
+    }
+
+    return response.status(upstream?.status === 429 ? 429 : 502).end();
+  }
+
+  response.set('Cache-Control', 'no-store').type('application/json');
+  response.status(200).send(await upstream.text());
+});
+
+app.use(express.static('public')); // the page and its bundled script
+app.listen(3000, () => console.log('Open http://localhost:3000'));
+```
+
+You run it in step 5. More detail: [Build the session endpoint](/docs/web-sdk/session-endpoint).
+
+</Step>
+<Step>
+
+### Add a Talk button (browser)
+
+```html title="public/index.html"
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Talk to the agent</title>
+  </head>
+  <body>
+    <button id="talk">Talk</button>
+    <p id="status"></p>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
+```
+
+```ts title="src/main.ts"
+import { WayloVoice, type WayloVoiceStage, type WayloVoiceState } from '@waylovoice/client';
+
+const AGENT_ID = 'your-agent-id'; // the same id as AGENT_ID in .env; the server refuses others
+const talkButton = document.querySelector<HTMLButtonElement>('#talk')!;
+const statusText = document.querySelector<HTMLElement>('#status')!;
+let wayloVoice: WayloVoice | undefined;
+
+const STATUS: Record<WayloVoiceStage, string> = {
+  idle: '',
+  connecting: 'Calling the agent…',
+  joining: 'The agent is joining…',
+  preparing: 'The agent is getting ready…',
+  speaking: 'The agent is speaking',
+  listening: "Go ahead, I'm listening",
+  thinking: 'Thinking…',
+  reconnecting: 'Reconnecting…',
+  ended: 'Call ended',
+};
+
+function isLive(state: WayloVoiceState): boolean {
+  return state.connection !== 'idle' && !state.end;
+}
+
+function render(state: WayloVoiceState): void {
+  talkButton.textContent = isLive(state) ? 'Hang up' : 'Talk';
+  statusText.textContent =
+    state.end?.status === 'failed' ? `Call failed: ${state.end.error.code}` : STATUS[state.stage];
+}
+
+talkButton.addEventListener('click', () => {
+  if (wayloVoice && isLive(wayloVoice.getState())) {
+    void wayloVoice.stop();
+
+    return;
+  }
+
+  wayloVoice = new WayloVoice({ sessionEndpoint: '/api/waylo/session' });
+  wayloVoice.on('state', render);
+  // A call failure ends with state.end, which render() shows. A RangeError means bad options.
+  wayloVoice.start({ agentId: AGENT_ID }).catch(error => {
+    if (error instanceof RangeError) console.error(error);
+  });
+});
+```
+
+`start()` runs in the click handler, so the browser lets the agent's voice play.
+
+</Step>
+<Step>
+
+### Run it and talk
+
+```sh
+npx esbuild src/main.ts --bundle --format=esm --outfile=public/main.js
+node --env-file=.env server.mjs
+```
+
+You should see `Open http://localhost:3000` in the terminal. Open that page and click **Talk**.
+
+1. Allow the microphone when the browser asks.
+2. The status shows **Calling the agent…**, then **The agent is joining…** and **The agent is getting ready…**.
+3. The agent greets you. The status shows **The agent is speaking**, then **Go ahead, I'm listening** as you talk.
+4. Click **Hang up** to end the call. The status shows **Call ended**.
+
+</Step>
+</Steps>
+
+## If it doesn't work
+
+Read the server terminal first. It logs every Waylo API error.
+
+- **"Call failed: CONNECTION_FAILED"**: the terminal says why.
+  - `Waylo API returned 401`: wrong or revoked key.
+  - `403`: the key lacks `sessions:create`.
+  - `404`: wrong workspace or agent id, a key made for another workspace, or the agent isn't published and active.
+  - `400`: an id isn't a UUID.
+  - `Waylo API unreachable`: check `WAYLO_API_URL`.
+- **"Call failed: ACCESS_DENIED"**: `AGENT_ID` in `src/main.ts` doesn't match `AGENT_ID` in `.env`.
+- **"Call failed: MICROPHONE_DENIED"**: allow the microphone in the address bar, then click **Talk** again.
+- **No microphone prompt at all**: open the page on `localhost` or HTTPS, not a plain-http IP or host name.
+- **Connected but silent**: check your volume and speaker. If the browser blocked audio, see the blocked-audio button in the [full example](/docs/web-sdk/full-example).
+
+More: [Errors and troubleshooting](/docs/web-sdk/errors).
+
+## Recap
+
+Your page starts a call with `WayloVoice`. Your server keeps the API key and creates the session.
+
+## Next steps
+
+- [Show live captions](/docs/web-sdk/captions)
+- [Errors and troubleshooting](/docs/web-sdk/errors)
+- [Build the session endpoint](/docs/web-sdk/session-endpoint)

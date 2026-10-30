@@ -1,0 +1,119 @@
+---
+title: Full example
+description: The Web Calls page plus captions, a weak-network note, a blocked-audio button and a summary when the call ends.
+icon: FileCode
+---
+
+This builds on [Web Calls](/docs/get-started/web-calls). Keep its `.env` and `server.mjs` unchanged. Replace the two page files with these.
+
+## Page
+
+```html title="public/index.html"
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Talk to the agent</title>
+  </head>
+  <body>
+    <button id="talk">Talk</button>
+    <p id="status"></p>
+    <button id="resume" hidden>Tap to hear the agent</button>
+    <ul id="captions"></ul>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
+```
+
+```ts title="src/main.ts"
+import {
+  WayloVoice,
+  WayloVoiceError,
+  type WayloVoiceStage,
+  type WayloVoiceState,
+} from '@waylovoice/client';
+
+const AGENT_ID = 'your-agent-id'; // the same id as AGENT_ID in .env
+const talkButton = document.querySelector<HTMLButtonElement>('#talk')!;
+const resumeButton = document.querySelector<HTMLButtonElement>('#resume')!;
+const statusText = document.querySelector<HTMLElement>('#status')!;
+const captions = document.querySelector<HTMLElement>('#captions')!;
+let wayloVoice: WayloVoice | undefined;
+
+const STATUS: Record<WayloVoiceStage, string> = {
+  idle: '',
+  connecting: 'Calling the agent…',
+  joining: 'The agent is joining…',
+  preparing: 'The agent is getting ready…',
+  speaking: 'The agent is speaking',
+  listening: "Go ahead, I'm listening",
+  thinking: 'Thinking…',
+  reconnecting: 'Reconnecting…',
+  ended: 'Call ended',
+};
+
+function isLive(state: WayloVoiceState): boolean {
+  return state.connection !== 'idle' && !state.end;
+}
+
+function render(state: WayloVoiceState): void {
+  talkButton.textContent = isLive(state) ? 'Hang up' : 'Talk';
+  resumeButton.hidden = state.playback !== 'blocked';
+
+  if (state.end?.status === 'failed') {
+    statusText.textContent = `Call failed: ${state.end.error.code}`;
+  } else if (state.end) {
+    statusText.textContent = `Call ended (${state.end.reason ?? 'done'})`;
+  } else {
+    const weak = state.network === 'poor' ? ' · Your connection is weak, you may hear gaps' : '';
+
+    statusText.textContent = STATUS[state.stage] + weak;
+  }
+}
+
+talkButton.addEventListener('click', () => {
+  if (wayloVoice && isLive(wayloVoice.getState())) {
+    void wayloVoice.stop();
+
+    return;
+  }
+
+  captions.replaceChildren();
+  wayloVoice = new WayloVoice({ sessionEndpoint: '/api/waylo/session' });
+  wayloVoice.on('state', render);
+  wayloVoice.on('transcript', line => {
+    let row = document.getElementById(line.id);
+
+    if (!row) {
+      row = document.createElement('li');
+      row.id = line.id;
+      captions.append(row);
+    }
+
+    row.textContent = `${line.speaker}: ${line.text}`;
+  });
+  wayloVoice.on('error', error => console.warn(error.code));
+  // render() shows the failure; log the code too.
+  wayloVoice.start({ agentId: AGENT_ID }).catch((error: unknown) => {
+    if (error instanceof WayloVoiceError) console.warn(error.code);
+  });
+});
+
+resumeButton.addEventListener('click', () => void wayloVoice?.resumeAudio());
+```
+
+## Run
+
+```sh
+npx esbuild src/main.ts --bundle --format=esm --outfile=public/main.js
+node --env-file=.env server.mjs
+```
+
+Open http://localhost:3000 and click **Talk**.
+
+- Both sides appear as captions. A line grows in place while it is spoken.
+- On a weak connection the status adds "Your connection is weak, you may hear gaps".
+- **Tap to hear the agent** shows only when the browser blocks sound.
+- When the call ends, the status says why, for example **Call ended (caller_hangup)**.
+
+Before you deploy, add your own login and access check to the session endpoint. Every session costs money.
