@@ -3,8 +3,10 @@ import type { Icon } from '@phosphor-icons/react';
 import * as phosphorIcons from '@phosphor-icons/react/ssr';
 import { loader } from 'fumadocs-core/source';
 import { metaSchema, pageSchema } from 'fumadocs-core/source/schema';
+import { applyMdxPreset } from 'fumadocs-mdx/config';
 import { defineDocs } from 'fumadocs-mdx/macro';
 
+import { remarkApiUrl } from '~/modules/remark-api-url';
 import { documentationRoute } from '~/modules/urls';
 
 const icons = phosphorIcons as unknown as Record<string, Icon | undefined>;
@@ -25,6 +27,8 @@ const documentation = defineDocs({
   dir: 'content/docs',
   docs: {
     schema: pageSchema,
+    // A collection-level `mdxOptions` replaces the defaults, so the preset brings them back.
+    mdxOptions: applyMdxPreset({ remarkPlugins: plugins => [remarkApiUrl, ...plugins] }),
     postprocess: {
       includeProcessedMarkdown: { headingIds: false, output: 'function' },
     },
