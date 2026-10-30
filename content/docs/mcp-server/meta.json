@@ -1,0 +1,7 @@
+{
+  "title": "MCP server",
+  "description": "Drive Waylo Voice from an AI agent",
+  "icon": "Robot",
+  "root": true,
+  "pages": ["index", "connect", "authorization", "tools", "disconnect"]
+}

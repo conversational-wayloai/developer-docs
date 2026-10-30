@@ -1,0 +1,94 @@
+---
+title: Connect
+description: Add the Waylo MCP server to Claude Code, Claude Desktop, claude.ai or Cursor.
+icon: PlugsConnected
+---
+
+Every client needs the same URL:
+
+```text
+{{API_URL}}/mcp
+```
+
+The steps below sign in as you. The first time the client connects, your browser opens the Waylo dashboard. Sign in if asked, check the agent and organization on the consent screen, and click **Allow**. See [Authorization](/docs/mcp-server/authorization).
+
+For a server or a job with no person present, [connect with an API key](#with-an-api-key) instead.
+
+## Claude Code
+
+```sh
+claude mcp add --transport http waylo {{API_URL}}/mcp
+```
+
+Add `--scope user` to use it in every project, or `--scope project` to share it with your team in `.mcp.json`.
+
+Then run `/mcp` in Claude Code, choose `waylo` and sign in.
+
+## Claude Desktop and claude.ai
+
+1. Open **Settings → Connectors** and click **Add custom connector**.
+2. Enter a name, like `Waylo Voice`, and the URL above.
+3. Click **Connect** and sign in.
+
+## Cursor
+
+Add the server to `~/.cursor/mcp.json`, or to `.cursor/mcp.json` in a project:
+
+```json
+{
+  "mcpServers": {
+    "waylo": {
+      "type": "http",
+      "url": "{{API_URL}}/mcp"
+    }
+  }
+}
+```
+
+Open Cursor's MCP settings and sign in to `waylo`.
+
+Cursor registers itself when it connects, so Waylo can't confirm who runs it and the consent screen shows **Unverified app**. That's expected: allow it if you started the connection from Cursor.
+
+## With an API key
+
+Send an [API key](/docs/api/api-keys) in the `Authorization` header. There is no sign-in: the agent acts as the key and sees only the tools its [scopes](/docs/api/scopes) allow.
+
+After you create or rotate a key, the dashboard shows the Claude Code command with the key filled in:
+
+```sh
+claude mcp add --transport http waylo {{API_URL}}/mcp --header "Authorization: Bearer sk_waylo_..."
+```
+
+In Cursor, add `headers` to the server in `mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "waylo": {
+      "type": "http",
+      "url": "{{API_URL}}/mcp",
+      "headers": { "Authorization": "Bearer ${WAYLO_API_KEY}" }
+    }
+  }
+}
+```
+
+Set `WAYLO_API_KEY` in the environment Cursor runs in, so the key stays out of the file.
+
+<Callout type="warn" title="Treat the config as a secret">
+Anyone with the key can use it. Don't commit a config that holds the key, and prefer a Scoped workspace key that does one job.
+</Callout>
+
+## Other clients
+
+Any MCP client works if it supports:
+
+- the Streamable HTTP transport;
+- MCP authorization (OAuth 2.1 with PKCE), to sign in as a person. The client finds the sign-in itself from the server's `401` response. It must be a public client: Waylo issues no client secrets.
+- or a custom `Authorization` header, to use an API key.
+
+## Check the connection
+
+Signed in as a person, ask the agent "Who am I in Waylo?". It calls `getCurrentUser` and answers with your name, email and role.
+
+With an API key, ask it to list the Waylo tools it has. They should match the key's scopes. A key with only **Catalogs: Write**, for example, has `listCatalogs`, `getCatalog`, `createCatalog`, `updateCatalog`, `listCatalogItems` and `createCatalogItems`, plus `listPresets` and `getProviderCatalog`, which any key gets. Any other tool answers `Unknown tool`.

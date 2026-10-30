@@ -6,7 +6,7 @@ icon: Key
 
 An API key lets a server call the Waylo API with no person signed in. It belongs to your organization, not to the person who created it.
 
-Only organization owners and admins manage keys, in the dashboard under **Integrations → API keys**. A key can't manage keys.
+Only organization owners and admins manage keys, in the dashboard under **Integrations → API keys**. Neither a key nor an agent on the [MCP server](/docs/mcp-server) can create, rotate or revoke keys.
 
 ## Create a key
 
@@ -24,6 +24,16 @@ The full key is shown only when it is created or rotated. Waylo stores a hash of
 </Callout>
 
 A key looks like `sk_waylo_` followed by 65 letters and digits. The list shows its last four characters so you can tell keys apart.
+
+## Use a key with an MCP client
+
+A key also works on the [MCP server](/docs/mcp-server), for an AI agent with no person present. The agent sees only the tools the key's scopes allow. After you create or rotate a key, the dialog shows the Claude Code command with the key filled in:
+
+```sh
+claude mcp add --transport http waylo {{API_URL}}/mcp --header "Authorization: Bearer sk_waylo_..."
+```
+
+See [Connect with an API key](/docs/mcp-server/connect#with-an-api-key) for other clients.
 
 ## Workspace keys and organization keys
 

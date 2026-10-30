@@ -1,0 +1,15 @@
+{
+  "personReads": [
+    "getCurrentUser",
+    "getTenantMe",
+    "getUser",
+    "listActivity",
+    "listApiKeys",
+    "listUsers",
+    "listWorkspaceMembers"
+  ],
+  "fileTransfer": [
+    "downloadDocument",
+    "uploadDocument"
+  ]
+}
