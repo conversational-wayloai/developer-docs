@@ -61,7 +61,7 @@ What your session endpoint can get back from `POST /sessions/web`. Log the statu
 | --- | --- |
 | `400` | A field is malformed, for example an id that isn't a UUID, or a bad `Idempotency-Key`. |
 | `401` | The API key is wrong or revoked. |
-| `403` | The key lacks `sessions:create`. |
+| `403` | The key lacks `sessions:write`. |
 | `404` | Wrong workspace or agent id, a key made for another workspace, or the agent isn't published and active. |
 | `409` | A retry with the same `Idempotency-Key` hit a session that has ended or is about to time out, or that key was used for another agent. Use a new key. |
 | `429` | Too many requests. Pass it on as `429`. |

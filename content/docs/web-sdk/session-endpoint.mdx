@@ -40,7 +40,7 @@ app.post('/api/waylo/session', express.json(), async (request, response) => {
 });
 ```
 
-You build this route on your own server. It checks your own login, then creates a session with the Waylo API (`POST /sessions/web`). It uses an API key that has the `sessions:create` scope and was created for that workspace. The key starts with `sk_waylo_` and never leaves your server.
+You build this route on your own server. It checks your own login, then creates a session with the Waylo API (`POST /sessions/web`). It uses an API key that has the `sessions:write` scope and was created for that workspace. The key starts with `sk_waylo_` and never leaves your server.
 
 `findLoggedInUser` and `userMayUse` are your own code. `WAYLO_API_URL` (no trailing slash), `WAYLO_API_KEY` and `WORKSPACE_ID` come from your environment.
 

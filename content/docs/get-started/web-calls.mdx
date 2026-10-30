@@ -21,7 +21,7 @@ You build a web page with a **Talk** button and a small Node server. Click **Tal
 
 In the Waylo dashboard:
 
-1. Go to **Integrations → API keys** and click **+ API key**. Give it a **Name**, set **Scopes** to `sessions:create`, pick your **Workspace** and an expiry under **Expires**, then click **Create**. Copy the key now: it is shown once. It starts with `sk_waylo_`.
+1. Go to **Integrations → API keys** and click **+ API key**. Give it a **Name**, under **Access** choose **Scoped** and set **Sessions** to **Write**, pick your **Workspace** and an expiry under **Expires**, then click **Create**. Copy the key now: it is shown once. It starts with `sk_waylo_`.
 2. Go to **Organization → Workspaces** and open your workspace. The workspace id is the end of the page URL: `/workspaces/<id>`.
 3. Go to **Build → Agents** and open your agent. The agent id is the end of the page URL: `/agents/<id>`.
 
@@ -203,7 +203,7 @@ Read the server terminal first. It logs every Waylo API error.
 
 - **"Call failed: CONNECTION_FAILED"**: the terminal says why.
   - `Waylo API returned 401`: wrong or revoked key.
-  - `403`: the key lacks `sessions:create`.
+  - `403`: the key lacks `sessions:write`.
   - `404`: wrong workspace or agent id, a key made for another workspace, or the agent isn't published and active.
   - `400`: an id isn't a UUID.
   - `Waylo API unreachable`: check `WAYLO_API_URL`.
