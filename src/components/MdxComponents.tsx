@@ -6,6 +6,8 @@ import { Callout as UiCallout } from 'fumadocs-ui/components/callout';
 import { Card as UiCard, Cards as UiCards } from 'fumadocs-ui/components/card';
 import { Step as UiStep, Steps as UiSteps } from 'fumadocs-ui/components/steps';
 
+import { mcpTools } from '~/modules/mcp-tools';
+
 import UiMermaid from '~/components/Mermaid';
 
 // Every component that content uses as JSX defines its Markdown form here, next to its HTML form.
@@ -100,6 +102,61 @@ interface StageCardProps {
   children: ReactNode;
   stage: keyof typeof STAGES;
   title?: string;
+}
+
+function keyScopes(scopes: string[] | null, markdown: boolean) {
+  if (!scopes) return 'Not available';
+  if (scopes.includes('any')) return 'Any key';
+
+  return markdown
+    ? scopes.map(scope => `\`${scope}\``).join(' + ')
+    : scopes.map((scope, index) => (
+        <span key={scope}>
+          {index > 0 ? ' + ' : null}
+          <code>{scope}</code>
+        </span>
+      ));
+}
+
+// Generated from the synced OpenAPI document, so the list follows the server without hand edits.
+export function McpTools() {
+  const tools = mcpTools();
+
+  if (asMarkdown()) {
+    const rows = tools.map(
+      tool =>
+        `| \`${tool.name}\` | ${tool.resource} | ${tool.summary} | ${tool.access} | ${keyScopes(tool.scopes, true)} |`,
+    );
+
+    return `| Tool | Resource | Does | Role | API key |\n| --- | --- | --- | --- | --- |\n${rows.join('\n')}\n\n`;
+  }
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Resource</th>
+          <th>Does</th>
+          <th>Role</th>
+          <th>API key</th>
+        </tr>
+      </thead>
+      <tbody>
+        {tools.map(tool => (
+          <tr key={tool.name}>
+            <td>
+              <code>{tool.name}</code>
+            </td>
+            <td>{tool.resource}</td>
+            <td>{tool.summary}</td>
+            <td>{tool.access}</td>
+            <td>{keyScopes(tool.scopes, false)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 }
 
 export function StageCard(props: StageCardProps) {

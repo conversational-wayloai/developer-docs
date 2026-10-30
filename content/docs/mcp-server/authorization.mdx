@@ -1,0 +1,43 @@
+---
+title: Authorization
+description: What you approve when an agent connects, and how long it lasts.
+icon: ShieldCheck
+---
+
+An agent never sees your password. It signs in with OAuth: Waylo asks you to approve it, then gives the agent its own tokens.
+
+## The consent screen
+
+When an agent connects, your browser opens **Connect &lt;agent&gt;** in the Waylo dashboard. It shows:
+
+- the agent's name, and the website it comes from when Waylo can verify it;
+- the organization it will act in;
+- **Signed in as**: your email;
+- **Returns to**: where your browser goes after you decide.
+
+Click **Allow** to connect the agent, or **Deny** to refuse.
+
+<Callout type="warn" title="Unverified app">
+When Waylo can't confirm who runs an agent, the screen says **Unverified app**. The name comes from the agent itself, so anyone could use a familiar one. Allow it only if you started this connection and trust the **Returns to** address.
+</Callout>
+
+If the link has expired, start the connection again from your agent. A request expires after 10 minutes.
+
+## What the agent can do
+
+It acts as you, with the same role and workspaces, in that organization. There is no way to approve less yet.
+
+It can do what an [API key](/docs/api/scopes) can, plus read your account, the organization profile, its members, the activity log and the API keys list. It can't change who has access or how anyone signs in: no creating, rotating or revoking API keys, no adding, removing or changing members and their workspaces, no editing the organization profile, and no changes to your own account. It also can't upload or download document files. See [Tools](/docs/mcp-server/tools).
+
+This page is about signing in as a person. An agent using an [API key](/docs/mcp-server/connect#with-an-api-key) needs no approval and acts as the key.
+
+Platform admins can't connect an agent: they act in no organization.
+
+## How long it lasts
+
+The agent stays connected until you [disconnect it](/docs/mcp-server/disconnect). Behind that:
+
+- Its access token lasts 15 minutes. The agent renews it on its own.
+- The renewal token lasts 30 days and changes on every renewal. An agent that stops using Waylo for 30 days must connect again.
+- If an old renewal token is ever used again, Waylo disconnects the agent, since the token may have leaked.
+- If your account is disabled or you leave the organization, the agent loses access on its next request.

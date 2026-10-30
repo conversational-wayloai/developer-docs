@@ -1,0 +1,40 @@
+---
+title: Overview
+description: Let an AI agent work in Waylo Voice for you.
+icon: Compass
+---
+
+```text
+{{API_URL}}/mcp
+```
+
+Waylo Voice runs a remote [MCP](https://modelcontextprotocol.io) server. Connect an AI agent such as Claude or Cursor to it, sign in once, and the agent can do what you do in the dashboard: build and publish agents, attach tools and documents, manage phone numbers, and read sessions and transcripts.
+
+You might ask your agent:
+
+- "List my agents and tell me which ones are still drafts."
+- "Create a catalog from this menu and attach it to the pizza agent."
+- "Show me the transcript of the last failed call."
+
+## How it works
+
+- **Transport:** Streamable HTTP. Requests are `POST {{API_URL}}/mcp`.
+- **Tools:** one per API operation. See [Tools](/docs/mcp-server/tools).
+
+An agent connects in one of two ways:
+
+| | Sign in as a person | API key |
+| --- | --- | --- |
+| For | You, working with an AI agent. | A server, a job or a shared agent, with no person present. |
+| How | OAuth: your browser opens the Waylo dashboard, you sign in and approve the agent. See [Authorization](/docs/mcp-server/authorization). | The key in the `Authorization` header. See [Connect with an API key](/docs/mcp-server/connect#with-an-api-key). |
+| Acts as | You, with your role and workspaces. When your access changes, the agent's does too. | The key: its workspace and [scopes](/docs/api/scopes). |
+| Tools | Everything a key can do, plus reading your account, the organization, its members, the activity log and the API keys list. | Only the tools the key's scopes allow. |
+| Ends | When you [disconnect it](/docs/mcp-server/disconnect). | When the key is rotated, revoked or expires. |
+
+## Next
+
+<Cards>
+  <Card title="Connect" href="/docs/mcp-server/connect" description="Claude Code, Claude Desktop, claude.ai and Cursor." />
+  <Card title="Authorization" href="/docs/mcp-server/authorization" description="What you approve, and for how long." />
+  <Card title="Tools" href="/docs/mcp-server/tools" description="What an agent can do." />
+</Cards>

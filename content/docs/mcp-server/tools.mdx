@@ -1,0 +1,39 @@
+---
+title: Tools
+description: Every tool the Waylo MCP server gives an agent.
+icon: Toolbox
+---
+
+Each tool is one Waylo API operation. Its name is the operation's id, and its input is the operation's path and query parameters, plus `body` for the request body. The [API reference](/docs/api/reference) describes each one in full.
+
+A tool runs under the same rules as the API and the dashboard. It returns the operation's HTTP status and response:
+
+```json
+{ "status": 200, "body": { "user": { "name": "…", "email": "…" } } }
+```
+
+A call that runs past 30 seconds returns an error. For anything other than a read, the change may still happen: check before retrying.
+
+## Which tools an agent sees
+
+- **Signed in as a person:** every tool below. A tool still fails if your role doesn't allow it.
+- **With an API key:** only the tools the key's [scopes](/docs/api/scopes) allow. A tool that needs two scopes needs both. A workspace key sees no organization-level tools.
+
+A tool the agent doesn't see answers `Unknown tool` and does nothing.
+
+## Not available as tools
+
+Only operations an API key can call are tools, plus a few reads for a person who signed in. So these are never tools:
+
+- Signing in and out, and changes to your own account.
+- Creating, rotating and revoking API keys.
+- Adding, removing and changing members and their workspaces, and lifting a login lock.
+- Editing the organization profile.
+- Approving and disconnecting agents.
+- Uploading and downloading document files.
+
+## All tools
+
+**Role** is the least role a person needs. **API key** is the scope a key needs; "Not available" means only a person who signed in gets the tool.
+
+<McpTools />
