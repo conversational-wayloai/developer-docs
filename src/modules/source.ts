@@ -6,6 +6,7 @@ import { metaSchema, pageSchema } from 'fumadocs-core/source/schema';
 import { applyMdxPreset } from 'fumadocs-mdx/config';
 import { defineDocs } from 'fumadocs-mdx/macro';
 
+import { openapi } from '~/modules/openapi';
 import { remarkApiUrl } from '~/modules/remark-api-url';
 import { documentationRoute } from '~/modules/urls';
 
@@ -40,6 +41,10 @@ const documentation = defineDocs({
 
 export const source = loader({
   baseUrl: documentationRoute,
-  source: documentation.toFumadocsSource(),
+  source: {
+    docs: documentation.toFumadocsSource(),
+    openapi: await openapi.staticSource({ baseDir: 'api/reference', groupBy: 'tag' }),
+  },
   icon: phosphorIcon,
+  plugins: [openapi.loaderPlugin()],
 });

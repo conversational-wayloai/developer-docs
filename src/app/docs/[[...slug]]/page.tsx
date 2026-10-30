@@ -15,6 +15,8 @@ import { getMDXComponents } from '~/modules/mdx';
 import { source } from '~/modules/source';
 import { imageUrl, markdownPath } from '~/modules/urls';
 
+import { OpenAPIPage } from '~/components/ApiPage';
+
 export async function generateMetadata({
   params,
 }: PageProps<'/docs/[[...slug]]'>): Promise<Metadata> {
@@ -42,8 +44,25 @@ export default async function Page({ params }: PageProps<'/docs/[[...slug]]'>) {
 
   if (!page) notFound();
 
-  const MDX = page.data.body;
   const pageMarkdownUrl = basePath + markdownPath(page.url);
+
+  if (page.type === 'openapi') {
+    return (
+      <DocsPage full>
+        <DocsTitle>{page.data.title}</DocsTitle>
+        {/* No description: the operation renders it, Markdown included, as its first block. */}
+        <div className="flex flex-row gap-2 items-center border-b pb-6">
+          <MarkdownCopyButton markdownUrl={pageMarkdownUrl} />
+          <ViewOptionsPopover markdownUrl={pageMarkdownUrl} />
+        </div>
+        <DocsBody>
+          <OpenAPIPage {...page.data.getOpenAPIPageProps()} />
+        </DocsBody>
+      </DocsPage>
+    );
+  }
+
+  const MDX = page.data.body;
 
   return (
     <DocsPage full={page.data.full} toc={page.data.toc}>

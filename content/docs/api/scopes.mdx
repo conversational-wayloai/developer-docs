@@ -1,0 +1,73 @@
+---
+title: Scopes
+description: Give each API key only the access it needs.
+icon: ShieldCheck
+---
+
+A key's **Access** is **Standard** or **Scoped**. You choose it when you [create the key](/docs/api/api-keys#create-a-key), and it can't be changed later: create a new key instead. A rotation keeps it.
+
+- **Standard** holds every scope, including scopes added to Waylo later.
+- **Scoped** holds only the access you set per resource: **None**, **Read** or **Write**. **Write** includes **Read**.
+
+Each operation in the [reference](/docs/api/reference) names the scope it needs on its **Access** line, for example `API key sessions:write`. A key without it gets `403 FORBIDDEN`.
+
+## Resources
+
+Workspace resources belong to one workspace:
+
+| Resource | Scopes | Covers |
+| --- | --- | --- |
+| Agents | `agents:read`, `agents:write` | Agents, drafts and versions. Listing an agent's tools or documents also needs `tools:read` or `documents:read`. |
+| Sessions | `sessions:read`, `sessions:write` | Calls, their events, items and deliveries. `sessions:write` starts web calls. |
+| Transcripts | `transcripts:read` | What was said on each call. |
+| Orders | `orders:read` | Orders captured on calls. |
+| Catalogs | `catalogs:read`, `catalogs:write` | Catalogs and their items. |
+| Documents | `documents:read`, `documents:write` | Knowledge base documents. |
+| Tools | `tools:read`, `tools:write` | Tools agents can call. |
+| Credentials | `credentials:read`, `credentials:write` | Secrets that tools and destinations send. |
+| Destinations | `destinations:read`, `destinations:write` | Where call results are sent. |
+| Phone numbers | `phone_numbers:read`, `phone_numbers:write` | Numbers and the agent each answers with. |
+
+Organization resources belong to the whole organization:
+
+| Resource | Scopes | Covers |
+| --- | --- | --- |
+| Telephony | `telephony:read`, `telephony:write` | Carrier connections. |
+| Provider keys | `provider_keys:read`, `provider_keys:write` | Your keys for AI providers. |
+| Workspaces | `workspaces:read`, `workspaces:write` | Workspaces in the organization. |
+| Stats | `stats:read` | Organization counts. |
+
+A [workspace key](/docs/api/api-keys#workspace-keys-and-organization-keys) can't hold organization resources, Standard or not.
+
+## Credentials
+
+A credential's secret is sent wherever its tool or destination points. So a key needs `credentials:write`, besides the operation's own scope, to:
+
+- attach a credential to a tool or a destination;
+- change the configuration of a tool, or the URL of a destination, that has a credential;
+- discover an MCP tool's operations with a credential.
+
+Removing a credential needs nothing extra.
+
+## Operations with no scope
+
+`GET /presets` and `GET /provider-catalog` take any key: they list what agents can run on, not your data.
+
+## Dashboard only
+
+No key reaches these, whatever its scopes:
+
+- members and their workspace access;
+- API keys;
+- the organization profile;
+- the activity log;
+- signing in and a person's own account.
+
+## Examples
+
+| Server | Key |
+| --- | --- |
+| A [session endpoint](/docs/web-sdk/session-endpoint) for web calls | Workspace key, Scoped, **Sessions: Write**. |
+| A job that exports orders | Workspace key, Scoped, **Orders: Read**. |
+| A reporting job across workspaces | Organization key, Scoped, **Sessions: Read**, **Transcripts: Read**, **Stats: Read**. |
+| A deploy script that publishes agents | Workspace key, Scoped, **Agents: Write**. |
