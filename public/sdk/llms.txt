@@ -17,7 +17,7 @@ Rules an assistant must follow:
 pnpm add @waylovoice/client
 ```
 
-Until it is published, install the packed tarball: `pnpm add ./waylovoice-client-<version>.tgz`. The page code needs a bundler (Vite, esbuild, webpack…) to resolve the import.
+The page code needs a bundler (Vite, esbuild, webpack…) to resolve the import.
 
 ## Backend: the session endpoint
 
@@ -183,10 +183,10 @@ Lifecycle: a new instance's state is `connection: 'idle'` with no `end`. `start(
 | Field | Values |
 | --- | --- |
 | `stage` | `'idle'`, `'connecting'`, `'joining'`, `'preparing'`, `'speaking'`, `'listening'`, `'thinking'`, `'reconnecting'`, `'ended'`: which moment of the call it is. Use it for the status line (see Status line). |
-| `connection` | `'idle'`, `'connecting'`, `'connected'`, `'reconnecting'`, `'disconnected'` |
+| `connection` | `'idle'`, `'connecting'`, `'connected'`, `'reconnecting'`, `'disconnected'`. `'reconnecting'` starts at once when the browser goes offline, after 8 s with no data, or within 2 s of LiveKit starting to reconnect, and lasts at least 1 s. After 45 s of it the call fails with `CONNECTION_LOST`. |
 | `agent` | `'none'`, `'joining'`, `'listening'`, `'thinking'`, `'speaking'` |
 | `microphone` | `'off'`, `'on'`, `'muted'` |
-| `network` | `'good'`, `'poor'`, `'lost'`: this browser's connection to the call; `'good'` outside a call. Show a non-blocking banner while it is not `'good'`. |
+| `network` | `'good'`, `'poor'`, `'lost'`: this browser's connection to the call; `'good'` outside a call. LiveKit's own `'poor'` or `'lost'` counts once it lasts 2 s. Also `'poor'` while `connection` is `'reconnecting'`, or after 3 s with no data arriving or 2 s with the browser's network path (ICE) `disconnected`, until data flows again for 1 s. Show a non-blocking banner while it is not `'good'`. |
 | `playback` | `'stopped'`, `'playing'`, `'blocked'` (show a button that calls `resumeAudio()`) |
 | `volume` | Last `setVolume()` value, default 1 |
 | `sessionId` | The Waylo session id, once known |
@@ -195,7 +195,7 @@ Lifecycle: a new instance's state is `connection: 'idle'` with no `end`. `start(
 | `timings` | How long each step took (see Timings) |
 | `end` | Set once at the end: `{ status: 'completed', reason? }` or `{ status: 'failed', reason?, error }` |
 
-`end.reason` is one of `caller_hangup`, `caller_inactive`, `caller_goodbye`, `agent_end`, `busy`, `no_answer`, `rejected`, `cancelled`, `provider_error`, `provider_key_failed`, `worker_error`, `max_duration`, `timeout`.
+`end.reason` is one of `caller_hangup`, `caller_inactive`, `caller_goodbye`, `caller_not_joined`, `agent_end`, `busy`, `no_answer`, `rejected`, `cancelled`, `provider_error`, `provider_key_failed`, `worker_error`, `max_duration`, `timeout`.
 
 ## Status line
 
@@ -228,7 +228,7 @@ if (microphone) await wayloVoice?.setMicrophoneDevice(microphone.deviceId);
 - `listDevices({ requestPermission: true })` asks for the microphone first (call it from a click), closes it again and returns named devices; it rejects `MICROPHONE_DENIED` if the visitor blocks it.
 - `canChooseSpeaker` is false on Safari and every iOS browser; `speakers` is then empty. Hide the speaker picker whenever `speakers` is empty (Firefox before 140 lists none).
 - Setters work before `start()`; a chosen device that is gone by then falls back to the system default, and state shows the device in use.
-- Mid-call, a mic that can't be opened rejects with `MICROPHONE_UNAVAILABLE` (`MICROPHONE_IN_USE` when another app holds it, `MICROPHONE_DENIED` when the browser blocks it) and the call keeps a working mic where it can; after an unplugged mic (`error` event `MICROPHONE_UNAVAILABLE`), set another one to carry on. Safari can send that event when the system default mic changes, then reopen the new default itself; `state.microphone` turns back to `'on'`.
+- Mid-call, a mic that can't be opened rejects with `MICROPHONE_UNAVAILABLE` (`MICROPHONE_IN_USE` when another app holds it, `MICROPHONE_DENIED` when the browser blocks it) and the call keeps a working mic where it can. A chosen mic or speaker stays until it is unplugged; the call then moves to the system default (`'default'`). On `'default'`, Chrome and other Chromium browsers follow system default changes; Firefox and Safari keep the open mic until it is unplugged. An unplugged muted mic stays `'muted'` and opens the system default on unmute. A mid-call `error` event `MICROPHONE_UNAVAILABLE` means no mic is left or none could be opened, muted or not; `microphone` is then `'off'`.
 
 ## Timings
 
@@ -236,7 +236,8 @@ if (microphone) await wayloVoice?.setMicrophoneDevice(microphone.deviceId);
 
 - `sessionReadyMs`: the session endpoint answered.
 - `connectedMs`: this browser joined the call.
-- `microphoneReadyMs`: the microphone is live in the call. It opens while the call connects, so the time the visitor takes to allow it overlaps the earlier steps.
+- `microphoneOpenMs`: the browser opened the microphone, permission prompt included. It opens while the call connects, so the time the visitor takes to allow it overlaps the earlier steps.
+- `microphoneReadyMs`: the microphone is live in the call, so the agent can hear the visitor.
 - `agentReadyMs`: the agent reported its first activity state; `start()` resolves once the microphone is ready too.
 - `agentSpeakingMs`: the agent starts speaking while `playback` is `'playing'`; its audio arrives a few hundred milliseconds later. If audio was blocked, it is set once `resumeAudio()` lets it play while the agent speaks, or at the agent's next turn. This is the visitor's wait to hear the agent.
 
@@ -261,7 +262,8 @@ wayloVoice?.on('state', state => {
 | `LIMIT_REACHED` | The session endpoint answered 429. | "Too many calls right now. Try again in a minute." | Yes, later |
 | `INVALID_SESSION` | The session endpoint's 200 body is not a Waylo session; return it unchanged. | "Something went wrong. Please try again later." | No, fix the endpoint |
 | `SESSION_EXPIRED` | The session expired or was rejected. | "Please try again." | Yes, new call |
-| `CONNECTION_FAILED` | The endpoint failed or took over 15 s, the call could not connect, or it dropped. | "Couldn't connect. Check your internet and try again." | Yes |
+| `CONNECTION_FAILED` | The endpoint failed or took over 15 s, the call could not connect, or the call server ended it with an error. | "Couldn't connect. Check your internet and try again." | Yes |
+| `CONNECTION_LOST` | The visitor's connection dropped mid-call and the call could not continue: reconnecting failed, took over 45 s, or found no agent within 5 s of reconnecting. | "Your connection dropped. Check your internet and start a new call." | Yes, new call |
 | `MICROPHONE_DENIED` | The visitor or the browser blocked the microphone. | "Allow the microphone in your browser, then try again." | After allowing it |
 | `MICROPHONE_IN_USE` | Another app or tab holds the microphone, or the system could not start it. | "Your microphone is busy. Close other apps using it, then try again." | Yes |
 | `MICROPHONE_UNAVAILABLE` | No usable microphone, the chosen one can't be opened, or the browser refused it for another reason. The original error is in `cause`. | "No working microphone found. Connect one, then try again." | Yes, after fixing it |

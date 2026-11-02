@@ -10,7 +10,6 @@ You build a web page with a **Talk** button and a small Node server. Click **Tal
 
 - A Waylo Voice agent that is published and active.
 - Owner or admin access to the Waylo dashboard, or someone who has it.
-- Your Waylo API URL. Ask the Waylo team for it.
 - Node 20.6 or later.
 - A microphone, and a recent Chrome, Edge, Firefox or Safari.
 
@@ -39,8 +38,6 @@ npm i express @waylovoice/client
 npm i -D esbuild
 ```
 
-Not on npm yet? Ask the Waylo team for the `.tgz` file; run `npm i ./waylovoice-client-0.1.0.tgz`.
-
 You should see `added … packages` and no errors.
 
 </Step>
@@ -55,7 +52,7 @@ Your `sk_waylo_` key gives access to your workspace. Keep it in `.env` on the se
 Put your API URL, key and ids in a `.env` file:
 
 ```sh title=".env"
-WAYLO_API_URL=your-waylo-api-url
+WAYLO_API_URL={{API_URL}}
 WAYLO_API_KEY=sk_waylo_...
 WORKSPACE_ID=your-workspace-id
 AGENT_ID=your-agent-id
@@ -207,6 +204,7 @@ Read the server terminal first. It logs every Waylo API error.
   - `404`: wrong workspace or agent id, a key made for another workspace, or the agent isn't published and active.
   - `400`: an id isn't a UUID.
   - `Waylo API unreachable`: check `WAYLO_API_URL`.
+- **"Call failed: CONNECTION_LOST"**: the connection dropped mid-call. Check your internet and start a new call.
 - **"Call failed: ACCESS_DENIED"**: `AGENT_ID` in `src/main.ts` doesn't match `AGENT_ID` in `.env`.
 - **"Call failed: MICROPHONE_DENIED"**: allow the microphone in the address bar, then click **Talk** again.
 - **No microphone prompt at all**: open the page on `localhost` or HTTPS, not a plain-http IP or host name.

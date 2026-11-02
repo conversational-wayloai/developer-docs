@@ -29,5 +29,7 @@ if (canChooseSpeaker && speaker) await wayloVoice.setSpeakerDevice(speaker.devic
 
 - A device chosen before `start()` that is gone by then falls back to the system default, and the state shows the device in use.
 - Mid-call, a microphone that can't be opened rejects with `MICROPHONE_UNAVAILABLE` (`MICROPHONE_IN_USE` when another app holds it, `MICROPHONE_DENIED` when the browser blocks it). The call keeps a working microphone where it can.
-- After an unplugged microphone (`error` event `MICROPHONE_UNAVAILABLE`), choose another to carry on.
-- Safari can send that event when the system default microphone changes, then reopen the new default itself; `microphone` turns back to `on`.
+- A chosen microphone or speaker stays until it is unplugged; the call then moves to the system default (`'default'`).
+- On `'default'`, Chrome and other Chromium browsers follow system default changes; Firefox and Safari keep the open microphone until it is unplugged.
+- An unplugged muted microphone stays `muted` and opens the system default on unmute.
+- A mid-call `error` event `MICROPHONE_UNAVAILABLE` means no microphone is left or none could be opened, muted or not; `microphone` is then `off`.
