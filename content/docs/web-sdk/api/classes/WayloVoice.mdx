@@ -150,7 +150,8 @@ the call then keeps a working microphone where it can.
 setMuted(muted): Promise<void>;
 ```
 
-Mutes or unmutes the mic, even before `start()`; unmuting can reject with a mic error.
+Mutes or unmutes the mic, even before `start()`. The last call wins; it resolves once the mic
+matches it. Unmuting can reject with a mic error.
 
 #### Parameters
 

@@ -17,7 +17,8 @@ wayloVoice.on('state', state => {
 | `startedAt` | `Date.now()` when `start()` was called, i.e. the click. |
 | `sessionReadyMs` | Your session endpoint answered. |
 | `connectedMs` | This browser joined the call. |
-| `microphoneReadyMs` | The microphone is live in the call. It opens while the call connects, so the time the visitor takes to allow it overlaps the earlier steps. |
+| `microphoneOpenMs` | The browser opened the microphone, permission prompt included. It opens while the call connects, so the time the visitor takes to allow it overlaps the earlier steps. |
+| `microphoneReadyMs` | The microphone is live in the call, so the agent can hear the visitor. |
 | `agentReadyMs` | The agent reported its first activity. `start()` resolves once the microphone is ready too. |
 | `agentSpeakingMs` | The agent started speaking while `playback` is `playing`. Its audio arrives a few hundred milliseconds later. This is the visitor's wait to hear the agent. |
 

@@ -27,7 +27,7 @@ The SDK creates these; host code only reads them.
 
 | Parameter | Type | Default value |
 | ------ | ------ | ------ |
-| `code` | \| `"ACCESS_DENIED"` \| `"AGENT_ERROR"` \| `"AGENT_LEFT"` \| `"AGENT_TIMEOUT"` \| `"ALREADY_STARTED"` \| `"AUTH_REQUIRED"` \| `"CANCELLED"` \| `"CONNECTION_FAILED"` \| `"INVALID_SESSION"` \| `"LIMIT_REACHED"` \| `"MICROPHONE_DENIED"` \| `"MICROPHONE_IN_USE"` \| `"MICROPHONE_UNAVAILABLE"` \| `"SESSION_EXPIRED"` \| `"SPEAKER_UNAVAILABLE"` \| `"TRANSCRIPT_FAILED"` | `undefined` |
+| `code` | \| `"ACCESS_DENIED"` \| `"AGENT_ERROR"` \| `"AGENT_LEFT"` \| `"AGENT_TIMEOUT"` \| `"ALREADY_STARTED"` \| `"AUTH_REQUIRED"` \| `"CANCELLED"` \| `"CONNECTION_FAILED"` \| `"CONNECTION_LOST"` \| `"INVALID_SESSION"` \| `"LIMIT_REACHED"` \| `"MICROPHONE_DENIED"` \| `"MICROPHONE_IN_USE"` \| `"MICROPHONE_UNAVAILABLE"` \| `"SESSION_EXPIRED"` \| `"SPEAKER_UNAVAILABLE"` \| `"TRANSCRIPT_FAILED"` | `undefined` |
 | `cause?` | `unknown` | `undefined` |
 | `secrets?` | readonly `string`[] | `[]` |
 
@@ -53,6 +53,7 @@ readonly code:
   | "AUTH_REQUIRED"
   | "CANCELLED"
   | "CONNECTION_FAILED"
+  | "CONNECTION_LOST"
   | "INVALID_SESSION"
   | "LIMIT_REACHED"
   | "MICROPHONE_DENIED"

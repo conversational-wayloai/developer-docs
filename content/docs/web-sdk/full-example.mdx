@@ -65,7 +65,7 @@ function render(state: WayloVoiceState): void {
   } else if (state.end) {
     statusText.textContent = `Call ended (${state.end.reason ?? 'done'})`;
   } else {
-    const weak = state.network === 'poor' ? ' · Your connection is weak, you may hear gaps' : '';
+    const weak = state.network !== 'good' ? ' · Your connection is weak, you may hear gaps' : '';
 
     statusText.textContent = STATUS[state.stage] + weak;
   }

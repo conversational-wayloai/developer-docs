@@ -12,6 +12,7 @@ Whole milliseconds after `start()` at which each step was reached, in any order.
 | <a id="property-agentreadyms"></a> `agentReadyMs?` | `readonly` | `number` | The agent reported its first activity state, maybe before the microphone is ready. |
 | <a id="property-agentspeakingms"></a> `agentSpeakingMs?` | `readonly` | `number` | The agent starts speaking while the browser may play its audio; the audio arrives a little later. |
 | <a id="property-connectedms"></a> `connectedMs?` | `readonly` | `number` | This browser joined the call. |
-| <a id="property-microphonereadyms"></a> `microphoneReadyMs?` | `readonly` | `number` | The microphone is live in the call; it opens, permission prompt included, while the call connects. |
+| <a id="property-microphoneopenms"></a> `microphoneOpenMs?` | `readonly` | `number` | The browser opened the microphone, permission prompt included; often before the call connects. |
+| <a id="property-microphonereadyms"></a> `microphoneReadyMs?` | `readonly` | `number` | The microphone is live in the call, so the agent can hear the visitor. |
 | <a id="property-sessionreadyms"></a> `sessionReadyMs?` | `readonly` | `number` | The session endpoint answered. |
 | <a id="property-startedat"></a> `startedAt` | `readonly` | `number` | When `start()` was called, as `Date.now()`. |
