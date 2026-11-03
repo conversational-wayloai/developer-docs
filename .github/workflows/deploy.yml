@@ -1,0 +1,130 @@
+name: Deploy docs to S3 + CloudFront
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+
+# OIDC: configure-aws-credentials needs id-token to mint the web identity token;
+# checkout needs read access to the repo contents.
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  # push to main -> poc
+  poc:
+    if: github.ref_type == 'branch' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: poc
+    # One deploy per environment at a time, in push order (do not cancel queued runs).
+    concurrency:
+      group: deploy-poc
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      # lint runs with --fix; any fix it makes fails the job here.
+      - run: git diff --exit-code
+      - run: pnpm typecheck
+      # Build at the domain root (BASE_PATH empty) for S3/CloudFront hosting.
+      - run: BASE_PATH= pnpm build
+        env:
+          API_URL: ${{ vars.API_URL }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.DEPLOY_ROLE_ARN }}
+          aws-region: us-east-2
+      - name: Deploy to S3 and invalidate CloudFront
+        env:
+          DOCS_BUCKET: ${{ vars.DOCS_BUCKET }}
+          DOCS_DISTRIBUTION_ID: ${{ vars.DOCS_DISTRIBUTION_ID }}
+        run: |
+          aws s3 sync out/ "s3://$DOCS_BUCKET" --delete \
+            --exclude "*.md" --exclude "*.txt" --exclude "api/search"
+          aws s3 sync out/ "s3://$DOCS_BUCKET" --exclude "*" --include "*.md" \
+            --content-type "text/markdown; charset=utf-8"
+          aws s3 sync out/ "s3://$DOCS_BUCKET" --exclude "*" --include "*.txt" \
+            --content-type "text/plain; charset=utf-8"
+          aws s3 cp out/api/search "s3://$DOCS_BUCKET/api/search" --content-type "application/json"
+          aws cloudfront create-invalidation --distribution-id "$DOCS_DISTRIBUTION_ID" --paths "/*"
+      # Smoke test: a script in the docs repo requests every page in out/ on the
+      # live host. The script is provided separately by the repo owner; wire it
+      # up here once it lands.
+      # - name: Smoke test live host
+      #   run: ./scripts/smoke-test.sh
+
+  # tag vX.Y.Z-rc* -> staging
+  staging:
+    if: github.ref_type == 'tag' && startsWith(github.ref_name, 'v') && contains(github.ref_name, '-rc')
+    runs-on: ubuntu-latest
+    environment: staging
+    # One deploy per environment at a time, in push order (do not cancel queued runs).
+    concurrency:
+      group: deploy-staging
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      # lint runs with --fix; any fix it makes fails the job here.
+      - run: git diff --exit-code
+      - run: pnpm typecheck
+      # Build at the domain root (BASE_PATH empty) for S3/CloudFront hosting.
+      - run: BASE_PATH= pnpm build
+        env:
+          API_URL: ${{ vars.API_URL }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.DEPLOY_ROLE_ARN }}
+          aws-region: us-east-2
+      - name: Deploy to S3 and invalidate CloudFront
+        env:
+          DOCS_BUCKET: ${{ vars.DOCS_BUCKET }}
+          DOCS_DISTRIBUTION_ID: ${{ vars.DOCS_DISTRIBUTION_ID }}
+        run: |
+          aws s3 sync out/ "s3://$DOCS_BUCKET" --delete \
+            --exclude "*.md" --exclude "*.txt" --exclude "api/search"
+          aws s3 sync out/ "s3://$DOCS_BUCKET" --exclude "*" --include "*.md" \
+            --content-type "text/markdown; charset=utf-8"
+          aws s3 sync out/ "s3://$DOCS_BUCKET" --exclude "*" --include "*.txt" \
+            --content-type "text/plain; charset=utf-8"
+          aws s3 cp out/api/search "s3://$DOCS_BUCKET/api/search" --content-type "application/json"
+          aws cloudfront create-invalidation --distribution-id "$DOCS_DISTRIBUTION_ID" --paths "/*"
+      # Smoke test: a script in the docs repo requests every page in out/ on the
+      # live host. The script is provided separately by the repo owner; wire it
+      # up here once it lands.
+      # - name: Smoke test live host
+      #   run: ./scripts/smoke-test.sh
+
+  # Any v* tag that is not an -rc staging candidate.
+  # A plain final release (vX.Y.Z) would deploy to prod, but prod is not
+  # provisioned yet, so fail loudly instead of silently doing nothing.
+  # Any other v* tag is unrecognized and also fails.
+  guard:
+    if: github.ref_type == 'tag' && startsWith(github.ref_name, 'v') && !contains(github.ref_name, '-rc')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reject unsupported tag
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Tag '$TAG' targets prod, but the prod environment is not provisioned yet. Push a 'vX.Y.Z-rc.N' tag to deploy to staging."
+          else
+            echo "::error::Tag '$TAG' is not a recognized deploy target. Use 'vX.Y.Z-rc.N' for staging."
+          fi
+          exit 1
