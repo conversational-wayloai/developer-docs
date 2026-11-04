@@ -39,7 +39,7 @@ The script copies the SDK sources into `scripts/sdk/src` (not committed), runs t
 
 ## Deploy
 
-`.github/workflows/deploy.yml` builds the site, syncs `out/` to the environment's S3 bucket and invalidates its CloudFront distribution. Each run lints and typechecks first. Runs for the same environment go one at a time, in push order.
+`.github/workflows/deploy.yml` builds the site, syncs `out/` to the environment's S3 bucket and invalidates its CloudFront distribution. Each run lints and typechecks first. Runs for the same environment go one at a time. A deploy in progress finishes; a newer push replaces one still waiting, since each deploy publishes the whole site.
 
 A push to `main` deploys to poc.
 

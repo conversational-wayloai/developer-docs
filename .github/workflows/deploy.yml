@@ -17,7 +17,7 @@ jobs:
     if: github.ref_type == 'branch' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: poc
-    # One deploy per environment at a time, in push order (do not cancel queued runs).
+    # One deploy per environment at a time. A running deploy finishes; a newer run replaces a pending one.
     concurrency:
       group: deploy-poc
       cancel-in-progress: false
@@ -66,7 +66,7 @@ jobs:
     if: github.ref_type == 'tag' && startsWith(github.ref_name, 'v') && contains(github.ref_name, '-rc')
     runs-on: ubuntu-latest
     environment: staging
-    # One deploy per environment at a time, in push order (do not cancel queued runs).
+    # One deploy per environment at a time. A running deploy finishes; a newer run replaces a pending one.
     concurrency:
       group: deploy-staging
       cancel-in-progress: false
