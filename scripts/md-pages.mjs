@@ -1,5 +1,5 @@
 // Copies each page's Markdown from out/llms.mdx/docs/<slug>/content.md to out/<slug>.md.
-import { cpSync, globSync, readFileSync, writeFileSync } from 'node:fs';
+import { cpSync, globSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
 const from = 'out/llms.mdx/docs';
@@ -28,17 +28,6 @@ for (const file of globSync('**/content.md', { cwd: from })) {
 if (collisions.length > 0) {
   throw new Error(`Pages collide with reserved routes: ${collisions.join(', ')}`);
 }
-
-// public/ is copied as-is, so the SDK llms.txt gets its docs host here.
-const documentationUrl = process.env.DOCS_URL?.replace(/\/+$/, '');
-
-if (!documentationUrl) {
-  throw new Error('DOCS_URL is not set; sdk/llms.txt needs it. See .env.example.');
-}
-
-const sdkLlms = 'out/sdk/llms.txt';
-
-writeFileSync(sdkLlms, readFileSync(sdkLlms, 'utf8').replaceAll('{{DOCS_URL}}', documentationUrl));
 
 // A placeholder left in the output means a page used it outside code, where remark-api-url can't reach.
 const placeholders = ['{{API_URL}}', '{{DOCS_URL}}'];

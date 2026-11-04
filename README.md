@@ -27,7 +27,7 @@ For AI tools, `/llms.txt` lists every page, `/llms-full.txt` has them all in one
 
 ## Sync the SDK docs
 
-The Web SDK API reference (`content/docs/web-sdk/api/`) and `public/sdk/llms.txt` are generated from the SDK and committed, so the site builds without the SDK repo. To refresh them from a local checkout of `client-sdk-web`:
+The Web SDK API reference (`content/docs/web-sdk/api/`) and `scripts/sdk/llms.txt` (served at `/sdk/llms.txt`) are generated from the SDK and committed, so the site builds without the SDK repo. To refresh them from a local checkout of `client-sdk-web`:
 
 ```sh
 SDK_REPO=../client-sdk-web pnpm sync:sdk   # SDK_REF=<branch or tag> to pick a ref, default HEAD

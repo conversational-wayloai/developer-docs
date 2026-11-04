@@ -40,7 +40,7 @@
     "typescript": "^6.0.3"
   },
   "scripts": {
-    "build": "next build && node --env-file-if-exists=.env scripts/md-pages.mjs",
+    "build": "next build && node scripts/md-pages.mjs",
     "dev": "next dev",
     "preview": "pnpm build && serve out",
     "sync:api": "./scripts/sync-api.sh",

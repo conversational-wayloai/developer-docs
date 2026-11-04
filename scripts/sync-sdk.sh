@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerates the Web SDK reference and public/sdk/llms.txt from a local client-sdk-web checkout.
+# Regenerates the Web SDK reference and scripts/sdk/llms.txt from a local client-sdk-web checkout.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -18,11 +18,11 @@ sdk_src=scripts/sdk/src
 tmp="$(mktemp -d)"
 trap "rm -rf \"$tmp\"" EXIT
 git -C "$SDK_REPO" archive "$SDK_REF" packages/client/src packages/client/llms.txt | tar -x -C "$tmp"
-rm -rf "$sdk_src" && mkdir -p "$sdk_src" public/sdk
+rm -rf "$sdk_src" && mkdir -p "$sdk_src"
 cp -r "$tmp/packages/client/src/." "$sdk_src/"
-cp "$tmp/packages/client/llms.txt" public/sdk/llms.txt
-# Point SDK repo links at the docs pages, so llms.txt stays inside the docs site. The build fills in {{DOCS_URL}}.
-node - public/sdk/llms.txt <<'EOF'
+cp "$tmp/packages/client/llms.txt" scripts/sdk/llms.txt
+# Point SDK repo links at the docs pages, so llms.txt stays inside the docs site. The /sdk/llms.txt route fills in {{DOCS_URL}}.
+node - scripts/sdk/llms.txt <<'EOF'
 const { readFileSync, writeFileSync } = require('node:fs');
 const file = process.argv[2];
 let text = readFileSync(file, 'utf8')
