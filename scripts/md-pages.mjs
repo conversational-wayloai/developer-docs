@@ -4,7 +4,17 @@ import { dirname, join } from 'node:path';
 
 const from = 'out/llms.mdx/docs';
 // Pages share the site root with these routes and public files; a matching slug would overwrite one.
-const reserved = ['api/search', 'brand', 'llms-full.txt', 'llms.mdx', 'llms.txt', 'og', 'sdk'];
+const reserved = [
+  'api/search',
+  'brand',
+  'llms',
+  'llms-full',
+  'llms-full.txt',
+  'llms.mdx',
+  'llms.txt',
+  'og',
+  'sdk',
+];
 const collisions = [];
 
 for (const file of globSync('**/content.md', { cwd: from })) {
