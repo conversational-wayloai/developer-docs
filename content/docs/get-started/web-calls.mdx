@@ -104,7 +104,7 @@ app.use(express.static('public')); // the page and its bundled script
 app.listen(3000, () => console.log('Open http://localhost:3000'));
 ```
 
-You run it in step 5. More detail: [Build the session endpoint](/docs/web-sdk/session-endpoint).
+You run it in step 5. More detail: [Build the session endpoint](/web-sdk/session-endpoint).
 
 </Step>
 <Step>
@@ -208,9 +208,9 @@ Read the server terminal first. It logs every Waylo API error.
 - **"Call failed: ACCESS_DENIED"**: `AGENT_ID` in `src/main.ts` doesn't match `AGENT_ID` in `.env`.
 - **"Call failed: MICROPHONE_DENIED"**: allow the microphone in the address bar, then click **Talk** again.
 - **No microphone prompt at all**: open the page on `localhost` or HTTPS, not a plain-http IP or host name.
-- **Connected but silent**: check your volume and speaker. If the browser blocked audio, see the blocked-audio button in the [full example](/docs/web-sdk/full-example).
+- **Connected but silent**: check your volume and speaker. If the browser blocked audio, see the blocked-audio button in the [full example](/web-sdk/full-example).
 
-More: [Errors and troubleshooting](/docs/web-sdk/errors).
+More: [Errors and troubleshooting](/web-sdk/errors).
 
 ## Recap
 
@@ -218,6 +218,6 @@ Your page starts a call with `WayloVoice`. Your server keeps the API key and cre
 
 ## Next steps
 
-- [Show live captions](/docs/web-sdk/captions)
-- [Errors and troubleshooting](/docs/web-sdk/errors)
-- [Build the session endpoint](/docs/web-sdk/session-endpoint)
+- [Show live captions](/web-sdk/captions)
+- [Errors and troubleshooting](/web-sdk/errors)
+- [Build the session endpoint](/web-sdk/session-endpoint)

@@ -12,9 +12,9 @@ type Page = NonNullable<ReturnType<typeof source.getPage>>;
 function cleanMarkdown(text: string) {
   return text
     .replace(/\\([{}])/g, '$1')
-    .replace(
-      /\]\((\/docs\/[^)#\s]*)(#[^)\s]*)?\)/g,
-      (_, path: string, hash = '') => `](${markdownPath(path)}${hash})`,
+    .replace(/\]\((\/[^)#\s]*)(#[^)\s]*)?\)/g, (link: string, path: string, hash = '') =>
+      // Only page links; assets such as /sdk/llms.txt keep their URL.
+      source.getPage(path.split('/').filter(Boolean)) ? `](${markdownPath(path)}${hash})` : link,
     )
     .replace(/\n{3,}/g, '\n\n')
     .trim();

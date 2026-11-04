@@ -43,17 +43,17 @@ Next to it, while `network` is `poor` or `lost`: "Your connection is weak, you m
 | `volume` | last `setVolume()` value, default 1 |
 | `sessionId` | the Waylo session id, once known |
 | `microphoneDeviceId`, `speakerDeviceId` | the chosen device, or the one in use once the call has it; unset or `'default'` means the system default |
-| `timings` | how long each step of the call took, from `start()` on ([Measure start-up time](/docs/web-sdk/timings)) |
+| `timings` | how long each step of the call took, from `start()` on ([Measure start-up time](/web-sdk/timings)) |
 | `end` | set once when the call is over: `{ status: 'completed', reason? }` or `{ status: 'failed', reason?, error }` |
 
 `network` is how well this browser's connection to the call is doing. When it's `poor` or `lost`, show a non-blocking banner; the call goes on, and `connection` says if it's reconnecting.
 
 - `network` follows LiveKit's quality score once a dip lasts 2 s. It also turns `poor` after 3 s with no data arriving, after 2 s with the browser's network path down, or while `connection` is `reconnecting`, until data flows again for 1 s.
 - `connection` turns `reconnecting` at once when the browser goes offline, after 8 s with no data, or within 2 s of LiveKit starting to reconnect. It turns back once LiveKit reconnects or data flows again, after at least 1 s.
-- After 45 s of `reconnecting`, the call ends with [`CONNECTION_LOST`](/docs/web-sdk/errors).
+- After 45 s of `reconnecting`, the call ends with [`CONNECTION_LOST`](/web-sdk/errors).
 
 ## How a call ends
 
 `end.reason` is one of `caller_hangup`, `caller_inactive`, `caller_goodbye`, `caller_not_joined`, `agent_end`, `busy`, `no_answer`, `rejected`, `cancelled`, `provider_error`, `provider_key_failed`, `worker_error`, `max_duration`, `timeout`.
 
-`end` is what this browser saw. A failed call also has `end.error`, a [`WayloVoiceError`](/docs/web-sdk/errors).
+`end` is what this browser saw. A failed call also has `end.error`, a [`WayloVoiceError`](/web-sdk/errors).

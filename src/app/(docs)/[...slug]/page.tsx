@@ -17,9 +17,7 @@ import { imageUrl, markdownPath } from '~/modules/urls';
 
 import { OpenAPIPage } from '~/components/ApiPage';
 
-export async function generateMetadata({
-  params,
-}: PageProps<'/docs/[[...slug]]'>): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<'/[...slug]'>): Promise<Metadata> {
   const { slug } = await params;
   const page = source.getPage(slug);
 
@@ -38,7 +36,7 @@ export async function generateStaticParams() {
   return source.generateParams();
 }
 
-export default async function Page({ params }: PageProps<'/docs/[[...slug]]'>) {
+export default async function Page({ params }: PageProps<'/[...slug]'>) {
   const { slug } = await params;
   const page = source.getPage(slug);
 

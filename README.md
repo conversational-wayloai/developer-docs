@@ -23,7 +23,7 @@ Run `pnpm validate` (lint + typecheck) before pushing. The pre-commit hook runs 
 
 The site builds for the `/developer-docs` path. To build and serve the static export at the root: `pnpm preview`.
 
-For AI tools, `/llms.txt` lists every page, `/llms-full.txt` has them all in one file, and each page is also plain Markdown at `/docs/<page>.md` (copied there by `scripts/md-pages.mjs` after `next build`).
+For AI tools, `/llms.txt` lists every page, `/llms-full.txt` has them all in one file, and each page is also plain Markdown at `/<page>.md` (copied there by `scripts/md-pages.mjs` after `next build`).
 
 ## Sync the SDK docs
 

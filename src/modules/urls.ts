@@ -2,7 +2,7 @@ import { createGetUrl } from 'fumadocs-core/source';
 
 import { basePath } from '~/config/env';
 
-export const documentationRoute = '/docs';
+export const documentationRoute = '/';
 export const documentationImageRoute = '/og/docs';
 
 const getImageUrl = createGetUrl(documentationImageRoute);

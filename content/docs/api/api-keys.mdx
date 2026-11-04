@@ -6,7 +6,7 @@ icon: Key
 
 An API key lets a server call the Waylo API with no person signed in. It belongs to your organization, not to the person who created it.
 
-Only organization owners and admins manage keys, in the dashboard under **Integrations → API keys**. Neither a key nor an agent on the [MCP server](/docs/mcp-server) can create, rotate or revoke keys.
+Only organization owners and admins manage keys, in the dashboard under **Integrations → API keys**. Neither a key nor an agent on the [MCP server](/mcp-server) can create, rotate or revoke keys.
 
 ## Create a key
 
@@ -14,7 +14,7 @@ Only organization owners and admins manage keys, in the dashboard under **Integr
 2. Enter a **Name** that says where the key is used, like `production web calls`.
 3. Under **Access**, choose:
    - **Standard**: reads and writes everything a key can reach, including scopes added later.
-   - **Scoped**: only the access you set per resource: **None**, **Read** or **Write**. See [Scopes](/docs/api/scopes).
+   - **Scoped**: only the access you set per resource: **None**, **Read** or **Write**. See [Scopes](/api/scopes).
 4. Under **Workspace**, pick one workspace, or leave it empty for a key across all workspaces.
 5. Under **Expires**, pick **Never**, **30 days**, **90 days** or **1 year**.
 6. Click **Create**, then copy the key and store it in your server's secrets.
@@ -27,13 +27,13 @@ A key looks like `sk_waylo_` followed by 65 letters and digits. The list shows i
 
 ## Use a key with an MCP client
 
-A key also works on the [MCP server](/docs/mcp-server), for an AI agent with no person present. The agent sees only the tools the key's scopes allow. After you create or rotate a key, the dialog shows the Claude Code command with the key filled in:
+A key also works on the [MCP server](/mcp-server), for an AI agent with no person present. The agent sees only the tools the key's scopes allow. After you create or rotate a key, the dialog shows the Claude Code command with the key filled in:
 
 ```sh
 claude mcp add --transport http waylo {{API_URL}}/mcp --header "Authorization: Bearer sk_waylo_..."
 ```
 
-See [Connect with an API key](/docs/mcp-server/connect#with-an-api-key) for other clients.
+See [Connect with an API key](/mcp-server/connect#with-an-api-key) for other clients.
 
 ## Workspace keys and organization keys
 
@@ -60,5 +60,5 @@ An expired or revoked key answers `401 UNAUTHORIZED`.
 
 - Use one key per server or job, so you can rotate or revoke one without touching the others.
 - Use separate keys for development, staging and production.
-- Use a workspace key with **Scoped** access for a server that does one job. For example, a [session endpoint](/docs/web-sdk/session-endpoint) needs only **Sessions: Write**.
+- Use a workspace key with **Scoped** access for a server that does one job. For example, a [session endpoint](/web-sdk/session-endpoint) needs only **Sessions: Write**.
 - Set an expiry and rotate before it.

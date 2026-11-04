@@ -27,15 +27,15 @@ If the link has expired, start the connection again from your agent. A request e
 
 It acts as you, with the same role and workspaces, in that organization. There is no way to approve less yet.
 
-It can do what an [API key](/docs/api/scopes) can, plus read your account, the organization profile, its members, the activity log and the API keys list. It can't change who has access or how anyone signs in: no creating, rotating or revoking API keys, no adding, removing or changing members and their workspaces, no editing the organization profile, and no changes to your own account. It also can't upload or download document files. See [Tools](/docs/mcp-server/tools).
+It can do what an [API key](/api/scopes) can, plus read your account, the organization profile, its members, the activity log and the API keys list. It can't change who has access or how anyone signs in: no creating, rotating or revoking API keys, no adding, removing or changing members and their workspaces, no editing the organization profile, and no changes to your own account. It also can't upload or download document files. See [Tools](/mcp-server/tools).
 
-This page is about signing in as a person. An agent using an [API key](/docs/mcp-server/connect#with-an-api-key) needs no approval and acts as the key.
+This page is about signing in as a person. An agent using an [API key](/mcp-server/connect#with-an-api-key) needs no approval and acts as the key.
 
 Platform admins can't connect an agent: they act in no organization.
 
 ## How long it lasts
 
-The agent stays connected until you [disconnect it](/docs/mcp-server/disconnect). Behind that:
+The agent stays connected until you [disconnect it](/mcp-server/disconnect). Behind that:
 
 - Its access token lasts 15 minutes. The agent renews it on its own.
 - The renewal token lasts 30 days and changes on every renewal. An agent that stops using Waylo for 30 days must connect again.
