@@ -42,7 +42,7 @@
   "scripts": {
     "build": "next build && node scripts/md-pages.mjs",
     "dev": "next dev",
-    "preview": "BASE_PATH= pnpm build && serve out",
+    "preview": "pnpm build && serve out",
     "sync:sdk": "./scripts/sync-sdk.sh",
     "lint": "eslint --cache --fix .",
     "typecheck": "next typegen && tsc --noEmit",

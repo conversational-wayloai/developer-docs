@@ -1,7 +1,5 @@
 import { createGetUrl } from 'fumadocs-core/source';
 
-import { basePath } from '~/config/env';
-
 export const documentationRoute = '/';
 export const documentationImageRoute = '/og/docs';
 
@@ -19,8 +17,4 @@ export function imageUrl(page: { locale?: string; slugs: string[] }) {
 
 export function markdownPath(url: string) {
   return `${url}.md`;
-}
-
-export function withBasePath(markdown: string) {
-  return markdown.replaceAll('](/', `](${basePath}/`);
 }

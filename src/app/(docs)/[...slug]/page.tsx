@@ -10,7 +10,6 @@ import { createRelativeLink } from 'fumadocs-ui/mdx';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { basePath } from '~/config/env';
 import { getMDXComponents } from '~/modules/mdx';
 import { source } from '~/modules/source';
 import { imageUrl, markdownPath } from '~/modules/urls';
@@ -27,7 +26,7 @@ export async function generateMetadata({ params }: PageProps<'/[...slug]'>): Pro
     title: page.data.title,
     description: page.data.description,
     openGraph: {
-      images: basePath + imageUrl(page).url,
+      images: imageUrl(page).url,
     },
   };
 }
@@ -42,7 +41,7 @@ export default async function Page({ params }: PageProps<'/[...slug]'>) {
 
   if (!page) notFound();
 
-  const pageMarkdownUrl = basePath + markdownPath(page.url);
+  const pageMarkdownUrl = markdownPath(page.url);
 
   if (page.type === 'openapi') {
     return (
