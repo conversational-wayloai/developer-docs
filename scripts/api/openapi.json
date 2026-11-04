@@ -184,6 +184,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -266,6 +285,25 @@
           },
           "404": {
             "description": "No such agent, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -369,6 +407,35 @@
               }
             }
           },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -455,6 +522,35 @@
           },
           "404": {
             "description": "No such agent or link, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -738,6 +834,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -822,6 +937,35 @@
           },
           "404": {
             "description": "No such workspace or catalog, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -915,6 +1059,25 @@
           },
           "404": {
             "description": "No such agent, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1025,7 +1188,26 @@
             }
           },
           "409": {
-            "description": "A tool name collides with a builtin or another tool on the agent",
+            "description": "A tool name collides with a builtin or another tool on the agent, or the workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1203,6 +1385,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -1296,6 +1497,25 @@
           },
           "404": {
             "description": "No such agent or version, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1406,7 +1626,26 @@
             }
           },
           "409": {
-            "description": "A tool name collides with a builtin or another tool on the agent",
+            "description": "A tool name collides with a builtin or another tool on the agent, or the workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1500,6 +1739,25 @@
           },
           "404": {
             "description": "No such agent or draft, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1610,7 +1868,26 @@
             }
           },
           "409": {
-            "description": "The agent has a newer version than `baseVersion`",
+            "description": "The agent has a newer version than `baseVersion`, or the workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1695,6 +1972,35 @@
           },
           "404": {
             "description": "No such agent, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1797,7 +2103,26 @@
             }
           },
           "409": {
-            "description": "A tool name collides with a builtin or another tool on the agent",
+            "description": "A tool name collides with a builtin or another tool on the agent, or the workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1862,6 +2187,25 @@
           },
           "401": {
             "description": "Invalid or missing credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2094,6 +2438,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -2187,7 +2550,26 @@
             }
           },
           "409": {
-            "description": "Another tool in the workspace has that name",
+            "description": "Another tool in the workspace has that name, or the workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2275,6 +2657,35 @@
           },
           "403": {
             "description": "Using a credential needs `credentials:write`, or the key does not hold `tools:write`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2381,6 +2792,35 @@
           },
           "404": {
             "description": "No such tool, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2503,7 +2943,26 @@
             }
           },
           "409": {
-            "description": "The new name is taken in the workspace, or collides on an agent carrying the tool",
+            "description": "The new name is taken in the workspace, or collides on an agent carrying the tool, or the workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2595,6 +3054,25 @@
           },
           "404": {
             "description": "No such tool, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2819,6 +3297,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -2903,6 +3400,35 @@
           },
           "404": {
             "description": "No such workspace, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3024,6 +3550,35 @@
               }
             }
           },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -3117,6 +3672,25 @@
           },
           "404": {
             "description": "No such credential, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3221,6 +3795,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -3317,7 +3910,26 @@
             }
           },
           "409": {
-            "description": "Tool name collides with a builtin or another assigned tool",
+            "description": "Tool name collides with a builtin or another assigned tool, or the workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3412,6 +4024,35 @@
           },
           "404": {
             "description": "No such agent or link, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3638,6 +4279,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -3716,6 +4376,25 @@
           },
           "404": {
             "description": "No such workspace",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3821,6 +4500,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -3893,6 +4591,25 @@
           },
           "404": {
             "description": "No such live key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4111,6 +4828,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -4171,6 +4907,25 @@
           },
           "401": {
             "description": "Invalid or missing credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4406,6 +5161,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -4490,6 +5264,35 @@
           },
           "404": {
             "description": "No such workspace, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4602,7 +5405,26 @@
             }
           },
           "409": {
-            "description": "An agent, active or not, still uses the catalog",
+            "description": "An agent, active or not, still uses the catalog, or the workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4694,6 +5516,25 @@
           },
           "404": {
             "description": "No such catalog, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4977,6 +5818,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -5076,6 +5936,35 @@
           },
           "404": {
             "description": "No such catalog, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5300,6 +6189,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -5385,6 +6293,25 @@
           },
           "404": {
             "description": "No such delivery, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5487,7 +6414,26 @@
             }
           },
           "409": {
-            "description": "The delivery is waiting or being sent, or its destination or credential is inactive",
+            "description": "The delivery is waiting or being sent, or its destination or credential is inactive, or the workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5710,6 +6656,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -5794,6 +6759,35 @@
           },
           "404": {
             "description": "No such workspace, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5915,6 +6909,35 @@
               }
             }
           },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -5998,6 +7021,25 @@
           },
           "404": {
             "description": "No such destination, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6091,6 +7133,35 @@
           },
           "404": {
             "description": "No such destination, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6338,6 +7409,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -6444,6 +7534,35 @@
           },
           "404": {
             "description": "No such workspace, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6581,6 +7700,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -6666,6 +7804,25 @@
           },
           "404": {
             "description": "No such document, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6775,6 +7932,35 @@
               }
             }
           },
+          "409": {
+            "description": "The workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -6860,7 +8046,26 @@
             }
           },
           "409": {
-            "description": "The document is assigned to one or more agents",
+            "description": "The document is assigned to one or more agents, or the workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6926,7 +8131,7 @@
           "400": {
             "description": "Request failed validation",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
@@ -6936,7 +8141,7 @@
           "401": {
             "description": "Invalid or missing credentials",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
@@ -6946,7 +8151,7 @@
           "403": {
             "description": "The key does not hold `documents:read`",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
@@ -6956,7 +8161,26 @@
           "404": {
             "description": "No such document, or you may not reach it",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
@@ -6966,7 +8190,7 @@
           "500": {
             "description": "Unexpected error",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiErrorResponse"
                 }
@@ -7224,6 +8448,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -7309,6 +8552,25 @@
           },
           "404": {
             "description": "No such order, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -7433,6 +8695,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -7538,7 +8819,26 @@
             }
           },
           "409": {
-            "description": "This session has already ended or is about to time out, or the draft has conflicting tools",
+            "description": "This session has already ended or is about to time out, or the draft has conflicting tools, or the workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -7679,6 +8979,8 @@
                 "caller_hangup",
                 "caller_inactive",
                 "caller_goodbye",
+                "caller_not_joined",
+                "connection_lost",
                 "agent_end",
                 "busy",
                 "no_answer",
@@ -7894,6 +9196,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -7979,6 +9300,25 @@
           },
           "404": {
             "description": "No such session, or you may not reach its workspace",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -8194,6 +9534,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -8278,6 +9637,25 @@
           },
           "422": {
             "description": "The carrier rejected these credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -8401,6 +9779,25 @@
           },
           "409": {
             "description": "The connection is retired",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -8542,6 +9939,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -8645,6 +10061,25 @@
           },
           "404": {
             "description": "No such connection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -8887,6 +10322,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -8980,7 +10434,7 @@
             }
           },
           "409": {
-            "description": "The number is already in use, or the connection is not provisioned",
+            "description": "The number is already in use, or the connection is not provisioned, or the workspace is disabled",
             "content": {
               "application/json": {
                 "schema": {
@@ -8991,6 +10445,25 @@
           },
           "422": {
             "description": "Not in the connected account, or the agent is not in this workspace",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9113,7 +10586,26 @@
             }
           },
           "409": {
-            "description": "The number is retired, or its connection is not provisioned",
+            "description": "The number is retired, or its connection is not provisioned, or the workspace is disabled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9236,7 +10728,7 @@
             }
           },
           "409": {
-            "description": "The number is active elsewhere, or the connection is not provisioned",
+            "description": "The number is active elsewhere, or the connection is not provisioned, or the workspace is disabled",
             "content": {
               "application/json": {
                 "schema": {
@@ -9247,6 +10739,25 @@
           },
           "422": {
             "description": "Not in the connected account, or the agent is not in this workspace",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9366,6 +10877,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -9440,6 +10970,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -9506,6 +11055,25 @@
           },
           "403": {
             "description": "The key does not hold `provider_keys:read`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9590,6 +11158,25 @@
           },
           "403": {
             "description": "Your tenant role does not permit this, or the key does not hold `provider_keys:write`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9688,6 +11275,25 @@
           },
           "403": {
             "description": "Your tenant role does not permit this, or the key does not hold `provider_keys:write`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9795,6 +11401,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -9893,6 +11518,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -9923,7 +11567,7 @@
     },
     "/sessions/{sessionId}/events": {
       "get": {
-        "description": "Structured event trace for one session, in `seq` order: tool calls and results, turn metrics, provider failures and degradations, and startup failures. Workspace admin only.\n\n**Access:** workspace_admin · API key `sessions:read`",
+        "description": "Structured event trace for one session, in `seq` order: pipeline stages (caller speech, model steps, synthesis, agent speech), tool calls and results, provider failures and degradations, and startup failures. Workspace admin only.\n\n**Access:** workspace_admin · API key `sessions:read`",
         "operationId": "getSessionEvents",
         "parameters": [
           {
@@ -9989,6 +11633,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -10009,6 +11672,118 @@
           }
         ],
         "summary": "Get session events",
+        "tags": [
+          "session-events"
+        ],
+        "x-api-scopes": [
+          "sessions:read"
+        ]
+      }
+    },
+    "/sessions/{sessionId}/latency": {
+      "get": {
+        "description": "Per caller turn: first audio, full reply, the end-of-turn wait, model, tool and synthesis timings, and the provider and model that ran each, derived from the session's stage events. Plus count, p50, p90 and max per turn kind. Times are milliseconds. The words need `transcripts:read`. Workspace admin only.\n\n**Access:** workspace_admin · API key `sessions:read`",
+        "operationId": "getSessionLatency",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionLatencyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request failed validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or missing credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The key does not hold `sessions:read`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such session, or you may not reach its workspace as admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "api-key": []
+          }
+        ],
+        "summary": "Get session latency",
         "tags": [
           "session-events"
         ],
@@ -10077,6 +11852,25 @@
           },
           "404": {
             "description": "No such session, or you may not reach its workspace",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10178,6 +11972,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -10257,6 +12070,25 @@
           },
           "404": {
             "description": "No such open request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10352,6 +12184,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -10405,6 +12256,25 @@
           },
           "401": {
             "description": "Invalid or missing credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10483,6 +12353,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -10544,6 +12433,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -10574,7 +12482,7 @@
     },
     "/stats": {
       "get": {
-        "description": "Entity counts for the tenant — workspaces, agents, catalogs, orders, users and sessions — spanning the whole tenant, or one workspace when `workspaceId` is given.\n\n**Access:** tenant_admin · API key `stats:read`",
+        "description": "Live entity counts for the tenant — workspaces, agents, catalogs, orders, users, sessions, documents, tools, credentials, destinations, phone numbers, API keys, telephony connections and provider keys — spanning the whole tenant, or one workspace when `workspaceId` is given. Scoped to a workspace, `apiKeys` counts the keys pinned to it, and the tenant-level `telephony` and `providerKeys` are null.\n\n**Access:** tenant_admin · API key `stats:read`",
         "operationId": "getStats",
         "parameters": [
           {
@@ -10630,6 +12538,25 @@
           },
           "404": {
             "description": "No such tenant or workspace, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10704,6 +12631,25 @@
           },
           "403": {
             "description": "Your tenant role does not permit this",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10788,6 +12734,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -10858,6 +12823,25 @@
           },
           "409": {
             "description": "That email or phone is already in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11068,6 +13052,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -11164,6 +13167,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -11243,6 +13265,25 @@
           },
           "404": {
             "description": "No such member in this tenant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11356,6 +13397,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -11436,6 +13496,25 @@
           },
           "409": {
             "description": "A tenant must keep at least one owner",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11549,6 +13628,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -11635,6 +13733,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -11707,6 +13824,25 @@
           },
           "404": {
             "description": "No such person in this tenant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11945,6 +14081,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -12047,6 +14202,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -12140,6 +14314,25 @@
               }
             }
           },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Unexpected error",
             "content": {
@@ -12168,7 +14361,7 @@
         ]
       },
       "patch": {
-        "description": "Change any part of a workspace, including retiring it with `active: false` and the way back. It never moves between tenants. A `metadata` sent here replaces the stored object whole rather than merging into it.\n\n**Access:** tenant_admin · API key `workspaces:write`",
+        "description": "Change any part of a workspace, including retiring it with `active: false` and the way back, or making it the default with `isDefault: true`. It never moves between tenants. A `metadata` sent here replaces the stored object whole rather than merging into it.\n\n**Access:** tenant_admin · API key `workspaces:write`",
         "operationId": "updateWorkspace",
         "parameters": [
           {
@@ -12242,7 +14435,26 @@
             }
           },
           "409": {
-            "description": "That external id is already in use in this tenant",
+            "description": "That external id is already in use in this tenant, or the default would be inactive",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12469,6 +14681,25 @@
           },
           "404": {
             "description": "No such workspace, or you may not reach it",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests from this caller; retry after `Retry-After` seconds",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds until the caller may retry",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12712,6 +14943,7 @@
               "FORBIDDEN",
               "NOT_FOUND",
               "CONFLICT",
+              "WORKSPACE_DISABLED",
               "VALIDATION_FAILED",
               "TENANT_CONTEXT_REQUIRED",
               "RATE_LIMITED",
@@ -12802,6 +15034,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -12809,6 +15046,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -12835,8 +15077,10 @@
           "embeddedChunkCount",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt"
         ],
@@ -13268,6 +15512,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -13275,6 +15524,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -13317,8 +15571,10 @@
           "active",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt"
         ]
@@ -13644,6 +15900,11 @@
           "createdByUserName": {
             "type": "string",
             "nullable": true
+          },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
           }
         },
         "required": [
@@ -13651,7 +15912,8 @@
           "restoredFrom",
           "createdAt",
           "createdByUserId",
-          "createdByUserName"
+          "createdByUserName",
+          "createdByApiKeyId"
         ]
       },
       "AgentVersionDocumentResponse": {
@@ -13849,6 +16111,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "config": {
             "$ref": "#/components/schemas/AgentVersionConfigResponse"
           }
@@ -13859,6 +16126,7 @@
           "createdAt",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "config"
         ]
       },
@@ -15114,6 +17382,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -15121,6 +17394,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -15158,8 +17436,10 @@
           "agentCount",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt",
           "type",
@@ -15229,6 +17509,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -15236,6 +17521,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -15275,8 +17565,10 @@
           "agentCount",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt",
           "type",
@@ -15312,6 +17604,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -15319,6 +17616,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -15355,8 +17657,10 @@
           "agentCount",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt",
           "type",
@@ -15395,6 +17699,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -15402,6 +17711,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -15439,8 +17753,10 @@
           "agentCount",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt",
           "type",
@@ -15673,6 +17989,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -15680,6 +18001,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -15700,8 +18026,10 @@
           "usage",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt"
         ]
@@ -15783,8 +18111,7 @@
           },
           "keyHint": {
             "type": "string",
-            "x-key-tag": "sk_waylo_",
-            "x-mcp-path": "mcp"
+            "x-key-tag": "sk_waylo_"
           },
           "type": {
             "type": "string",
@@ -15882,7 +18209,8 @@
           "createdByUserId",
           "createdByUserName",
           "createdAt"
-        ]
+        ],
+        "x-mcp-path": "mcp"
       },
       "CreateApiKeyDto": {
         "type": "object",
@@ -16179,6 +18507,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -16186,6 +18519,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -16208,8 +18546,10 @@
           "agents",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt"
         ]
@@ -16320,6 +18660,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -16327,6 +18672,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -16352,8 +18702,10 @@
           "active",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt"
         ]
@@ -16630,6 +18982,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -16637,6 +18994,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -16661,8 +19023,10 @@
           "active",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt"
         ]
@@ -17438,6 +19802,8 @@
               "caller_hangup",
               "caller_inactive",
               "caller_goodbye",
+              "caller_not_joined",
+              "connection_lost",
               "agent_end",
               "busy",
               "no_answer",
@@ -17962,6 +20328,8 @@
               "caller_hangup",
               "caller_inactive",
               "caller_goodbye",
+              "caller_not_joined",
+              "connection_lost",
               "agent_end",
               "busy",
               "no_answer",
@@ -18208,6 +20576,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -18215,6 +20588,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -18244,8 +20622,10 @@
           "numberCount",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt",
           "provider",
@@ -18355,6 +20735,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -18362,6 +20747,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -18389,8 +20779,10 @@
           "active",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt"
         ]
@@ -18523,6 +20915,11 @@
             "type": "string",
             "nullable": true
           },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -18540,6 +20937,7 @@
           "lastValidatedAt",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt"
         ]
@@ -18716,6 +21114,11 @@
             "type": "string",
             "nullable": true
           },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -18741,6 +21144,7 @@
           "lastValidatedAt",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt",
           "check"
@@ -18788,7 +21192,11 @@
               "call",
               "result",
               "unresolved",
-              "metrics"
+              "metrics",
+              "caller_speech",
+              "llm_step",
+              "synthesis",
+              "agent_speech"
             ]
           },
           "severity": {
@@ -18821,7 +21229,7 @@
           },
           "subject": {
             "type": "string",
-            "description": "The tool name for a tool event, the speaker role for a turn event.",
+            "description": "The tool name for a tool event, the speech purpose for an agent speech.",
             "nullable": true
           },
           "code": {
@@ -18836,6 +21244,8 @@
               "caller_hangup",
               "caller_inactive",
               "caller_goodbye",
+              "caller_not_joined",
+              "connection_lost",
               "agent_end",
               "busy",
               "no_answer",
@@ -18868,7 +21278,13 @@
           "occurredAt": {
             "type": "string",
             "format": "date-time",
-            "description": "When it happened, on the worker clock."
+            "description": "When it happened, or the stage started, on the worker clock."
+          },
+          "endedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the stage ended, on the worker clock. Null for an event that is not a stage.",
+            "nullable": true
           },
           "payload": {
             "type": "object",
@@ -18894,6 +21310,7 @@
           "subject",
           "code",
           "occurredAt",
+          "endedAt",
           "createdAt"
         ],
         "x-names-by-category": {
@@ -18914,7 +21331,11 @@
             "unresolved"
           ],
           "turn": [
-            "metrics"
+            "metrics",
+            "caller_speech",
+            "llm_step",
+            "synthesis",
+            "agent_speech"
           ],
           "audio": [
             "started",
@@ -18936,6 +21357,247 @@
           "end_session": "End session",
           "search_documents": "Search documents"
         }
+      },
+      "SessionLatencySynthesis": {
+        "type": "object",
+        "properties": {
+          "ttfbMs": {
+            "type": "number",
+            "description": "Time to first byte, in milliseconds.",
+            "nullable": true
+          },
+          "provider": {
+            "type": "string",
+            "description": "The provider that actually ran.",
+            "nullable": true
+          },
+          "model": {
+            "type": "string",
+            "description": "The model that actually ran.",
+            "nullable": true
+          }
+        },
+        "required": [
+          "ttfbMs",
+          "provider",
+          "model"
+        ]
+      },
+      "SessionLatencyLlmStep": {
+        "type": "object",
+        "properties": {
+          "durationMs": {
+            "type": "number",
+            "description": "Start to last token, in milliseconds."
+          },
+          "ttftMs": {
+            "type": "number",
+            "description": "Time to first token, in milliseconds.",
+            "nullable": true
+          },
+          "provider": {
+            "type": "string",
+            "description": "The provider that actually ran.",
+            "nullable": true
+          },
+          "model": {
+            "type": "string",
+            "description": "The model that actually ran.",
+            "nullable": true
+          }
+        },
+        "required": [
+          "durationMs",
+          "ttftMs",
+          "provider",
+          "model"
+        ]
+      },
+      "SessionLatencyTool": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "durationMs": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "required": [
+          "name",
+          "durationMs"
+        ]
+      },
+      "SessionLatencyTurn": {
+        "type": "object",
+        "properties": {
+          "callerIdempotencyKey": {
+            "type": "string",
+            "description": "The caller line's idempotency key.",
+            "format": "uuid"
+          },
+          "callerText": {
+            "type": "string",
+            "description": "What the caller said. Null without `transcripts:read`.",
+            "nullable": true
+          },
+          "answerIdempotencyKey": {
+            "type": "string",
+            "description": "The answer line's idempotency key: the first reply or goodbye. Null without an answer.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "answerText": {
+            "type": "string",
+            "description": "What the agent answered. Null without `transcripts:read` or without an answer.",
+            "nullable": true
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "tool",
+              "tool_spoken"
+            ]
+          },
+          "acked": {
+            "type": "boolean",
+            "description": "An ack played before the answer."
+          },
+          "callerStoppedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "firstAudioMs": {
+            "type": "number",
+            "description": "Caller stopped speaking to the first ack, reply or goodbye heard, in milliseconds.",
+            "nullable": true
+          },
+          "fullReplyMs": {
+            "type": "number",
+            "description": "Caller stopped speaking to the first reply or goodbye heard, in milliseconds.",
+            "nullable": true
+          },
+          "endOfTurnMs": {
+            "type": "number",
+            "description": "How long end-of-turn detection waited after the caller stopped, in milliseconds.",
+            "nullable": true
+          },
+          "llmSteps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SessionLatencyLlmStep"
+            }
+          },
+          "tools": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SessionLatencyTool"
+            }
+          },
+          "synthesis": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SessionLatencySynthesis"
+              }
+            ]
+          }
+        },
+        "required": [
+          "callerIdempotencyKey",
+          "callerText",
+          "answerIdempotencyKey",
+          "answerText",
+          "kind",
+          "acked",
+          "callerStoppedAt",
+          "firstAudioMs",
+          "fullReplyMs",
+          "endOfTurnMs",
+          "llmSteps",
+          "tools",
+          "synthesis"
+        ]
+      },
+      "SessionLatencyStat": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number"
+          },
+          "p50": {
+            "type": "number",
+            "nullable": true
+          },
+          "p90": {
+            "type": "number",
+            "nullable": true
+          },
+          "max": {
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "required": [
+          "count",
+          "p50",
+          "p90",
+          "max"
+        ]
+      },
+      "SessionLatencySummary": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "tool",
+              "tool_spoken"
+            ]
+          },
+          "count": {
+            "type": "number",
+            "description": "Every caller turn of this kind, answered or not."
+          },
+          "firstAudio": {
+            "$ref": "#/components/schemas/SessionLatencyStat"
+          },
+          "fullReply": {
+            "$ref": "#/components/schemas/SessionLatencyStat"
+          }
+        },
+        "required": [
+          "kind",
+          "count",
+          "firstAudio",
+          "fullReply"
+        ]
+      },
+      "SessionLatencyResponse": {
+        "type": "object",
+        "properties": {
+          "turns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SessionLatencyTurn"
+            }
+          },
+          "summary": {
+            "description": "One row per kind that has turns.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SessionLatencySummary"
+            }
+          }
+        },
+        "required": [
+          "turns",
+          "summary"
+        ]
       },
       "AuthorizationRequestResponse": {
         "type": "object",
@@ -19124,6 +21786,34 @@
           },
           "sessions": {
             "type": "number"
+          },
+          "documents": {
+            "type": "number"
+          },
+          "tools": {
+            "type": "number"
+          },
+          "credentials": {
+            "type": "number"
+          },
+          "destinations": {
+            "type": "number"
+          },
+          "phoneNumbers": {
+            "type": "number"
+          },
+          "apiKeys": {
+            "type": "number"
+          },
+          "telephony": {
+            "type": "number",
+            "nullable": true,
+            "description": "Null when scoped to a workspace."
+          },
+          "providerKeys": {
+            "type": "number",
+            "nullable": true,
+            "description": "Null when scoped to a workspace."
           }
         },
         "required": [
@@ -19132,7 +21822,15 @@
           "catalogs",
           "orders",
           "users",
-          "sessions"
+          "sessions",
+          "documents",
+          "tools",
+          "credentials",
+          "destinations",
+          "phoneNumbers",
+          "apiKeys",
+          "telephony",
+          "providerKeys"
         ]
       },
       "TenantResponse": {
@@ -19363,6 +22061,11 @@
             "type": "string",
             "nullable": true
           },
+          "grantedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "grantedAt": {
             "type": "string",
             "format": "date-time"
@@ -19381,6 +22084,7 @@
           "phone",
           "tenantRole",
           "grantedByUserName",
+          "grantedByApiKeyId",
           "grantedAt",
           "workspaces"
         ]
@@ -19560,6 +22264,9 @@
           "active": {
             "type": "boolean"
           },
+          "isDefault": {
+            "type": "boolean"
+          },
           "memberCount": {
             "type": "number"
           },
@@ -19572,6 +22279,11 @@
             "type": "string",
             "nullable": true
           },
+          "createdByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "updatedByUserId": {
             "type": "string",
             "format": "uuid",
@@ -19579,6 +22291,11 @@
           },
           "updatedByUserName": {
             "type": "string",
+            "nullable": true
+          },
+          "updatedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           },
           "createdAt": {
@@ -19597,11 +22314,14 @@
           "timezone",
           "metadata",
           "active",
+          "isDefault",
           "memberCount",
           "createdByUserId",
           "createdByUserName",
+          "createdByApiKeyId",
           "updatedByUserId",
           "updatedByUserName",
+          "updatedByApiKeyId",
           "createdAt",
           "updatedAt"
         ]
@@ -19637,6 +22357,11 @@
             "type": "string",
             "nullable": true
           },
+          "grantedByApiKeyId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "grantedAt": {
             "type": "string",
             "format": "date-time"
@@ -19649,6 +22374,7 @@
           "phone",
           "roleKey",
           "grantedByUserName",
+          "grantedByApiKeyId",
           "grantedAt"
         ]
       },
@@ -19703,6 +22429,12 @@
           },
           "active": {
             "type": "boolean"
+          },
+          "isDefault": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
           }
         }
       },

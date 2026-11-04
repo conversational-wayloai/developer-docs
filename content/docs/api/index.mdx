@@ -52,6 +52,8 @@ Every error has the same shape:
 | `FORBIDDEN` | 403 | The key lacks the scope, or the operation does not accept a key. |
 | `NOT_FOUND` | 404 | The resource does not exist, or the key cannot reach it. |
 | `CONFLICT` | 409 | The request conflicts with the resource's current state. |
+| `WORKSPACE_DISABLED` | 409 | The workspace is disabled. Its resources can still be read, not changed. |
+| `RATE_LIMITED` | 429 | The key sent too many requests. Retry after the `Retry-After` header's seconds. |
 | `SERVICE_UNAVAILABLE` | 503 | A dependency is down. Retry later. |
 | `INTERNAL_ERROR` | 500 | An unexpected failure. |
 
