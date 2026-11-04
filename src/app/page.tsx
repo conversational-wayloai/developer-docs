@@ -1,6 +1,4 @@
-import { basePath } from '~/config/env';
-
-const target = `${basePath}/get-started`;
+const target = '/get-started';
 
 // A static export can't send an HTTP redirect. The script runs before first paint, and
 // `replace` keeps `/` out of the history so Back doesn't land here again.

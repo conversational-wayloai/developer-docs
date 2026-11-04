@@ -1,13 +1,13 @@
 # Waylo developer docs
 
-Source for the Waylo Voice developer docs at https://conversational-wayloai.github.io/developer-docs/: what Waylo Voice is, and the Web SDK (`@waylovoice/client`). Built with [Fumadocs](https://fumadocs.dev) and exported as static pages.
+Source for the Waylo Voice developer docs at https://docs.staging.app.waylovoice.ai: what Waylo Voice is, and the Web SDK (`@waylovoice/client`). Built with [Fumadocs](https://fumadocs.dev) and exported as static pages.
 
 ## Run locally
 
 ```sh
 pnpm install
 cp .env.example .env     # optional, see the file for each variable
-pnpm dev                 # http://localhost:3000/developer-docs
+pnpm dev                 # http://localhost:3000
 ```
 
 Run `pnpm validate` (lint + typecheck) before pushing. The pre-commit hook runs the typecheck and formats staged files.
@@ -16,12 +16,12 @@ Run `pnpm validate` (lint + typecheck) before pushing. The pre-commit hook runs 
 
 - `src/app/`: routes, root layout and providers.
 - `src/components/`: React components.
-- `src/config/`: constants (env, site metadata, layout options).
+- `src/config/`: constants (site metadata, layout options).
 - `src/modules/`: functions (content source, URLs, llms/Markdown output, MDX components).
 - `content/docs/`: the pages, in MDX. Order and titles come from each folder's `meta.json`.
 - `scripts/`: build and sync scripts. `scripts/sdk/` holds the typedoc config for the SDK reference.
 
-The site builds for the `/developer-docs` path. To build and serve the static export at the root: `pnpm preview`.
+To build and serve the static export: `pnpm preview`.
 
 For AI tools, `/llms.txt` lists every page, `/llms-full.txt` has them all in one file, and each page is also plain Markdown at `/<page>.md` (copied there by `scripts/md-pages.mjs` after `next build`).
 
@@ -39,7 +39,7 @@ The script copies the SDK sources into `scripts/sdk/src` (not committed), runs t
 
 ## Deploy
 
-`.github/workflows/deploy.yml` builds the site at the root (`BASE_PATH=`), syncs `out/` to the environment's S3 bucket and invalidates its CloudFront distribution. Each run lints and typechecks first. Runs for the same environment go one at a time, in push order.
+`.github/workflows/deploy.yml` builds the site, syncs `out/` to the environment's S3 bucket and invalidates its CloudFront distribution. Each run lints and typechecks first. Runs for the same environment go one at a time, in push order.
 
 A push to `main` deploys to poc.
 
@@ -56,5 +56,3 @@ A final tag (`vX.Y.Z`) fails the run until the prod environment exists. Any othe
 Each GitHub environment (`poc`, `staging`) sets `DEPLOY_ROLE_ARN`, `DOCS_BUCKET`, `DOCS_DISTRIBUTION_ID` and `API_URL`.
 
 The git tag is the release version. The `version` field in `package.json` does not track releases.
-
-Every push to `main` also publishes `out/` to GitHub Pages under `/developer-docs` (`.github/workflows/pages.yml`).

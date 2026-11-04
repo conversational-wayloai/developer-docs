@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 
 import { pageMarkdown } from '~/modules/llms';
 import { source } from '~/modules/source';
-import { contentSegments, withBasePath } from '~/modules/urls';
+import { contentSegments } from '~/modules/urls';
 
 export const revalidate = false;
 
@@ -22,7 +22,7 @@ export async function GET(
 
   if (!page) notFound();
 
-  return new Response(withBasePath(await pageMarkdown(page)), {
+  return new Response(await pageMarkdown(page), {
     headers: {
       'Content-Type': 'text/markdown',
     },

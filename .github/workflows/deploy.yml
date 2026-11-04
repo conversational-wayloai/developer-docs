@@ -33,8 +33,7 @@ jobs:
       # lint runs with --fix; any fix it makes fails the job here.
       - run: git diff --exit-code
       - run: pnpm typecheck
-      # Build at the domain root (BASE_PATH empty) for S3/CloudFront hosting.
-      - run: BASE_PATH= pnpm build
+      - run: pnpm build
         env:
           API_URL: ${{ vars.API_URL }}
       - name: Configure AWS credentials
@@ -82,8 +81,7 @@ jobs:
       # lint runs with --fix; any fix it makes fails the job here.
       - run: git diff --exit-code
       - run: pnpm typecheck
-      # Build at the domain root (BASE_PATH empty) for S3/CloudFront hosting.
-      - run: BASE_PATH= pnpm build
+      - run: pnpm build
         env:
           API_URL: ${{ vars.API_URL }}
       - name: Configure AWS credentials
