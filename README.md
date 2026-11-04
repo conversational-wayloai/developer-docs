@@ -39,4 +39,22 @@ The script copies the SDK sources into `scripts/sdk/src` (not committed), runs t
 
 ## Deploy
 
-Every push to `main` builds the site and publishes `out/` to GitHub Pages (`.github/workflows/pages.yml`).
+`.github/workflows/deploy.yml` builds the site at the root (`BASE_PATH=`), syncs `out/` to the environment's S3 bucket and invalidates its CloudFront distribution. Each run lints and typechecks first. Runs for the same environment go one at a time, in push order.
+
+A push to `main` deploys to poc.
+
+Cut a release candidate (→ staging):
+
+```sh
+git fetch origin
+git tag v0.2.0-rc.1 origin/main
+git push origin v0.2.0-rc.1
+```
+
+A final tag (`vX.Y.Z`) fails the run until the prod environment exists. Any other `v*` tag also fails.
+
+Each GitHub environment (`poc`, `staging`) sets `DEPLOY_ROLE_ARN`, `DOCS_BUCKET`, `DOCS_DISTRIBUTION_ID` and `API_URL`.
+
+The git tag is the release version. The `version` field in `package.json` does not track releases.
+
+Every push to `main` also publishes `out/` to GitHub Pages under `/developer-docs` (`.github/workflows/pages.yml`).
