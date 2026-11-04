@@ -21,13 +21,13 @@ git -C "$SDK_REPO" archive "$SDK_REF" packages/client/src packages/client/llms.t
 rm -rf "$sdk_src" && mkdir -p "$sdk_src" public/sdk
 cp -r "$tmp/packages/client/src/." "$sdk_src/"
 cp "$tmp/packages/client/llms.txt" public/sdk/llms.txt
-# Point SDK repo links at the docs pages, so llms.txt stays inside the docs site.
+# Point SDK repo links at the docs pages, so llms.txt stays inside the docs site. The build fills in {{DOCS_URL}}.
 node - public/sdk/llms.txt <<'EOF'
 const { readFileSync, writeFileSync } = require('node:fs');
 const file = process.argv[2];
 let text = readFileSync(file, 'utf8')
-  .replace(/^- \[README\]\([^)]*client-sdk-web[^)]*\):/m, `- [Web SDK docs](/web-sdk.md):`)
-  .replace(/^- \[Example app\]\([^)]*client-sdk-web[^)]*\):/m, `- [Full example](/web-sdk/full-example.md):`);
+  .replace(/^- \[README\]\([^)]*client-sdk-web[^)]*\):/m, `- [Web SDK docs]({{DOCS_URL}}/web-sdk.md):`)
+  .replace(/^- \[Example app\]\([^)]*client-sdk-web[^)]*\):/m, `- [Full example]({{DOCS_URL}}/web-sdk/full-example.md):`);
 if (/client-sdk-web/.test(text)) throw new Error(`${file} still links to the SDK repo`);
 writeFileSync(file, text);
 EOF

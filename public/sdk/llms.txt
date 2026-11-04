@@ -285,5 +285,5 @@ wayloVoice?.on('state', state => {
 
 ## Optional
 
-- [Web SDK docs](/web-sdk.md): full guide, endpoint contract, security notes.
-- [Full example](/web-sdk/full-example.md): a working page and Node server.
+- [Web SDK docs]({{DOCS_URL}}/web-sdk.md): full guide, endpoint contract, security notes.
+- [Full example]({{DOCS_URL}}/web-sdk/full-example.md): a working page and Node server.

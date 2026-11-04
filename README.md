@@ -53,6 +53,6 @@ git push origin v0.2.0-rc.1
 
 A final tag (`vX.Y.Z`) fails the run until the prod environment exists. Any other `v*` tag also fails.
 
-Each GitHub environment (`poc`, `staging`) sets `DEPLOY_ROLE_ARN`, `DOCS_BUCKET`, `DOCS_DISTRIBUTION_ID` and `API_URL`.
+Each GitHub environment (`poc`, `staging`) sets `DEPLOY_ROLE_ARN`, `DOCS_BUCKET`, `DOCS_DISTRIBUTION_ID`, `API_URL` and `DOCS_URL`.
 
 The git tag is the release version. The `version` field in `package.json` does not track releases.
