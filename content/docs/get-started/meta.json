@@ -2,6 +2,6 @@
   "title": "Get started",
   "description": "What Waylo Voice is, and where to start",
   "icon": "Rocket",
-  "root": true,
+  "defaultOpen": true,
   "pages": ["index", "web-calls"]
 }
