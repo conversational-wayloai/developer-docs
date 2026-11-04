@@ -25,7 +25,7 @@ Never hand-edit these. Change the script that writes them, run it, and commit it
 
 | Files | Written by | Source |
 | --- | --- | --- |
-| `content/docs/web-sdk/api/`, `public/sdk/llms.txt` | `pnpm sync:sdk` | `client-sdk-web` checkout (`SDK_REPO`) |
+| `content/docs/web-sdk/api/`, `scripts/sdk/llms.txt` | `pnpm sync:sdk` | `client-sdk-web` checkout (`SDK_REPO`) |
 | `scripts/api/openapi.json`, `scripts/api/mcp-tools.json` | `pnpm sync:api` | `application` checkout (`API_REPO`) |
 
 - The API reference pages are built from `scripts/api/openapi.json` at build time; there is no MDX for them beyond `content/docs/api/reference/index.mdx`.
@@ -37,6 +37,7 @@ Never hand-edit these. Change the script that writes them, run it, and commit it
 - Every page also ships as Markdown at `/<page>.md`. `scripts/md-pages.mjs` copies them after `next build`; the dev server maps the same URLs with a rewrite.
 - Pages share the root with routes and public files (`llms.txt`, `sdk/`, `og/`, …). `md-pages.mjs` keeps a `reserved` list and fails the build on a colliding slug; add a new root route or public path to it.
 - Links in `/llms.txt`, `/llms-full.txt`, `/sdk/llms.txt` and each `<page>.md` are absolute, built from `DOCS_URL`, so a copy pasted elsewhere still resolves.
+- A file that needs an env value is served from a route handler, not `public/`: `public/` is copied as-is, in dev and in the export.
 
 ## Environment
 
