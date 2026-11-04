@@ -36,6 +36,7 @@ jobs:
       - run: pnpm build
         env:
           API_URL: ${{ vars.API_URL }}
+          DOCS_URL: ${{ vars.DOCS_URL }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -84,6 +85,7 @@ jobs:
       - run: pnpm build
         env:
           API_URL: ${{ vars.API_URL }}
+          DOCS_URL: ${{ vars.DOCS_URL }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:

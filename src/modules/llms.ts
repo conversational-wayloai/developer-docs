@@ -4,17 +4,21 @@ import { llms } from 'fumadocs-core/source';
 import { getMDXComponents } from '~/modules/mdx';
 import { operationMarkdown } from '~/modules/openapi-markdown';
 import { source } from '~/modules/source';
-import { markdownPath } from '~/modules/urls';
+import { documentationUrl, markdownPath } from '~/modules/urls';
 
 type Page = NonNullable<ReturnType<typeof source.getPage>>;
 
 // Docs links point at the Markdown copies, so an agent reading one page can follow the rest.
 function cleanMarkdown(text: string) {
+  const base = documentationUrl();
+
   return text
     .replace(/\\([{}])/g, '$1')
-    .replace(/\]\((\/[^)#\s]*)(#[^)\s]*)?\)/g, (link: string, path: string, hash = '') =>
-      // Only page links; assets such as /sdk/llms.txt keep their URL.
-      source.getPage(path.split('/').filter(Boolean)) ? `](${markdownPath(path)}${hash})` : link,
+    .replace(/\]\((\/[^)#\s]*)(#[^)\s]*)?\)/g, (_link: string, path: string, hash = '') =>
+      // Assets such as /sdk/llms.txt keep their path; only pages switch to the .md copy.
+      source.getPage(path.split('/').filter(Boolean))
+        ? `](${base}${markdownPath(path)}${hash})`
+        : `](${base}${path}${hash})`,
     )
     .replace(/\n{3,}/g, '\n\n')
     .trim();
@@ -61,17 +65,19 @@ function pageLine(url: string, name: unknown) {
   // The OpenAPI plugin turns a reference page's tree name into a method badge, not text.
   const title = typeof name === 'string' ? name : (page?.data.title ?? String(name));
 
-  return `- [${title}](${markdownPath(url)})${description}`;
+  return `- [${title}](${documentationUrl()}${markdownPath(url)})${description}`;
 }
 
 export function llmsIndex() {
+  const base = documentationUrl();
+
   return [
     '# Waylo developer docs',
     '',
     '> Waylo Voice is a platform for voice agents that people reach by phone or from a website. These docs cover what it is, web calls with the Web SDK (`@waylovoice/client`), the REST API with API keys, and the MCP server for AI agents.',
     '',
-    '- [Web SDK llms.txt](/sdk/llms.txt): the whole Web SDK in one file.',
-    '- [Full docs](/llms-full.txt): every page below in one file.',
+    `- [Web SDK llms.txt](${base}/sdk/llms.txt): the whole Web SDK in one file.`,
+    `- [Full docs](${base}/llms-full.txt): every page below in one file.`,
     ...indexLines(source.getPageTree().children, 2),
     '',
   ].join('\n');
