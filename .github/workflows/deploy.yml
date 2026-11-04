@@ -48,9 +48,9 @@ jobs:
         run: |
           aws s3 sync out/ "s3://$DOCS_BUCKET" --delete \
             --exclude "*.md" --exclude "*.txt" --exclude "api/search"
-          aws s3 sync out/ "s3://$DOCS_BUCKET" --exclude "*" --include "*.md" \
+          aws s3 sync out/ "s3://$DOCS_BUCKET" --delete --exclude "*" --include "*.md" \
             --content-type "text/markdown; charset=utf-8"
-          aws s3 sync out/ "s3://$DOCS_BUCKET" --exclude "*" --include "*.txt" \
+          aws s3 sync out/ "s3://$DOCS_BUCKET" --delete --exclude "*" --include "*.txt" \
             --content-type "text/plain; charset=utf-8"
           aws s3 cp out/api/search "s3://$DOCS_BUCKET/api/search" --content-type "application/json"
           aws cloudfront create-invalidation --distribution-id "$DOCS_DISTRIBUTION_ID" --paths "/*"
@@ -96,9 +96,9 @@ jobs:
         run: |
           aws s3 sync out/ "s3://$DOCS_BUCKET" --delete \
             --exclude "*.md" --exclude "*.txt" --exclude "api/search"
-          aws s3 sync out/ "s3://$DOCS_BUCKET" --exclude "*" --include "*.md" \
+          aws s3 sync out/ "s3://$DOCS_BUCKET" --delete --exclude "*" --include "*.md" \
             --content-type "text/markdown; charset=utf-8"
-          aws s3 sync out/ "s3://$DOCS_BUCKET" --exclude "*" --include "*.txt" \
+          aws s3 sync out/ "s3://$DOCS_BUCKET" --delete --exclude "*" --include "*.txt" \
             --content-type "text/plain; charset=utf-8"
           aws s3 cp out/api/search "s3://$DOCS_BUCKET/api/search" --content-type "application/json"
           aws cloudfront create-invalidation --distribution-id "$DOCS_DISTRIBUTION_ID" --paths "/*"
