@@ -1,14 +1,17 @@
-import Link from 'next/link';
-
 import { basePath } from '~/config/env';
 
+const target = `${basePath}/get-started`;
+
+// A static export can't send an HTTP redirect. The script runs before first paint, and
+// `replace` keeps `/` out of the history so Back doesn't land here again.
 export default function HomePage() {
   return (
-    <main className="flex flex-1 items-center justify-center p-16">
-      <meta content={`0;url=${basePath}/docs/get-started`} httpEquiv="refresh" />
-      <Link className="underline" href="/docs/get-started">
-        Get started
-      </Link>
-    </main>
+    <>
+      {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- build-time constant */}
+      <script dangerouslySetInnerHTML={{ __html: `location.replace(${JSON.stringify(target)})` }} />
+      <noscript>
+        <meta content={`0;url=${target}`} httpEquiv="refresh" />
+      </noscript>
+    </>
   );
 }

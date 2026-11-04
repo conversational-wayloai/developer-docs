@@ -9,7 +9,7 @@ curl {{API_URL}}/agents?workspaceId=your-workspace-id \
   -H "Authorization: Bearer $WAYLO_API_KEY"
 ```
 
-The Waylo API is the same API the dashboard uses. With an [API key](/docs/api/api-keys), your server can do what a person does in the dashboard: manage agents, tools, documents and phone numbers, start web calls, and read sessions, transcripts and orders.
+The Waylo API is the same API the dashboard uses. With an [API key](/api/api-keys), your server can do what a person does in the dashboard: manage agents, tools, documents and phone numbers, start web calls, and read sessions, transcripts and orders.
 
 ## Base URL
 
@@ -23,10 +23,10 @@ Send the key in the `Authorization` header on every request:
 Authorization: Bearer sk_waylo_...
 ```
 
-What a key can do depends on its [scopes](/docs/api/scopes). Each operation in the [reference](/docs/api/reference) names the scope it needs on its **Access** line.
+What a key can do depends on its [scopes](/api/scopes). Each operation in the [reference](/api/reference) names the scope it needs on its **Access** line.
 
 <Callout type="warn" title="Keep the key on your server">
-An API key acts for your organization. Never put it in browser or mobile code, logs or a repository. Browsers start calls through your server: see the [session endpoint](/docs/web-sdk/session-endpoint).
+An API key acts for your organization. Never put it in browser or mobile code, logs or a repository. Browsers start calls through your server: see the [session endpoint](/web-sdk/session-endpoint).
 </Callout>
 
 ## Errors
@@ -85,7 +85,7 @@ Transcripts are read with a cursor instead: pass `limit` and the `cursor` from t
 ## Next
 
 <Cards>
-  <Card title="API keys" href="/docs/api/api-keys" description="Create, rotate and revoke keys." />
-  <Card title="Scopes" href="/docs/api/scopes" description="Give each key only what it needs." />
-  <Card title="Reference" href="/docs/api/reference" description="Every operation a key can call." />
+  <Card title="API keys" href="/api/api-keys" description="Create, rotate and revoke keys." />
+  <Card title="Scopes" href="/api/scopes" description="Give each key only what it needs." />
+  <Card title="Reference" href="/api/reference" description="Every operation a key can call." />
 </Cards>

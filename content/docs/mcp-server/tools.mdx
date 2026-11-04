@@ -4,7 +4,7 @@ description: Every tool the Waylo MCP server gives an agent.
 icon: Toolbox
 ---
 
-Each tool is one Waylo API operation. Its name is the operation's id, and its input is the operation's path and query parameters, plus `body` for the request body. The [API reference](/docs/api/reference) describes each one in full.
+Each tool is one Waylo API operation. Its name is the operation's id, and its input is the operation's path and query parameters, plus `body` for the request body. The [API reference](/api/reference) describes each one in full.
 
 A tool runs under the same rules as the API and the dashboard. It returns the operation's HTTP status and response:
 
@@ -17,7 +17,7 @@ A call that runs past 30 seconds returns an error. For anything other than a rea
 ## Which tools an agent sees
 
 - **Signed in as a person:** every tool below. A tool still fails if your role doesn't allow it.
-- **With an API key:** only the tools the key's [scopes](/docs/api/scopes) allow. A tool that needs two scopes needs both. A workspace key sees no organization-level tools.
+- **With an API key:** only the tools the key's [scopes](/api/scopes) allow. A tool that needs two scopes needs both. A workspace key sees no organization-level tools.
 
 A tool the agent doesn't see answers `Unknown tool` and does nothing.
 

@@ -20,7 +20,7 @@ It is framework-free TypeScript (ESM, types included) and works with any front e
 | Part | Runs in | What it does |
 | --- | --- | --- |
 | Web SDK (`@waylovoice/client`) | The visitor's browser | Joins the call, turns on the microphone, plays the agent's voice, reports status, captions and errors. |
-| [Session endpoint](/docs/web-sdk/session-endpoint) | Your server | Checks your own login, then creates a call session with the Waylo API and your API key. |
+| [Session endpoint](/web-sdk/session-endpoint) | Your server | Checks your own login, then creates a call session with the Waylo API and your API key. |
 
 The browser asks your server for a session. Your server asks the Waylo API. The browser then joins the call on the Waylo call server (WebRTC).
 
@@ -43,7 +43,7 @@ sequenceDiagram
 - Recent Chrome, Edge, Firefox or Safari, desktop or mobile.
 - The page served over HTTPS, or from `localhost`. Other plain-http pages get no microphone.
 - A bundler (Vite, esbuild, webpack…) to resolve the import.
-- A [session endpoint](/docs/web-sdk/session-endpoint) on your server.
+- A [session endpoint](/web-sdk/session-endpoint) on your server.
 
 ## Install
 

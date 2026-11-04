@@ -10,7 +10,7 @@ Every client needs the same URL:
 {{API_URL}}/mcp
 ```
 
-The steps below sign in as you. The first time the client connects, your browser opens the Waylo dashboard. Sign in if asked, check the agent and organization on the consent screen, and click **Allow**. See [Authorization](/docs/mcp-server/authorization).
+The steps below sign in as you. The first time the client connects, your browser opens the Waylo dashboard. Sign in if asked, check the agent and organization on the consent screen, and click **Allow**. See [Authorization](/mcp-server/authorization).
 
 For a server or a job with no person present, [connect with an API key](#with-an-api-key) instead.
 
@@ -51,7 +51,7 @@ Cursor registers itself when it connects, so Waylo can't confirm who runs it and
 
 ## With an API key
 
-Send an [API key](/docs/api/api-keys) in the `Authorization` header. There is no sign-in: the agent acts as the key and sees only the tools its [scopes](/docs/api/scopes) allow.
+Send an [API key](/api/api-keys) in the `Authorization` header. There is no sign-in: the agent acts as the key and sees only the tools its [scopes](/api/scopes) allow.
 
 After you create or rotate a key, the dashboard shows the Claude Code command with the key filled in:
 

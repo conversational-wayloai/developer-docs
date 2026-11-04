@@ -8,6 +8,7 @@ export function baseOptions(): BaseLayoutProps {
   return {
     githubUrl,
     nav: {
+      url: '/get-started',
       title: (
         <>
           <Brand size={24} />

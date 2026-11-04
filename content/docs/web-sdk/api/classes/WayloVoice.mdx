@@ -19,7 +19,7 @@ Throws `RangeError` for invalid options.
 
 | Parameter | Type |
 | ------ | ------ |
-| `options` | [`WayloVoiceOptions`](/docs/web-sdk/api/interfaces/WayloVoiceOptions) |
+| `options` | [`WayloVoiceOptions`](/web-sdk/api/interfaces/WayloVoiceOptions) |
 
 #### Returns
 
@@ -51,7 +51,7 @@ The current state. A new frozen object whenever something changes.
 
 #### Returns
 
-[`WayloVoiceState`](/docs/web-sdk/api/interfaces/WayloVoiceState)
+[`WayloVoiceState`](/web-sdk/api/interfaces/WayloVoiceState)
 
 ***
 
@@ -67,7 +67,7 @@ Removes a listener added with `on()`.
 
 | Type Parameter |
 | ------ |
-| <a id="type-parameter-e"></a> `E` *extends* keyof [`WayloVoiceEvents`](/docs/web-sdk/api/interfaces/WayloVoiceEvents) |
+| <a id="type-parameter-e"></a> `E` *extends* keyof [`WayloVoiceEvents`](/web-sdk/api/interfaces/WayloVoiceEvents) |
 
 #### Parameters
 
@@ -94,7 +94,7 @@ Adds a listener and returns a function that removes it.
 
 | Type Parameter |
 | ------ |
-| <a id="type-parameter-e-1"></a> `E` *extends* keyof [`WayloVoiceEvents`](/docs/web-sdk/api/interfaces/WayloVoiceEvents) |
+| <a id="type-parameter-e-1"></a> `E` *extends* keyof [`WayloVoiceEvents`](/web-sdk/api/interfaces/WayloVoiceEvents) |
 
 #### Parameters
 
@@ -251,8 +251,8 @@ The microphones and speakers to offer. Asks for the microphone only with `reques
 
 | Parameter | Type |
 | ------ | ------ |
-| `options?` | [`WayloVoiceListDevicesOptions`](/docs/web-sdk/api/interfaces/WayloVoiceListDevicesOptions) |
+| `options?` | [`WayloVoiceListDevicesOptions`](/web-sdk/api/interfaces/WayloVoiceListDevicesOptions) |
 
 #### Returns
 
-`Promise`\<[`WayloVoiceDevices`](/docs/web-sdk/api/interfaces/WayloVoiceDevices)\>
+`Promise`\<[`WayloVoiceDevices`](/web-sdk/api/interfaces/WayloVoiceDevices)\>

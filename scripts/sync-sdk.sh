@@ -25,7 +25,7 @@ cp "$tmp/packages/client/llms.txt" public/sdk/llms.txt
 node - public/sdk/llms.txt <<'EOF'
 const { readFileSync, writeFileSync } = require('node:fs');
 const file = process.argv[2];
-const docs = 'https://conversational-wayloai.github.io/developer-docs/docs';
+const docs = 'https://conversational-wayloai.github.io/developer-docs';
 let text = readFileSync(file, 'utf8')
   .replace(/^- \[README\]\([^)]*client-sdk-web[^)]*\):/m, `- [Web SDK docs](${docs}/web-sdk.md):`)
   .replace(/^- \[Example app\]\([^)]*client-sdk-web[^)]*\):/m, `- [Full example](${docs}/web-sdk/full-example.md):`);

@@ -68,7 +68,7 @@ One `POST {sessionEndpoint}` per `start()` with JSON `{ "agentId": string, "meta
 
 ## Retries are your server's job
 
-If you retry `POST /sessions/web`, send the same `Idempotency-Key` again, bound to the logged-in user. Do not pass a Waylo `401` or `403` on as is: those are about your key, not your visitor. [Errors and troubleshooting](/docs/web-sdk/errors#waylo-api-errors) lists what they mean.
+If you retry `POST /sessions/web`, send the same `Idempotency-Key` again, bound to the logged-in user. Do not pass a Waylo `401` or `403` on as is: those are about your key, not your visitor. [Errors and troubleshooting](/web-sdk/errors#waylo-api-errors) lists what they mean.
 
 ## The session body
 

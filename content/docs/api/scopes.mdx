@@ -4,14 +4,14 @@ description: Give each API key only the access it needs.
 icon: ShieldCheck
 ---
 
-A key's **Access** is **Standard** or **Scoped**. You choose it when you [create the key](/docs/api/api-keys#create-a-key), and it can't be changed later: create a new key instead. A rotation keeps it.
+A key's **Access** is **Standard** or **Scoped**. You choose it when you [create the key](/api/api-keys#create-a-key), and it can't be changed later: create a new key instead. A rotation keeps it.
 
 - **Standard** holds every scope, including scopes added to Waylo later.
 - **Scoped** holds only the access you set per resource: **None**, **Read** or **Write**. **Write** includes **Read**.
 
-Each operation in the [reference](/docs/api/reference) names the scope it needs on its **Access** line, for example `API key sessions:write`. A key without it gets `403 FORBIDDEN`.
+Each operation in the [reference](/api/reference) names the scope it needs on its **Access** line, for example `API key sessions:write`. A key without it gets `403 FORBIDDEN`.
 
-The same scopes decide which tools a key gets on the [MCP server](/docs/mcp-server/tools).
+The same scopes decide which tools a key gets on the [MCP server](/mcp-server/tools).
 
 ## Resources
 
@@ -39,7 +39,7 @@ Organization resources belong to the whole organization:
 | Workspaces | `workspaces:read`, `workspaces:write` | Workspaces in the organization. |
 | Stats | `stats:read` | Organization counts. |
 
-A [workspace key](/docs/api/api-keys#workspace-keys-and-organization-keys) can't hold organization resources, Standard or not.
+A [workspace key](/api/api-keys#workspace-keys-and-organization-keys) can't hold organization resources, Standard or not.
 
 ## Credentials
 
@@ -69,7 +69,7 @@ No key reaches these, whatever its scopes:
 
 | Server | Key |
 | --- | --- |
-| A [session endpoint](/docs/web-sdk/session-endpoint) for web calls | Workspace key, Scoped, **Sessions: Write**. |
+| A [session endpoint](/web-sdk/session-endpoint) for web calls | Workspace key, Scoped, **Sessions: Write**. |
 | A job that exports orders | Workspace key, Scoped, **Orders: Read**. |
 | A reporting job across workspaces | Organization key, Scoped, **Sessions: Read**, **Transcripts: Read**, **Stats: Read**. |
 | A deploy script that publishes agents | Workspace key, Scoped, **Agents: Write**. |
