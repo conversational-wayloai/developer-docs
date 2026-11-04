@@ -43,12 +43,13 @@
     "build": "next build && node --env-file-if-exists=.env scripts/md-pages.mjs",
     "dev": "next dev",
     "preview": "pnpm build && serve out",
+    "sync:api": "./scripts/sync-api.sh",
     "sync:sdk": "./scripts/sync-sdk.sh",
     "lint": "eslint --cache --fix .",
     "typecheck": "next typegen && tsc --noEmit",
-    "validate": "pnpm lint && pnpm typecheck",
-    "prepare": "husky",
-    "sync:api": "./scripts/sync-api.sh"
+    "format": "prettier --write --log-level=warn \"**/*.{yml,json,md,css}\"",
+    "validate": "pnpm lint && pnpm typecheck && pnpm format",
+    "prepare": "husky"
   },
   "packageManager": "pnpm@12.5.1"
 }

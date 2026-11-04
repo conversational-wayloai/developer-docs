@@ -10,7 +10,7 @@ cp .env.example .env     # optional, see the file for each variable
 pnpm dev                 # http://localhost:3000
 ```
 
-Run `pnpm validate` (lint + typecheck) before pushing. The pre-commit hook runs the typecheck and formats staged files.
+Run `pnpm validate` (lint, typecheck, format) before pushing. The pre-commit hook runs the typecheck and formats staged files.
 
 ## Layout
 
