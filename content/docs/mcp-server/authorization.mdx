@@ -11,7 +11,7 @@ An agent never sees your password. It signs in with OAuth: Waylo asks you to app
 When an agent connects, your browser opens **Connect &lt;agent&gt;** in the Waylo dashboard. It shows:
 
 - the agent's name, and the website it comes from when Waylo can verify it;
-- the organization it will act in;
+- the organization it will act in: the one you're signed in to, which you can change if you belong to more than one;
 - **Signed in as**: your email;
 - **Returns to**: where your browser goes after you decide.
 
@@ -25,13 +25,19 @@ If the link has expired, start the connection again from your agent. A request e
 
 ## What the agent can do
 
-It acts as you, with the same role and workspaces, in that organization. There is no way to approve less yet.
+It acts as you, with the same role and workspaces, in that organization only. There is no way to approve less yet.
 
-It can do what an [API key](/api/scopes) can, plus read your account, the organization profile, its members, the activity log and the API keys list. It can't change who has access or how anyone signs in: no creating, rotating or revoking API keys, no adding, removing or changing members and their workspaces, no editing the organization profile, and no changes to your own account. It also can't upload or download document files. See [Tools](/mcp-server/tools).
+It can do what an [API key](/api/scopes) can on the MCP server, plus read your account, the organization profile, its members, the activity log and the API keys list, and ask to [switch organization](#switch-organization). It can't change who has access or how anyone signs in: no creating, rotating or revoking API keys, no adding, removing or changing members and their workspaces, no editing the organization profile, and no changes to your own account. It also can't upload or download document files. See [Tools](/mcp-server/tools).
 
 This page is about signing in as a person. An agent using an [API key](/mcp-server/connect#with-an-api-key) needs no approval and acts as the key.
 
 Platform admins can't connect an agent: they act in no organization.
+
+## Switch organization
+
+An agent acts in one organization at a time. To move it to another organization you belong to, ask it to switch. It calls `requestTenantSwitch` and gives you a link to the Waylo dashboard. Open the link and approve or deny the switch: nothing changes until you approve, and the agent can't approve it for you. The link expires after 10 minutes.
+
+After you approve, the agent's next request acts in the new organization, with your role and workspaces there. The switch shows in the activity log of both organizations.
 
 ## How long it lasts
 
@@ -40,4 +46,4 @@ The agent stays connected until you [disconnect it](/mcp-server/disconnect). Beh
 - Its access token lasts 15 minutes. The agent renews it on its own.
 - The renewal token lasts 30 days and changes on every renewal. An agent that stops using Waylo for 30 days must connect again.
 - If an old renewal token is ever used again, Waylo disconnects the agent, since the token may have leaked.
-- If your account is disabled or you leave the organization, the agent loses access on its next request.
+- If your account is disabled, or you leave the organization the agent acts in, the agent loses access on its next request. It never moves to another organization on its own.

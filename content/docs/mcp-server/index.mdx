@@ -27,8 +27,8 @@ An agent connects in one of two ways:
 | --- | --- | --- |
 | For | You, working with an AI agent. | A server, a job or a shared agent, with no person present. |
 | How | OAuth: your browser opens the Waylo dashboard, you sign in and approve the agent. See [Authorization](/mcp-server/authorization). | The key in the `Authorization` header. See [Connect with an API key](/mcp-server/connect#with-an-api-key). |
-| Acts as | You, with your role and workspaces. When your access changes, the agent's does too. | The key: its workspace and [scopes](/api/scopes). |
-| Tools | Everything a key can do, plus reading your account, the organization, its members, the activity log and the API keys list. | Only the tools the key's scopes allow. |
+| Acts as | You, with your role and workspaces, in one organization at a time. When your access changes, the agent's does too. | The key: its workspace and [scopes](/api/scopes). |
+| Tools | Everything a key can do over MCP, plus reading your account, the organization, its members, the activity log and the API keys list, and asking to switch organization. | Only the tools the key's scopes allow. |
 | Ends | When you [disconnect it](/mcp-server/disconnect). | When the key is rotated, revoked or expires. |
 
 ## Next

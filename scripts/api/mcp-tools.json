@@ -1,15 +1,21 @@
 {
-  "personReads": [
+  "personTools": [
     "getCurrentUser",
     "getTenantMe",
     "getUser",
     "listActivity",
     "listApiKeys",
     "listUsers",
-    "listWorkspaceMembers"
+    "listWorkspaceMembers",
+    "requestTenantSwitch"
   ],
   "fileTransfer": [
     "downloadDocument",
     "uploadDocument"
+  ],
+  "keyManagement": [
+    "createApiKey",
+    "revokeApiKey",
+    "rotateApiKey"
   ]
 }

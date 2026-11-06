@@ -10,7 +10,7 @@ Every client needs the same URL:
 {{API_URL}}/mcp
 ```
 
-The steps below sign in as you. The first time the client connects, your browser opens the Waylo dashboard. Sign in if asked, check the agent and organization on the consent screen, and click **Allow**. See [Authorization](/mcp-server/authorization).
+The steps below sign in as you. The first time the client connects, your browser opens the Waylo dashboard. Sign in if asked, check the agent on the consent screen, choose the organization if you belong to more than one, and click **Allow**. See [Authorization](/mcp-server/authorization).
 
 For a server or a job with no person present, [connect with an API key](#with-an-api-key) instead.
 
@@ -89,6 +89,8 @@ Any MCP client works if it supports:
 
 ## Check the connection
 
-Signed in as a person, ask the agent "Who am I in Waylo?". It calls `getCurrentUser` and answers with your name, email and role.
+Signed in as a person, ask the agent "Who am I in Waylo?". It calls `getCurrentUser` and answers with your name, email and role, the organization it acts in, and any other organizations you belong to.
+
+To move it to another organization, ask "Switch to Foody Co". The agent gives you a link: open it and approve the switch, then ask "Who am I in Waylo?" again to see the new organization. See [Switch organization](/mcp-server/authorization#switch-organization).
 
 With an API key, ask it to list the Waylo tools it has. They should match the key's scopes. A key with only **Catalogs: Write**, for example, has `listCatalogs`, `getCatalog`, `createCatalog`, `updateCatalog`, `listCatalogItems` and `createCatalogItems`, plus `listPresets` and `getProviderCatalog`, which any key gets. Any other tool answers `Unknown tool`.
