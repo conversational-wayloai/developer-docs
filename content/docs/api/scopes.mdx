@@ -6,7 +6,7 @@ icon: ShieldCheck
 
 A key's **Access** is **Standard** or **Scoped**. You choose it when you [create the key](/api/api-keys#create-a-key), and it can't be changed later: create a new key instead. A rotation keeps it.
 
-- **Standard** holds every scope, including scopes added to Waylo later.
+- **Standard** holds every scope, including scopes added to Waylo later, except a few that only a Scoped key holds, and only when it names them: `transcripts:hold`, `call_policy:write`, `sessions:purge`, `workspaces:purge`, `api_keys:read` and `api_keys:write`.
 - **Scoped** holds only the access you set per resource: **None**, **Read** or **Write**. **Write** includes **Read**.
 
 Each operation in the [reference](/api/reference) names the scope it needs on its **Access** line, for example `API key sessions:write`. A key without it gets `403 FORBIDDEN`.
@@ -38,6 +38,7 @@ Organization resources belong to the whole organization:
 | Provider keys | `provider_keys:read`, `provider_keys:write` | Your keys for AI providers. |
 | Workspaces | `workspaces:read`, `workspaces:write` | Workspaces in the organization. |
 | Stats | `stats:read` | Organization counts. |
+| API keys | `api_keys:read`, `api_keys:write` | Workspace keys this key creates and manages. See [Keys that manage keys](/api/api-keys#keys-that-manage-keys). |
 
 A [workspace key](/api/api-keys#workspace-keys-and-organization-keys) can't hold organization resources, Standard or not.
 
@@ -60,7 +61,6 @@ Removing a credential needs nothing extra.
 No key reaches these, whatever its scopes:
 
 - members and their workspace access;
-- API keys;
 - the organization profile;
 - the activity log;
 - signing in and a person's own account.

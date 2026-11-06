@@ -8,28 +8,36 @@ export interface McpTool {
   access: string;
   name: string;
   resource: string;
-  /** The scopes an API key needs; null for a read only a person who signed in gets. */
+  /** The scopes an API key needs; null for a tool only a person who signed in gets. */
   scopes: string[] | null;
   summary: string;
 }
 
 /**
  * The MCP server's tools, by the rule in `mcp-tools.service.ts`: every operation a key may call,
- * minus file transfer, plus the reads only a person has.
+ * minus file transfer and key management, plus the tools only a person has.
  */
 export function mcpTools(): McpTool[] {
-  const { fileTransfer, personReads } = JSON.parse(readFileSync(LISTS, 'utf8')) as {
+  const { fileTransfer, keyManagement, personTools } = JSON.parse(readFileSync(LISTS, 'utf8')) as {
     fileTransfer: string[];
-    personReads: string[];
+    keyManagement: string[];
+    personTools: string[];
   };
+
+  // `pnpm sync:api` writes all three lists; a missing one means a stale or hand-edited file.
+  for (const [key, list] of Object.entries({ fileTransfer, keyManagement, personTools })) {
+    if (!Array.isArray(list))
+      throw new TypeError(`${LISTS} has no "${key}" list. Run pnpm sync:api.`);
+  }
+
   const tools: McpTool[] = [];
 
   for (const item of Object.values(readSpec().paths)) {
     for (const operation of Object.values(item) as Operation[]) {
       const name = operation.operationId;
 
-      if (!name || fileTransfer.includes(name)) continue;
-      if (!keyCallable(operation) && !personReads.includes(name)) continue;
+      if (!name || fileTransfer.includes(name) || keyManagement.includes(name)) continue;
+      if (!keyCallable(operation) && !personTools.includes(name)) continue;
 
       tools.push({
         access: operation.description?.match(/\*\*Access:\*\*\s*([^·\n]+)/)?.[1]?.trim() ?? '',

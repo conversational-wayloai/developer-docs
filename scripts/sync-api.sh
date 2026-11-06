@@ -15,10 +15,11 @@ fi
 : "${API_REPO:?set API_REPO to a local clone of application}"
 API_REF="${API_REF:-HEAD}"
 tmp="$(mktemp -d)"
-trap "rm -rf \"$tmp\"" EXIT
+trap 'rm -rf "$tmp"' EXIT
 git -C "$API_REPO" show "$API_REF:packages/api/openapi.json" > "$tmp/openapi.json"
-# The MCP server's tools are the key-callable operations, minus file transfer, plus a person's
-# reads; the MCP tools page reads both lists.
+# The MCP server's tools are the key-callable operations, minus file transfer and key management,
+# plus a person's own tools; the MCP tools page reads all three lists.
+# shellcheck disable=SC2016 # `${name}` is a JS template literal, not shell.
 git -C "$API_REPO" show "$API_REF:packages/api/src/modules/mcp/mcp-tools.service.ts" | node -e '
 const source = require("node:fs").readFileSync(0, "utf8");
 const list = name => {
@@ -26,7 +27,11 @@ const list = name => {
   if (body === undefined) throw new Error(`mcp-tools.service.ts no longer declares ${name} as expected`);
   return [...body.matchAll(/["\x27]([A-Za-z]+)["\x27]/g)].map(match => match[1]);
 };
-const lists = { personReads: list("PERSON_READS"), fileTransfer: list("FILE_TRANSFER") };
+const lists = {
+  personTools: list("PERSON_TOOLS"),
+  fileTransfer: list("FILE_TRANSFER"),
+  keyManagement: list("KEY_MANAGEMENT"),
+};
 process.stdout.write(JSON.stringify(lists, null, 2) + "\n");
 ' > "$tmp/mcp-tools.json"
 # Both files or neither, so the spec and the tool lists always come from one ref.

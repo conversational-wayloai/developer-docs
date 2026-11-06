@@ -4,7 +4,7 @@ description: Every tool the Waylo MCP server gives an agent.
 icon: Toolbox
 ---
 
-Each tool is one Waylo API operation. Its name is the operation's id, and its input is the operation's path and query parameters, plus `body` for the request body. The [API reference](/api/reference) describes each one in full.
+Each tool is one Waylo API operation. Its name is the operation's id, and its input is the operation's path and query parameters, plus `body` for the request body. The [API reference](/api/reference) describes in full each one an API key can call.
 
 A tool runs under the same rules as the API and the dashboard. It returns the operation's HTTP status and response:
 
@@ -23,14 +23,24 @@ A tool the agent doesn't see answers `Unknown tool` and does nothing.
 
 ## Not available as tools
 
-Only operations an API key can call are tools, plus a few reads for a person who signed in. So these are never tools:
+Operations an API key can call are tools, except creating, rotating and revoking keys, and uploading and downloading document files. A person who signed in also gets a few more: reads, and asking to switch organization. These are never tools:
 
 - Signing in and out, and changes to your own account.
 - Creating, rotating and revoking API keys.
 - Adding, removing and changing members and their workspaces, and lifting a login lock.
 - Editing the organization profile.
-- Approving and disconnecting agents.
+- Approving and disconnecting agents, and approving or denying an organization switch.
 - Uploading and downloading document files.
+
+## Switching organization
+
+A person's agent acts in one organization. `getCurrentUser` lists every organization the person belongs to in `tenants`, with `current` marking the one the agent acts in. To move to another, the agent calls `requestTenantSwitch`:
+
+```json
+{ "body": { "tenantId": "…" } }
+```
+
+It returns `id`, `approvalUrl`, `organizationName` and `expiresAt`. The agent must show `approvalUrl` to the person: nothing changes until they open it and approve, and it expires after 10 minutes. It answers `404` for an organization the person doesn't belong to and `409` for the one the agent already acts in. See [Authorization](/mcp-server/authorization#switch-organization).
 
 ## All tools
 
